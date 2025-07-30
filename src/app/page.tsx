@@ -1,103 +1,168 @@
-import Image from "next/image";
+// src/app/page.tsx
+'use client';
+
+import React from 'react';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+// Premium Components with Optimized Loading
+const PremiumNavigation = dynamic(() => import('@/components/PremiumNavigation'), { 
+  ssr: false,
+  loading: () => <div className="h-20 bg-neutral-950/95 backdrop-blur-xl animate-pulse" />
+});
+
+const PremiumHero = dynamic(() => import('@/components/PremiumHero'), { 
+  ssr: false,
+  loading: () => <PremiumHeroSkeleton />
+});
+
+const SmoothServices = dynamic(() => import('@/components/SmoothServices'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gradient-to-b from-neutral-900 to-neutral-950 animate-pulse" />
+});
+
+const InteractiveCountryExplorer = dynamic(() => import('@/components/InteractiveCountryExplorer'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gradient-to-b from-neutral-950 to-neutral-900 animate-pulse" />
+});
+
+const SmoothAnimatedTimeline = dynamic(() => import('@/components/SmoothAnimatedTimeline'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gradient-to-b from-neutral-900 to-neutral-950 animate-pulse" />
+});
+
+const PremiumTestimonialsSection = dynamic(() => import('@/components/PremiumTestimonialsSection'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gradient-to-b from-neutral-950 to-neutral-900 animate-pulse" />
+});
+
+const VanhsyaDifference = dynamic(() => import('@/components/VanhsyaDifference'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gradient-to-b from-neutral-900 to-neutral-950 animate-pulse" />
+});
+
+const ContactSection = dynamic(() => import('@/components/ContactSection'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gradient-to-b from-neutral-950 to-neutral-900 animate-pulse" />
+});
+
+const Footer = dynamic(() => import('@/components/Footer'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-neutral-950 animate-pulse" />
+});
+
+// Enhanced Loading Components
+const PremiumLoadingSkeleton = ({ className = '' }: { className?: string }) => (
+  <div className={`animate-pulse bg-gradient-to-r from-purple-600/20 via-indigo-600/10 to-cyan-600/20 rounded-lg ${className}`} />
+);
+
+const PremiumHeroSkeleton = () => (
+  <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-purple-950/30 to-neutral-900 flex items-center justify-center relative overflow-hidden">
+    {/* Animated Background Pattern */}
+    <div className="absolute inset-0 opacity-10">
+      {[...Array(20)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-gradient-to-r from-purple-400 to-cyan-400 animate-pulse"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            width: `${Math.random() * 4 + 2}px`,
+            height: `${Math.random() * 4 + 2}px`,
+            animationDelay: `${Math.random() * 2}s`,
+            animationDuration: `${Math.random() * 3 + 2}s`
+          }}
+        />
+      ))}
+    </div>
+    
+    <div className="container mx-auto px-4 z-10">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="space-y-8">
+          <PremiumLoadingSkeleton className="h-8 w-64" />
+          <PremiumLoadingSkeleton className="h-20 w-full" />
+          <PremiumLoadingSkeleton className="h-32 w-4/5" />
+          <div className="flex gap-6">
+            <PremiumLoadingSkeleton className="h-14 w-40" />
+            <PremiumLoadingSkeleton className="h-14 w-40" />
+          </div>
+          <div className="grid grid-cols-3 gap-4 pt-8">
+            <PremiumLoadingSkeleton className="h-16 w-full" />
+            <PremiumLoadingSkeleton className="h-16 w-full" />
+            <PremiumLoadingSkeleton className="h-16 w-full" />
+          </div>
+        </div>
+        <div className="space-y-6">
+          <PremiumLoadingSkeleton className="h-80 w-full rounded-3xl" />
+          <div className="grid grid-cols-2 gap-4">
+            <PremiumLoadingSkeleton className="h-24 w-full rounded-xl" />
+            <PremiumLoadingSkeleton className="h-24 w-full rounded-xl" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Root Layout Container */}
+      <div className="relative bg-neutral-950 text-white overflow-hidden min-h-screen">
+        {/* Premium Navigation - Fixed Header */}
+        <header className="relative z-50">
+          <PremiumNavigation />
+        </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* Main Content Sections */}
+        <main className="relative">
+          {/* Hero Section - Full Viewport */}
+          <section className="relative min-h-screen">
+            <PremiumHero />
+          </section>
+
+          {/* Services Section */}
+          <section className="relative z-10">
+            <SmoothServices />
+          </section>
+
+          {/* Country Explorer Section */}
+          <section className="relative z-10">
+            <InteractiveCountryExplorer />
+          </section>
+
+          {/* Timeline Section */}
+          <section className="relative z-10">
+            <SmoothAnimatedTimeline />
+          </section>
+
+          {/* Testimonials Section */}
+          <section className="relative z-10">
+            <PremiumTestimonialsSection />
+          </section>
+
+          {/* Difference Section */}
+          <section className="relative z-10">
+            <VanhsyaDifference />
+          </section>
+
+          {/* Contact Section */}
+          <section id="contact" className="relative z-10">
+            <ContactSection />
+          </section>
+        </main>
+
+        {/* Footer */}
+        <footer className="relative z-10">
+          <Footer />
+        </footer>
+
+        {/* Global Background Effects */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/10 via-neutral-950 to-neutral-950" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-900/5 via-transparent to-transparent" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </>
   );
 }
