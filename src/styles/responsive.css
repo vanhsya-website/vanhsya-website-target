@@ -11,73 +11,135 @@
 /* Additional responsive utilities */
 @layer utilities {
   /* Safe area padding */
-  .pt-safe { padding-top: max(1rem, env(safe-area-inset-top)); }
-  .pb-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
-  .pl-safe { padding-left: max(1rem, env(safe-area-inset-left)); }
-  .pr-safe { padding-right: max(1rem, env(safe-area-inset-right)); }
-  
-  /* Device-specific optimizations */
-  .touch-optimized { min-height: 44px; min-width: 44px; }
-  .tap-highlight-none { -webkit-tap-highlight-color: transparent; }
-  
-  /* Fluid containers */
-  .container-fluid { 
-    width: 100%; 
-    padding-left: clamp(1rem, 5vw, 3rem); 
-    padding-right: clamp(1rem, 5vw, 3rem); 
+  .pt-safe {
+    padding-top: max(1rem, env(safe-area-inset-top));
   }
-  
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .pl-safe {
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+  .pr-safe {
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  /* Device-specific optimizations */
+  .touch-optimized {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .tap-highlight-none {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Fluid containers */
+  .container-fluid {
+    width: 100%;
+    padding-left: clamp(1rem, 5vw, 3rem);
+    padding-right: clamp(1rem, 5vw, 3rem);
+  }
+
   /* Responsive text that scales with viewport */
-  .text-responsive-xs { font-size: clamp(0.75rem, 2vw, 0.875rem); }
-  .text-responsive-sm { font-size: clamp(0.875rem, 2.5vw, 1rem); }
-  .text-responsive-base { font-size: clamp(1rem, 3vw, 1.125rem); }
-  .text-responsive-lg { font-size: clamp(1.125rem, 3.5vw, 1.25rem); }
-  .text-responsive-xl { font-size: clamp(1.25rem, 4vw, 1.5rem); }
-  .text-responsive-2xl { font-size: clamp(1.5rem, 5vw, 2rem); }
-  .text-responsive-3xl { font-size: clamp(1.875rem, 6vw, 2.5rem); }
-  .text-responsive-4xl { font-size: clamp(2.25rem, 7vw, 3rem); }
-  
+  .text-responsive-xs {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+  .text-responsive-sm {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+  .text-responsive-base {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+  }
+  .text-responsive-xl {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+  .text-responsive-2xl {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  .text-responsive-3xl {
+    font-size: clamp(1.875rem, 6vw, 2.5rem);
+  }
+  .text-responsive-4xl {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+  }
+
   /* Responsive spacing */
-  .space-responsive { gap: clamp(1rem, 3vw, 2rem); }
-  .space-responsive-sm { gap: clamp(0.5rem, 2vw, 1rem); }
-  .space-responsive-lg { gap: clamp(1.5rem, 4vw, 3rem); }
-  
+  .space-responsive {
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+  .space-responsive-sm {
+    gap: clamp(0.5rem, 2vw, 1rem);
+  }
+  .space-responsive-lg {
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
   /* Grid responsive utilities */
-  .grid-auto-fit { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-  .grid-auto-fit-sm { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .grid-auto-fit-lg { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  
+  .grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .grid-auto-fit-sm {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .grid-auto-fit-lg {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
   /* Aspect ratio utilities for media */
-  .aspect-video { aspect-ratio: 16 / 9; }
-  .aspect-square { aspect-ratio: 1 / 1; }
-  .aspect-portrait { aspect-ratio: 3 / 4; }
-  .aspect-landscape { aspect-ratio: 4 / 3; }
-  
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+  .aspect-landscape {
+    aspect-ratio: 4 / 3;
+  }
+
   /* High DPI optimizations */
   @media (-webkit-min-device-pixel-ratio: 2) {
-    .retina-border { border-width: 0.5px; }
+    .retina-border {
+      border-width: 0.5px;
+    }
   }
-  
+
   /* Orientation-specific styles */
   @media (orientation: landscape) and (max-height: 600px) {
-    .landscape-compress { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .landscape-compress {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
   }
-  
+
   /* TV and large screen optimizations */
   @media (min-width: 1920px) {
-    .tv-scale { transform: scale(1.1); transform-origin: center; }
-    .tv-padding { padding: 2rem 4rem; }
+    .tv-scale {
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+    .tv-padding {
+      padding: 2rem 4rem;
+    }
   }
 }
 
 /* Input optimizations for touch devices */
 @media (pointer: coarse) {
-  input, textarea, select, button {
+  input,
+  textarea,
+  select,
+  button {
     min-height: 44px;
     padding: 0.75rem;
     font-size: 16px; /* Prevents zoom on iOS */
   }
-  
+
   button {
     cursor: pointer;
     -webkit-touch-callout: none;
@@ -99,8 +161,9 @@
   .card-base {
     border: 2px solid currentColor;
   }
-  
-  .btn-primary, .btn-secondary {
+
+  .btn-primary,
+  .btn-secondary {
     border: 2px solid currentColor;
   }
 }
@@ -110,7 +173,7 @@
   .no-print {
     display: none !important;
   }
-  
+
   * {
     background: white !important;
     color: black !important;
@@ -124,12 +187,12 @@
   .complex-animation {
     animation: none;
   }
-  
+
   /* Optimize images for mobile */
   img {
     image-rendering: optimizeQuality;
   }
-  
+
   /* Better mobile navigation */
   .mobile-nav {
     position: fixed;
@@ -162,7 +225,7 @@
   .pwa-only {
     display: block;
   }
-  
+
   body {
     user-select: none;
     -webkit-user-select: none;

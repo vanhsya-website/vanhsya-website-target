@@ -20,7 +20,7 @@ const ScrollAnimationComponent = ({
   threshold = 0.1,
   delay = 0,
   direction = 'fade',
-  duration = 600
+  duration = 600,
 }: ScrollAnimationProps) => {
   const { ref, inView } = useInView({
     triggerOnce, // Trigger animation only once
@@ -31,7 +31,7 @@ const ScrollAnimationComponent = ({
   // Animation styles based on direction
   const getAnimationStyles = () => {
     const baseStyles = `transition-all duration-${duration} ease-out`;
-    
+
     if (!inView) {
       switch (direction) {
         case 'up':
@@ -47,15 +47,12 @@ const ScrollAnimationComponent = ({
           return `${baseStyles} opacity-0`;
       }
     }
-    
+
     return `${baseStyles} opacity-100 translate-y-0 translate-x-0`;
   };
 
   return (
-    <div 
-      ref={ref} 
-      className={`${getAnimationStyles()} ${className}`}
-    >
+    <div ref={ref} className={`${getAnimationStyles()} ${className}`}>
       {children}
     </div>
   );

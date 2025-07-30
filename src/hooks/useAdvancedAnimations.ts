@@ -1,7 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useInView, useAnimation, useMotionValue, useTransform } from 'framer-motion';
+import {
+  useInView,
+  useAnimation,
+  useMotionValue,
+  useTransform,
+} from 'framer-motion';
 
 // Advanced intersection observer hook with multiple triggers
 export const useAdvancedInView = (threshold = 0.1, triggerOnce = true) => {
@@ -23,7 +28,7 @@ export const useAdvancedInView = (threshold = 0.1, triggerOnce = true) => {
 // Staggered children animation
 export const useStaggeredAnimation = (delay = 0.1) => {
   const controls = useAnimation();
-  
+
   const startStagger = () => {
     controls.start(i => ({
       opacity: 1,
@@ -31,8 +36,8 @@ export const useStaggeredAnimation = (delay = 0.1) => {
       transition: {
         delay: i * delay,
         duration: 0.6,
-        ease: [0.22, 1, 0.36, 1]
-      }
+        ease: [0.22, 1, 0.36, 1],
+      },
     }));
   };
 
@@ -47,7 +52,7 @@ export const useParallax = (speed = 0.5) => {
 
   useEffect(() => {
     if (!ref.current) return;
-    
+
     const element = ref.current;
     const updateElementTop = () => {
       setElementTop(element.offsetTop);
@@ -55,7 +60,7 @@ export const useParallax = (speed = 0.5) => {
 
     updateElementTop();
     window.addEventListener('resize', updateElementTop);
-    
+
     const updateY = () => {
       if (element) {
         const scrollY = window.scrollY;
@@ -65,7 +70,7 @@ export const useParallax = (speed = 0.5) => {
     };
 
     window.addEventListener('scroll', updateY);
-    
+
     return () => {
       window.removeEventListener('scroll', updateY);
       window.removeEventListener('resize', updateElementTop);
@@ -90,7 +95,7 @@ export const use3DTilt = (maxTilt = 15) => {
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     const mouseX = (event.clientX - centerX) / (rect.width / 2);
     const mouseY = (event.clientY - centerY) / (rect.height / 2);
 
@@ -107,7 +112,7 @@ export const use3DTilt = (maxTilt = 15) => {
     ref,
     style: { rotateX, rotateY },
     onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave
+    onMouseLeave: handleMouseLeave,
   };
 };
 
@@ -119,9 +124,9 @@ export const useFloatingAnimation = (duration = 3, amplitude = 10) => {
       transition: {
         duration,
         repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
+        ease: 'easeInOut',
+      },
+    },
   };
 };
 
@@ -132,36 +137,36 @@ export const usePulseGlow = (duration = 2) => {
       boxShadow: [
         '0 0 20px rgba(99, 102, 241, 0.3)',
         '0 0 40px rgba(99, 102, 241, 0.6)',
-        '0 0 20px rgba(99, 102, 241, 0.3)'
+        '0 0 20px rgba(99, 102, 241, 0.3)',
       ],
       transition: {
         duration,
         repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
+        ease: 'easeInOut',
+      },
+    },
   };
 };
 
 // Text reveal animation
 export const useTextReveal = () => {
   const controls = useAnimation();
-  
+
   const startReveal = () => {
     controls.start({
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.22, 1, 0.36, 1]
-      }
+        ease: [0.22, 1, 0.36, 1],
+      },
     });
   };
 
-  return { 
-    controls, 
+  return {
+    controls,
     startReveal,
-    initial: { opacity: 0, y: 50 }
+    initial: { opacity: 0, y: 50 },
   };
 };
 
@@ -177,7 +182,7 @@ export const useMagneticHover = (strength = 0.3) => {
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     const deltaX = (event.clientX - centerX) * strength;
     const deltaY = (event.clientY - centerY) * strength;
 
@@ -194,6 +199,6 @@ export const useMagneticHover = (strength = 0.3) => {
     ref,
     style: { x, y },
     onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave
+    onMouseLeave: handleMouseLeave,
   };
 };

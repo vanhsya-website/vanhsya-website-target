@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+
 import { Currency, Language } from '@/types';
 
 // Utility function to merge Tailwind classes
@@ -29,7 +30,7 @@ export function formatCurrency(
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
-  
+
   return `${symbol}${formattedAmount}`;
 }
 
@@ -40,11 +41,13 @@ export function convertCurrency(
   exchangeRates: Record<Currency, number>
 ): number {
   if (fromCurrency === toCurrency) return amount;
-  
+
   // Convert to INR first (base currency), then to target currency
-  const inrAmount = fromCurrency === 'INR' ? amount : amount / exchangeRates[fromCurrency];
-  const convertedAmount = toCurrency === 'INR' ? inrAmount : inrAmount * exchangeRates[toCurrency];
-  
+  const inrAmount =
+    fromCurrency === 'INR' ? amount : amount / exchangeRates[fromCurrency];
+  const convertedAmount =
+    toCurrency === 'INR' ? inrAmount : inrAmount * exchangeRates[toCurrency];
+
   return Math.round(convertedAmount);
 }
 
@@ -85,11 +88,11 @@ export function validatePassport(passport: string): boolean {
 // File utilities
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
-  
+
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
+
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
@@ -97,7 +100,10 @@ export function getFileExtension(filename: string): string {
   return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2);
 }
 
-export function isValidFileType(filename: string, allowedTypes: string[]): boolean {
+export function isValidFileType(
+  filename: string,
+  allowedTypes: string[]
+): boolean {
   const extension = getFileExtension(filename).toLowerCase();
   return allowedTypes.includes(extension);
 }
@@ -130,20 +136,25 @@ export function addDays(date: Date, days: number): Date {
 export function getRelativeTime(date: Date, locale?: string): string {
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-  
+
   if (diffInSeconds < 60) return 'Just now';
-  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
-  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
-  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} days ago`;
-  
+  if (diffInSeconds < 3600)
+    return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+  if (diffInSeconds < 86400)
+    return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+  if (diffInSeconds < 2592000)
+    return `${Math.floor(diffInSeconds / 86400)} days ago`;
+
   return formatDate(date, locale);
 }
 
 // Scoring and calculation utilities
-export function calculateEligibilityScore(answers: Record<string, unknown>): number {
+export function calculateEligibilityScore(
+  answers: Record<string, unknown>
+): number {
   let score = 0;
   let maxScore = 0;
-  
+
   // Age scoring (max 25 points)
   const age = Number(answers.age) || 0;
   maxScore += 25;
@@ -151,16 +162,21 @@ export function calculateEligibilityScore(answers: Record<string, unknown>): num
   else if (age >= 36 && age <= 45) score += 20;
   else if (age >= 46 && age <= 55) score += 15;
   else if (age > 55) score += 10;
-  
+
   // Education scoring (max 25 points)
   const education = String(answers.education || '');
   maxScore += 25;
   if (education.includes('PhD') || education.includes('Doctorate')) score += 25;
-  else if (education.includes('Masters') || education.includes('Postgraduate')) score += 22;
-  else if (education.includes('Bachelors') || education.includes('Undergraduate')) score += 18;
+  else if (education.includes('Masters') || education.includes('Postgraduate'))
+    score += 22;
+  else if (
+    education.includes('Bachelors') ||
+    education.includes('Undergraduate')
+  )
+    score += 18;
   else if (education.includes('Diploma')) score += 15;
   else if (education.includes('High School')) score += 10;
-  
+
   // Work experience scoring (max 25 points)
   const experience = Number(answers.workExperience) || 0;
   maxScore += 25;
@@ -168,24 +184,27 @@ export function calculateEligibilityScore(answers: Record<string, unknown>): num
   else if (experience >= 3) score += 20;
   else if (experience >= 1) score += 15;
   else score += 5;
-  
+
   // Language proficiency scoring (max 25 points)
   const englishLevel = String(answers.englishProficiency || '');
   maxScore += 25;
-  if (englishLevel.includes('Native') || englishLevel.includes('Fluent')) score += 25;
+  if (englishLevel.includes('Native') || englishLevel.includes('Fluent'))
+    score += 25;
   else if (englishLevel.includes('Advanced')) score += 22;
   else if (englishLevel.includes('Intermediate')) score += 18;
   else if (englishLevel.includes('Basic')) score += 12;
   else score += 5;
-  
+
   return Math.round((score / maxScore) * 100);
 }
 
 export function generateReferralCode(name: string, email: string): string {
   const namepart = name.replace(/\s+/g, '').slice(0, 3).toUpperCase();
   const emailpart = email.split('@')[0].slice(0, 2).toUpperCase();
-  const randomNumber = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-  
+  const randomNumber = Math.floor(Math.random() * 1000)
+    .toString()
+    .padStart(3, '0');
+
   return `VAN${namepart}${emailpart}${randomNumber}`;
 }
 
@@ -226,7 +245,7 @@ export function omit<T extends Record<string, unknown>, K extends keyof T>(
   keys: K[]
 ): Omit<T, K> {
   const result = { ...obj };
-  keys.forEach((key) => delete result[key]);
+  keys.forEach(key => delete result[key]);
   return result;
 }
 
@@ -235,7 +254,7 @@ export function pick<T extends Record<string, unknown>, K extends keyof T>(
   keys: K[]
 ): Pick<T, K> {
   const result = {} as Pick<T, K>;
-  keys.forEach((key) => {
+  keys.forEach(key => {
     if (key in obj) {
       result[key] = obj[key];
     }

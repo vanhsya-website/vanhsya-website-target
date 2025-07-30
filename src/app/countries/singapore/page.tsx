@@ -6,7 +6,9 @@ export default function SingaporePage() {
 }
 
 export const metadata = {
-  title: "Singapore Immigration Services - VANHSYA Global Migration",
-  description: "Expert Singapore immigration services. Employment Pass, Student Pass, Tech.Pass, EntrePass, and more. 87% success rate with professional guidance.",
-  keywords: "singapore immigration, singapore visa, employment pass, singapore student visa, tech pass, singapore migration"
+  title: 'Singapore Immigration Services - VANHSYA Global Migration',
+  description:
+    'Expert Singapore immigration services. Employment Pass, Student Pass, Tech.Pass, EntrePass, and more. 87% success rate with professional guidance.',
+  keywords:
+    'singapore immigration, singapore visa, employment pass, singapore student visa, tech pass, singapore migration',
 };

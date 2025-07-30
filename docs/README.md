@@ -22,6 +22,7 @@ VANHSYA Global Migration is a production-grade, fully responsive immigration con
 ## 🚀 Features
 
 ### 📱 Frontend Excellence
+
 - **Fully Responsive Design**: Mobile-first approach with perfect desktop experience
 - **Accessibility Compliant**: WCAG 2.1 AA standards met and exceeded
 - **Performance Optimized**: Lighthouse scores >90 across all metrics
@@ -30,6 +31,7 @@ VANHSYA Global Migration is a production-grade, fully responsive immigration con
 - **SEO Optimized**: Complete meta tags, structured data, and sitemap
 
 ### 🎨 Design System
+
 - **Consistent Brand Identity**: Professional color palette and typography
 - **Modular Components**: Reusable, maintainable component architecture
 - **Custom CSS**: Tailwind CSS v4 with custom design tokens
@@ -37,6 +39,7 @@ VANHSYA Global Migration is a production-grade, fully responsive immigration con
 - **Responsive Grid**: CSS Grid and Flexbox for perfect layouts
 
 ### 🛡️ Trust & Credibility
+
 - **Professional Certifications**: Display of all regulatory memberships
 - **Transparent Pricing**: No hidden fees, clear cost breakdowns
 - **Verified Testimonials**: Real client stories with verification badges
@@ -44,6 +47,7 @@ VANHSYA Global Migration is a production-grade, fully responsive immigration con
 - **Success Metrics**: Honest statistics without inflated claims
 
 ### 🌐 Global Reach
+
 - **Multi-Country Support**: Canada, Australia, USA, UK, Germany, New Zealand
 - **Service Diversity**: Work, Study, Business, Family, Tourist, PR visas
 - **Localization Ready**: Built for easy multi-language expansion
@@ -52,6 +56,7 @@ VANHSYA Global Migration is a production-grade, fully responsive immigration con
 ## 🏗️ Technology Stack
 
 ### Core Framework
+
 ```
 Next.js 15.4.1 (App Router)
 ├── React 18+ (Server & Client Components)
@@ -61,6 +66,7 @@ Next.js 15.4.1 (App Router)
 ```
 
 ### Development Tools
+
 ```
 ESLint (Code Quality)
 ├── PostCSS (CSS Processing)
@@ -69,6 +75,7 @@ ESLint (Code Quality)
 ```
 
 ### Production Features
+
 ```
 Static Generation (SSG)
 ├── Image Optimization
@@ -107,6 +114,7 @@ public/
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - npm or yarn package manager
 - Git for version control
@@ -114,23 +122,27 @@ public/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-org/vanhsya-website.git
    cd vanhsya-website
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Environment Setup**
+
    ```bash
    cp .env.local.example .env.local
    # Add your environment variables
    ```
 
 4. **Start Development Server**
+
    ```bash
    npm run dev
    ```
@@ -154,6 +166,7 @@ npm run export
 ## 🎨 Design Guidelines
 
 ### Brand Colors
+
 ```css
 Primary Blue: #0066CC
 Primary Dark: #004499
@@ -163,6 +176,7 @@ Error Red: #EF4444
 ```
 
 ### Typography
+
 ```css
 Font Family: Inter (Google Fonts)
 Headings: 600-800 weight
@@ -171,6 +185,7 @@ Captions: 300-400 weight
 ```
 
 ### Component Standards
+
 - All components use TypeScript interfaces
 - Props are clearly defined and documented
 - Responsive design is mobile-first
@@ -180,12 +195,14 @@ Captions: 300-400 weight
 ## 📊 Performance Standards
 
 ### Lighthouse Targets
+
 - **Performance**: >90
 - **Accessibility**: >95
 - **Best Practices**: >90
 - **SEO**: >90
 
 ### Core Web Vitals
+
 - **LCP (Largest Contentful Paint)**: <2.5s
 - **FID (First Input Delay)**: <100ms
 - **CLS (Cumulative Layout Shift)**: <0.1
@@ -193,6 +210,7 @@ Captions: 300-400 weight
 ## 🔒 Security & Compliance
 
 ### Data Protection
+
 - GDPR compliant contact forms
 - Privacy policy integration
 - Cookie consent management
@@ -200,14 +218,16 @@ Captions: 300-400 weight
 - No personal data storage without consent
 
 ### Professional Standards
+
 - **ICCRC** (Canada): Licensed immigration consultants
-- **MARA** (Australia): Registered migration agents  
+- **MARA** (Australia): Registered migration agents
 - **OISC** (UK): Regulated immigration advisors
 - **ISO 9001**: Quality management certification
 
 ## 🧪 Testing Strategy
 
 ### Automated Testing
+
 ```bash
 # Run ESLint
 npm run lint
@@ -220,6 +240,7 @@ npm run build
 ```
 
 ### Manual Testing Checklist
+
 - [ ] All forms submit correctly
 - [ ] Navigation works on all devices
 - [ ] Images load and display properly
@@ -231,6 +252,7 @@ npm run build
 ## 🌍 Deployment
 
 ### Recommended Platforms
+
 1. **Vercel** (Recommended)
    - Automatic deployments from Git
    - Edge functions support
@@ -247,6 +269,7 @@ npm run build
    - Global CDN
 
 ### Deployment Checklist
+
 - [ ] Environment variables configured
 - [ ] Domain name configured
 - [ ] SSL certificate installed
@@ -257,8 +280,9 @@ npm run build
 ## 📈 Analytics & Monitoring
 
 ### Recommended Tools
+
 - **Google Analytics 4**: User behavior tracking
-- **Google Search Console**: SEO monitoring  
+- **Google Search Console**: SEO monitoring
 - **Lighthouse CI**: Performance monitoring
 - **Sentry**: Error tracking and monitoring
 - **Hotjar**: User experience insights
@@ -266,6 +290,7 @@ npm run build
 ## 🤝 Contributing
 
 ### Development Workflow
+
 1. Create feature branch from `main`
 2. Implement changes with tests
 3. Run quality checks (`npm run lint`)
@@ -273,6 +298,7 @@ npm run build
 5. Review and merge after approval
 
 ### Code Standards
+
 - Use TypeScript for all new code
 - Follow existing component patterns
 - Add accessibility attributes
@@ -283,12 +309,14 @@ npm run build
 ## 📞 Support & Maintenance
 
 ### Regular Updates
+
 - Security patches applied monthly
 - Dependencies updated quarterly
 - Performance audits bi-annually
 - Content reviews as needed
 
 ### Support Channels
+
 - **Technical Issues**: Create GitHub issue
 - **Feature Requests**: Discussion board
 - **Security Concerns**: Email security team
@@ -302,4 +330,4 @@ This project is proprietary software owned by VANHSYA Global Migration. Unauthor
 
 **Built with ❤️ by the VANHSYA Development Team**
 
-*Making global migration accessible, transparent, and successful for everyone.*
+_Making global migration accessible, transparent, and successful for everyone._

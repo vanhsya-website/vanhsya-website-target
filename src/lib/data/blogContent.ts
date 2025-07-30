@@ -31,7 +31,7 @@ export const migrationBlogCategories: BlogCategory[] = [
     description: 'All migration content',
     icon: '📚',
     color: 'bg-gradient-to-r from-purple-600 to-blue-600',
-    count: 48
+    count: 48,
   },
   {
     id: 'country-guides',
@@ -39,7 +39,7 @@ export const migrationBlogCategories: BlogCategory[] = [
     description: 'Comprehensive guides for each destination',
     icon: '🌍',
     color: 'bg-gradient-to-r from-green-600 to-teal-600',
-    count: 14
+    count: 14,
   },
   {
     id: 'visa-processes',
@@ -47,7 +47,7 @@ export const migrationBlogCategories: BlogCategory[] = [
     description: 'Step-by-step visa application guides',
     icon: '📋',
     color: 'bg-gradient-to-r from-blue-600 to-indigo-600',
-    count: 12
+    count: 12,
   },
   {
     id: 'success-stories',
@@ -55,7 +55,7 @@ export const migrationBlogCategories: BlogCategory[] = [
     description: 'Real client migration journeys',
     icon: '⭐',
     color: 'bg-gradient-to-r from-yellow-600 to-orange-600',
-    count: 8
+    count: 8,
   },
   {
     id: 'policy-updates',
@@ -63,7 +63,7 @@ export const migrationBlogCategories: BlogCategory[] = [
     description: 'Latest immigration policy changes',
     icon: '📰',
     color: 'bg-gradient-to-r from-red-600 to-pink-600',
-    count: 6
+    count: 6,
   },
   {
     id: 'tips-advice',
@@ -71,15 +71,16 @@ export const migrationBlogCategories: BlogCategory[] = [
     description: 'Professional migration advice',
     icon: '💡',
     color: 'bg-gradient-to-r from-purple-600 to-violet-600',
-    count: 8
-  }
+    count: 8,
+  },
 ];
 
 export const comprehensiveBlogPosts: BlogPost[] = [
   {
     id: 'canada-express-entry-2025',
     title: 'Canada Express Entry 2025: Complete Guide for Indians',
-    excerpt: 'Everything you need to know about Canada\'s Express Entry system, CRS scores, recent draws, and success strategies for 2025.',
+    excerpt:
+      "Everything you need to know about Canada's Express Entry system, CRS scores, recent draws, and success strategies for 2025.",
     category: 'country-guides',
     author: 'VANHSYA Expert Team',
     publishDate: '2025-01-15',
@@ -413,12 +414,13 @@ French speakers receive additional points:
 - Provincial Government Websites
 - VANHSYA Internal Data and Client Statistics
 
-*Last Updated: January 15, 2025*`
+*Last Updated: January 15, 2025*`,
   },
   {
     id: 'australia-skilled-migration-2025',
     title: 'Australia Skilled Migration 2025: Points Test & SkillSelect Guide',
-    excerpt: 'Complete guide to Australia\'s skilled migration program including points test, state nominations, and occupation lists for 2025.',
+    excerpt:
+      "Complete guide to Australia's skilled migration program including points test, state nominations, and occupation lists for 2025.",
     category: 'country-guides',
     author: 'Sarah Johnson',
     publishDate: '2025-01-12',
@@ -718,12 +720,14 @@ The Australian points test awards points based on various factors:
 
 ---
 
-*This guide is updated as of January 2025. Immigration policies may change. Always verify with official Australian government sources.*`
+*This guide is updated as of January 2025. Immigration policies may change. Always verify with official Australian government sources.*`,
   },
   {
     id: 'germany-eu-blue-card-2025',
-    title: 'Germany EU Blue Card 2025: Complete Guide for Skilled Professionals',
-    excerpt: 'Everything you need to know about Germany\'s EU Blue Card program, salary requirements, and pathway to permanent residence in 2025.',
+    title:
+      'Germany EU Blue Card 2025: Complete Guide for Skilled Professionals',
+    excerpt:
+      "Everything you need to know about Germany's EU Blue Card program, salary requirements, and pathway to permanent residence in 2025.",
     category: 'country-guides',
     author: 'Michael Weber',
     publishDate: '2025-01-10',
@@ -1068,12 +1072,13 @@ The EU Blue Card is Germany's fast-track visa for highly skilled professionals. 
 
 ---
 
-*Information accurate as of January 2025. German immigration policies may change. Always verify with official sources.*`
+*Information accurate as of January 2025. German immigration policies may change. Always verify with official sources.*`,
   },
   {
     id: 'document-preparation-checklist',
     title: 'Complete Document Preparation Checklist for Immigration',
-    excerpt: 'Essential document checklist for all immigration applications. Never miss a document again with our comprehensive preparation guide.',
+    excerpt:
+      'Essential document checklist for all immigration applications. Never miss a document again with our comprehensive preparation guide.',
     category: 'visa-processes',
     author: 'Document Specialists Team',
     publishDate: '2025-01-08',
@@ -1416,10 +1421,12 @@ Immigration Documents/
 
 *Keep this checklist handy throughout your immigration journey. Document preparation is 50% of application success!*
 
-**Last updated:** January 8, 2025`
-  }
+**Last updated:** January 8, 2025`,
+  },
 ];
 
 // Add more blog posts for other categories...
-export const featuredPosts = comprehensiveBlogPosts.filter(post => post.featured);
+export const featuredPosts = comprehensiveBlogPosts.filter(
+  post => post.featured
+);
 export const recentPosts = comprehensiveBlogPosts.slice(0, 6);

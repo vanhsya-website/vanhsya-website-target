@@ -20,7 +20,7 @@ const notifications: NotificationData[] = [
     message: 'Sarah from India just got approved!',
     subtitle: 'Express Entry - Canada PR',
     icon: CheckCircle,
-    duration: 5000
+    duration: 5000,
   },
   {
     id: '2',
@@ -28,7 +28,7 @@ const notifications: NotificationData[] = [
     message: '127 people are currently using AI tools',
     subtitle: 'Live activity on platform',
     icon: Users,
-    duration: 4000
+    duration: 4000,
   },
   {
     id: '3',
@@ -36,7 +36,7 @@ const notifications: NotificationData[] = [
     message: 'Michael achieved his dream!',
     subtitle: 'Skilled Migration - Australia',
     icon: Sparkles,
-    duration: 5000
+    duration: 5000,
   },
   {
     id: '4',
@@ -44,8 +44,8 @@ const notifications: NotificationData[] = [
     message: 'Next visa batch processing in 2 hours',
     subtitle: 'Stay tuned for updates',
     icon: Clock,
-    duration: 6000
-  }
+    duration: 6000,
+  },
 ];
 
 interface NotificationProps {
@@ -54,7 +54,11 @@ interface NotificationProps {
   index: number;
 }
 
-const Notification: React.FC<NotificationProps> = ({ notification, onClose, index }) => {
+const Notification: React.FC<NotificationProps> = ({
+  notification,
+  onClose,
+  index,
+}) => {
   const [progress, setProgress] = useState(100);
 
   useEffect(() => {
@@ -82,21 +86,21 @@ const Notification: React.FC<NotificationProps> = ({ notification, onClose, inde
           bg: 'from-emerald-500/20 to-green-500/20',
           border: 'border-emerald-500/30',
           icon: 'text-emerald-400',
-          progress: 'bg-emerald-500'
+          progress: 'bg-emerald-500',
         };
       case 'celebration':
         return {
           bg: 'from-gold-500/20 to-yellow-500/20',
           border: 'border-gold-500/30',
           icon: 'text-gold-400',
-          progress: 'bg-gold-500'
+          progress: 'bg-gold-500',
         };
       default:
         return {
           bg: 'from-blue-500/20 to-indigo-500/20',
           border: 'border-blue-500/30',
           icon: 'text-blue-400',
-          progress: 'bg-blue-500'
+          progress: 'bg-blue-500',
         };
     }
   };
@@ -109,17 +113,17 @@ const Notification: React.FC<NotificationProps> = ({ notification, onClose, inde
       initial={{ opacity: 0, x: 300, scale: 0.8 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={{ opacity: 0, x: 300, scale: 0.8 }}
-      transition={{ 
+      transition={{
         type: 'spring',
         bounce: 0.3,
-        delay: index * 0.1
+        delay: index * 0.1,
       }}
       style={{ zIndex: 1000 - index }}
       className={`relative bg-gradient-to-r ${colors.bg} backdrop-blur-xl border ${colors.border} rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 max-w-sm`}
       whileHover={{ scale: 1.02, y: -2 }}
     >
       {/* Progress bar */}
-      <div className="absolute top-0 left-0 h-1 bg-slate-700/50 rounded-t-xl overflow-hidden w-full">
+      <div className='absolute top-0 left-0 h-1 bg-slate-700/50 rounded-t-xl overflow-hidden w-full'>
         <motion.div
           className={`h-full ${colors.progress}`}
           style={{ width: `${progress}%` }}
@@ -127,30 +131,30 @@ const Notification: React.FC<NotificationProps> = ({ notification, onClose, inde
         />
       </div>
 
-      <div className="flex items-start space-x-3">
+      <div className='flex items-start space-x-3'>
         {/* Icon */}
         <motion.div
-          animate={{ 
+          animate={{
             scale: [1, 1.2, 1],
-            rotate: notification.type === 'celebration' ? [0, 10, -10, 0] : 0
+            rotate: notification.type === 'celebration' ? [0, 10, -10, 0] : 0,
           }}
-          transition={{ 
+          transition={{
             duration: 2,
             repeat: Infinity,
-            repeatDelay: 1
+            repeatDelay: 1,
           }}
           className={`${colors.icon} flex-shrink-0 mt-1`}
         >
-          <Icon className="w-5 h-5" />
+          <Icon className='w-5 h-5' />
         </motion.div>
 
         {/* Content */}
-        <div className="flex-1 min-w-0">
-          <p className="text-white font-semibold text-sm leading-tight">
+        <div className='flex-1 min-w-0'>
+          <p className='text-white font-semibold text-sm leading-tight'>
             {notification.message}
           </p>
           {notification.subtitle && (
-            <p className="text-slate-300 text-xs mt-1">
+            <p className='text-slate-300 text-xs mt-1'>
               {notification.subtitle}
             </p>
           )}
@@ -159,34 +163,34 @@ const Notification: React.FC<NotificationProps> = ({ notification, onClose, inde
         {/* Close button */}
         <button
           onClick={() => onClose(notification.id)}
-          className="text-slate-400 hover:text-white transition-colors flex-shrink-0"
+          className='text-slate-400 hover:text-white transition-colors flex-shrink-0'
         >
-          <X className="w-4 h-4" />
+          <X className='w-4 h-4' />
         </button>
       </div>
 
       {/* Floating particles for celebration type */}
       {notification.type === 'celebration' && (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className='absolute inset-0 pointer-events-none'>
           {[...Array(3)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-gold-400 rounded-full"
+              className='absolute w-1 h-1 bg-gold-400 rounded-full'
               animate={{
                 y: [0, -20, -40],
                 x: [0, Math.random() * 20 - 10, Math.random() * 40 - 20],
                 opacity: [0, 1, 0],
-                scale: [0.5, 1, 0.5]
+                scale: [0.5, 1, 0.5],
               }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 delay: i * 0.3,
-                ease: 'easeOut'
+                ease: 'easeOut',
               }}
               style={{
                 left: `${30 + i * 20}%`,
-                top: '20%'
+                top: '20%',
               }}
             />
           ))}
@@ -197,14 +201,17 @@ const Notification: React.FC<NotificationProps> = ({ notification, onClose, inde
 };
 
 const InteractiveNotifications: React.FC = () => {
-  const [activeNotifications, setActiveNotifications] = useState<NotificationData[]>([]);
+  const [activeNotifications, setActiveNotifications] = useState<
+    NotificationData[]
+  >([]);
   const [notificationIndex, setNotificationIndex] = useState(0);
 
   useEffect(() => {
     const showNotification = () => {
       if (notifications.length === 0) return;
 
-      const notification = notifications[notificationIndex % notifications.length];
+      const notification =
+        notifications[notificationIndex % notifications.length];
       setActiveNotifications(prev => [...prev, notification]);
       setNotificationIndex(prev => prev + 1);
     };
@@ -213,9 +220,12 @@ const InteractiveNotifications: React.FC = () => {
     const initialTimer = setTimeout(showNotification, 3000);
 
     // Then show notifications every 8-12 seconds
-    const interval = setInterval(() => {
-      showNotification();
-    }, Math.random() * 4000 + 8000); // 8-12 seconds
+    const interval = setInterval(
+      () => {
+        showNotification();
+      },
+      Math.random() * 4000 + 8000
+    ); // 8-12 seconds
 
     return () => {
       clearTimeout(initialTimer);
@@ -228,8 +238,8 @@ const InteractiveNotifications: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-24 right-6 z-50 space-y-3 max-w-sm">
-      <AnimatePresence mode="popLayout">
+    <div className='fixed top-24 right-6 z-50 space-y-3 max-w-sm'>
+      <AnimatePresence mode='popLayout'>
         {activeNotifications.map((notification, index) => (
           <Notification
             key={`${notification.id}-${Date.now()}`}

@@ -14,7 +14,8 @@ interface SEOProps {
 
 const defaultMeta = {
   title: 'VANHSYA Global Migration - Trusted Immigration Consultancy',
-  description: 'Leading immigration consultancy providing expert visa services for Canada, Australia, UK, and USA. Transparent, client-first approach with proven success rates.',
+  description:
+    'Leading immigration consultancy providing expert visa services for Canada, Australia, UK, and USA. Transparent, client-first approach with proven success rates.',
   keywords: [
     'immigration consultancy',
     'visa services',
@@ -25,10 +26,10 @@ const defaultMeta = {
     'work visa',
     'study visa',
     'permanent residency',
-    'VANHSYA'
+    'VANHSYA',
   ],
   ogImage: '/images/vanhsya-og-image.jpg',
-  twitterCard: 'summary_large_image'
+  twitterCard: 'summary_large_image',
 };
 
 export function generateSEOMetadata({
@@ -40,9 +41,11 @@ export function generateSEOMetadata({
   ogType = 'website',
   twitterCard,
   noIndex = false,
-  structured
+  structured,
 }: SEOProps = {}): Metadata {
-  const seoTitle = title ? `${title} | VANHSYA Global Migration` : defaultMeta.title;
+  const seoTitle = title
+    ? `${title} | VANHSYA Global Migration`
+    : defaultMeta.title;
   const seoDescription = description || defaultMeta.description;
   const seoKeywords = [...defaultMeta.keywords, ...keywords];
   const seoOgImage = ogImage || defaultMeta.ogImage;
@@ -52,7 +55,7 @@ export function generateSEOMetadata({
     title: seoTitle,
     description: seoDescription,
     keywords: seoKeywords.join(', '),
-    
+
     // Open Graph
     openGraph: {
       title: seoTitle,
@@ -63,26 +66,28 @@ export function generateSEOMetadata({
           url: seoOgImage,
           width: 1200,
           height: 630,
-          alt: seoTitle
-        }
+          alt: seoTitle,
+        },
       ],
-      siteName: 'VANHSYA Global Migration'
+      siteName: 'VANHSYA Global Migration',
     },
-    
+
     // Twitter
     twitter: {
       card: seoTwitterCard as any,
       title: seoTitle,
       description: seoDescription,
       images: [seoOgImage],
-      creator: '@vanhsya_global'
+      creator: '@vanhsya_global',
     },
-    
+
     // Canonical URL
-    alternates: canonical ? {
-      canonical: canonical
-    } : undefined,
-    
+    alternates: canonical
+      ? {
+          canonical: canonical,
+        }
+      : undefined,
+
     // Robots
     robots: {
       index: !noIndex,
@@ -92,18 +97,18 @@ export function generateSEOMetadata({
         follow: !noIndex,
         'max-video-preview': -1,
         'max-image-preview': 'large',
-        'max-snippet': -1
-      }
+        'max-snippet': -1,
+      },
     },
-    
+
     // Additional meta tags
     other: {
       'theme-color': '#2563eb',
       'msapplication-TileColor': '#2563eb',
       'apple-mobile-web-app-capable': 'yes',
       'apple-mobile-web-app-status-bar-style': 'default',
-      'format-detection': 'telephone=no'
-    }
+      'format-detection': 'telephone=no',
+    },
   };
 
   return metadata;
@@ -111,37 +116,38 @@ export function generateSEOMetadata({
 
 // Structured data schemas
 export const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "VANHSYA Global Migration",
-  "url": "https://www.vanhsya.com",
-  "logo": "https://www.vanhsya.com/images/logo.png",
-  "description": "Leading immigration consultancy providing expert visa services for Canada, Australia, UK, and USA.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "123 Immigration Plaza",
-    "addressLocality": "Toronto",
-    "addressRegion": "ON",
-    "postalCode": "M5V 3A8",
-    "addressCountry": "CA"
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'VANHSYA Global Migration',
+  url: 'https://www.vanhsya.com',
+  logo: 'https://www.vanhsya.com/images/logo.png',
+  description:
+    'Leading immigration consultancy providing expert visa services for Canada, Australia, UK, and USA.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '123 Immigration Plaza',
+    addressLocality: 'Toronto',
+    addressRegion: 'ON',
+    postalCode: 'M5V 3A8',
+    addressCountry: 'CA',
   },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+1-800-VANHSYA",
-    "contactType": "customer service",
-    "availableLanguage": ["English", "French", "Hindi", "Punjabi"]
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-800-VANHSYA',
+    contactType: 'customer service',
+    availableLanguage: ['English', 'French', 'Hindi', 'Punjabi'],
   },
-  "sameAs": [
-    "https://facebook.com/vanhsyaglobal",
-    "https://twitter.com/vanhsya_global",
-    "https://linkedin.com/company/vanhsya-global",
-    "https://instagram.com/vanhsyaglobal"
+  sameAs: [
+    'https://facebook.com/vanhsyaglobal',
+    'https://twitter.com/vanhsya_global',
+    'https://linkedin.com/company/vanhsya-global',
+    'https://instagram.com/vanhsyaglobal',
   ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "2847"
-  }
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '2847',
+  },
 };
 
 export const serviceSchema = (service: {
@@ -150,68 +156,98 @@ export const serviceSchema = (service: {
   price?: string;
   category?: string;
 }) => ({
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": service.name,
-  "description": service.description,
-  "provider": {
-    "@type": "Organization",
-    "name": "VANHSYA Global Migration"
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.name,
+  description: service.description,
+  provider: {
+    '@type': 'Organization',
+    name: 'VANHSYA Global Migration',
   },
-  "category": service.category || "Immigration Services",
-  "offers": service.price ? {
-    "@type": "Offer",
-    "price": service.price,
-    "priceCurrency": "CAD"
-  } : undefined
+  category: service.category || 'Immigration Services',
+  offers: service.price
+    ? {
+        '@type': 'Offer',
+        price: service.price,
+        priceCurrency: 'CAD',
+      }
+    : undefined,
 });
 
-export const faqSchema = (faqs: Array<{question: string; answer: string}>) => ({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+export const faqSchema = (
+  faqs: Array<{ question: string; answer: string }>
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
 });
 
-export const breadcrumbSchema = (items: Array<{name: string; url: string}>) => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": items.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.name,
-    "item": item.url
-  }))
+export const breadcrumbSchema = (
+  items: Array<{ name: string; url: string }>
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  })),
 });
 
 // Page-specific metadata
 export const homePageMeta = generateSEOMetadata({
   title: 'Premier Immigration Consultancy - Your Gateway to Global Migration',
-  description: 'Expert immigration services for Canada, Australia, UK & USA. Transparent process, proven success rates. Start your migration journey with VANHSYA today.',
-  keywords: ['immigration consultant', 'visa expert', 'global migration', 'citizenship services'],
-  structured: organizationSchema
+  description:
+    'Expert immigration services for Canada, Australia, UK & USA. Transparent process, proven success rates. Start your migration journey with VANHSYA today.',
+  keywords: [
+    'immigration consultant',
+    'visa expert',
+    'global migration',
+    'citizenship services',
+  ],
+  structured: organizationSchema,
 });
 
 export const servicesPageMeta = generateSEOMetadata({
   title: 'Immigration Services - Visa & Migration Solutions',
-  description: 'Comprehensive immigration services including work visas, study permits, permanent residency, and citizenship applications. Expert guidance every step of the way.',
-  keywords: ['immigration services', 'visa application', 'migration solutions', 'visa consultant']
+  description:
+    'Comprehensive immigration services including work visas, study permits, permanent residency, and citizenship applications. Expert guidance every step of the way.',
+  keywords: [
+    'immigration services',
+    'visa application',
+    'migration solutions',
+    'visa consultant',
+  ],
 });
 
 export const aboutPageMeta = generateSEOMetadata({
   title: 'About VANHSYA - Leading Immigration Consultancy',
-  description: 'Learn about VANHSYA Global Migration, our mission, values, and commitment to providing transparent, client-first immigration services worldwide.',
-  keywords: ['about vanhsya', 'immigration company', 'migration consultancy', 'visa experts']
+  description:
+    'Learn about VANHSYA Global Migration, our mission, values, and commitment to providing transparent, client-first immigration services worldwide.',
+  keywords: [
+    'about vanhsya',
+    'immigration company',
+    'migration consultancy',
+    'visa experts',
+  ],
 });
 
 export const contactPageMeta = generateSEOMetadata({
   title: 'Contact Us - Get Expert Immigration Advice',
-  description: 'Contact VANHSYA Global Migration for expert immigration consultation. Multiple contact methods, quick response times, and personalized service.',
-  keywords: ['contact immigration consultant', 'visa consultation', 'immigration advice', 'migration help']
+  description:
+    'Contact VANHSYA Global Migration for expert immigration consultation. Multiple contact methods, quick response times, and personalized service.',
+  keywords: [
+    'contact immigration consultant',
+    'visa consultation',
+    'immigration advice',
+    'migration help',
+  ],
 });

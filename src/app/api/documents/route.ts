@@ -2,45 +2,45 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  
+
   // Process document operations
   console.log('Document operation:', body);
-  
-  return NextResponse.json({ 
-    success: true, 
-    message: 'Document processed successfully' 
+
+  return NextResponse.json({
+    success: true,
+    message: 'Document processed successfully',
   });
 }
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const type = searchParams.get('type');
-  
+
   // Return document templates or information
-  return NextResponse.json({ 
-    success: true, 
+  return NextResponse.json({
+    success: true,
     type: type || 'all',
-    documents: []
+    documents: [],
   });
 }
 
 export async function PUT(request: NextRequest) {
   const body = await request.json();
-  
+
   // Update document
-  return NextResponse.json({ 
-    success: true, 
-    message: 'Document updated successfully' 
+  return NextResponse.json({
+    success: true,
+    message: 'Document updated successfully',
   });
 }
 
 export async function DELETE(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const id = searchParams.get('id');
-  
+
   // Delete document
-  return NextResponse.json({ 
-    success: true, 
-    message: `Document ${id} deleted successfully` 
+  return NextResponse.json({
+    success: true,
+    message: `Document ${id} deleted successfully`,
   });
 }

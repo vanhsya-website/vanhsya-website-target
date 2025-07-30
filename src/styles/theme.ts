@@ -43,9 +43,9 @@ export const VanhsyaTheme = {
       800: '#1E293B',
       900: '#0F172A',
       950: '#020617',
-    }
+    },
   },
-  
+
   // Premium Gradients
   gradients: {
     primary: 'from-purple-600 via-violet-600 to-indigo-700',
@@ -60,7 +60,7 @@ export const VanhsyaTheme = {
     galaxy: 'from-purple-800 via-violet-700 to-indigo-600',
     neon: 'from-pink-500 via-purple-500 to-indigo-500',
   },
-  
+
   // Background Gradients
   backgrounds: {
     main: 'bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-950',
@@ -69,16 +69,17 @@ export const VanhsyaTheme = {
     card: 'bg-gradient-to-br from-white/5 via-white/10 to-white/5',
     glass: 'bg-white/10 backdrop-blur-xl border border-white/20',
   },
-  
+
   // Text Colors
   text: {
     primary: 'text-white',
     secondary: 'text-slate-300',
     accent: 'text-violet-400',
-    gradient: 'bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent',
+    gradient:
+      'bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent',
     glow: 'text-white drop-shadow-[0_0_10px_rgba(139,92,246,0.5)]',
   },
-  
+
   // Animation Classes
   animations: {
     float: 'animate-[float_6s_ease-in-out_infinite]',
@@ -87,21 +88,26 @@ export const VanhsyaTheme = {
     glow: 'animate-[glow_2s_ease-in-out_infinite_alternate]',
     bounce: 'animate-[bounce_1s_infinite]',
   },
-  
+
   // Button Styles
   buttons: {
-    primary: 'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700',
-    secondary: 'bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700',
-    accent: 'bg-gradient-to-r from-orange-600 to-pink-600 hover:from-orange-700 hover:to-pink-700',
-    ghost: 'bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30',
+    primary:
+      'bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700',
+    secondary:
+      'bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700',
+    accent:
+      'bg-gradient-to-r from-orange-600 to-pink-600 hover:from-orange-700 hover:to-pink-700',
+    ghost:
+      'bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30',
   },
-  
+
   // Effects
   effects: {
     glow: 'shadow-[0_0_50px_rgba(139,92,246,0.3)]',
     glowStrong: 'shadow-[0_0_100px_rgba(139,92,246,0.5)]',
-    floatingParticle: 'bg-gradient-to-r from-violet-400/30 to-purple-400/30 rounded-full blur-sm',
-  }
+    floatingParticle:
+      'bg-gradient-to-r from-violet-400/30 to-purple-400/30 rounded-full blur-sm',
+  },
 };
 
 // Custom CSS for animations

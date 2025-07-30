@@ -1,1 +1,111 @@
-{}
+{
+  "todo-tree.general.tags": [
+    "TODO",
+    "FIXME", 
+    "BUG",
+    "HACK",
+    "NOTE",
+    "DONE",
+    "CRITICAL",
+    "HIGH",
+    "MEDIUM",
+    "LOW",
+    "OPTIMIZE",
+    "ENHANCE",
+    "FEATURE",
+    "CONTENT",
+    "SEO",
+    "URGENT",
+    "REVIEW"
+  ],
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "check",
+      "type": "tag",
+      "foreground": "#FFD700",
+      "background": "#FFD70020",
+      "opacity": 50,
+      "iconColour": "#FFD700"
+    },
+    "FIXME": {
+      "icon": "bug",
+      "type": "tag-and-comment",
+      "foreground": "#FF6B6B",
+      "background": "#FF6B6B20",
+      "iconColour": "#FF6B6B"
+    },
+    "BUG": {
+      "icon": "bug",
+      "type": "tag-and-comment", 
+      "foreground": "#FF4757",
+      "background": "#FF475720",
+      "iconColour": "#FF4757"
+    },
+    "CRITICAL": {
+      "icon": "alert",
+      "type": "tag-and-comment",
+      "foreground": "#FF3838",
+      "background": "#FF383830",
+      "iconColour": "#FF3838"
+    },
+    "DONE": {
+      "icon": "check-circle",
+      "type": "tag-and-comment",
+      "foreground": "#5CB85C",
+      "background": "#5CB85C20",
+      "iconColour": "#5CB85C"
+    },
+    "OPTIMIZE": {
+      "icon": "zap",
+      "type": "tag-and-comment",
+      "foreground": "#FFA500",
+      "background": "#FFA50020",
+      "iconColour": "#FFA500"
+    },
+    "ENHANCE": {
+      "icon": "star",
+      "type": "tag-and-comment",
+      "foreground": "#9B59B6",
+      "background": "#9B59B620",
+      "iconColour": "#9B59B6"
+    },
+    "FEATURE": {
+      "icon": "plus-circle",
+      "type": "tag-and-comment",
+      "foreground": "#3498DB",
+      "background": "#3498DB20",
+      "iconColour": "#3498DB"
+    },
+    "CONTENT": {
+      "icon": "edit",
+      "type": "tag-and-comment",
+      "foreground": "#E67E22",
+      "background": "#E67E2220",
+      "iconColour": "#E67E22"
+    },
+    "SEO": {
+      "icon": "search",
+      "type": "tag-and-comment",
+      "foreground": "#1ABC9C",
+      "background": "#1ABC9C20",
+      "iconColour": "#1ABC9C"
+    }
+  },
+  "todo-tree.general.statusBar": "total",
+  "todo-tree.tree.showScanModeButton": false,
+  "todo-tree.tree.showRefreshButton": true,
+  "todo-tree.tree.groupedByTag": true,
+  "todo-tree.tree.sortTagsOnlyViewAlphabetically": true,
+  "todo-tree.tree.showInExplorer": true,
+  "todo-tree.general.rootFolder": "./src",
+  "todo-tree.filtering.excludeGlobs": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.next/**",
+    "**/coverage/**"
+  ],
+  "todo-tree.filtering.includeGlobs": [
+    "**/*.{ts,tsx,js,jsx,md,json}"
+  ]
+}

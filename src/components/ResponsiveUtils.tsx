@@ -4,15 +4,19 @@ import { useState, useEffect } from 'react';
 
 // Device detection hook
 export const useDeviceType = () => {
-  const [deviceType, setDeviceType] = useState<'mobile' | 'tablet' | 'desktop' | 'tv'>('desktop');
+  const [deviceType, setDeviceType] = useState<
+    'mobile' | 'tablet' | 'desktop' | 'tv'
+  >('desktop');
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
+  const [orientation, setOrientation] = useState<'portrait' | 'landscape'>(
+    'portrait'
+  );
 
   useEffect(() => {
     const updateDeviceInfo = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      
+
       // Device type detection
       if (width < 768) {
         setDeviceType('mobile');
@@ -25,7 +29,9 @@ export const useDeviceType = () => {
       }
 
       // Touch device detection
-      setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+      setIsTouchDevice(
+        'ontouchstart' in window || navigator.maxTouchPoints > 0
+      );
 
       // Orientation detection
       setOrientation(width > height ? 'landscape' : 'portrait');
@@ -57,7 +63,7 @@ export const useViewport = () => {
     const updateViewport = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      
+
       setViewport({
         width,
         height,
@@ -92,10 +98,18 @@ export const useSafeArea = () => {
     const updateSafeArea = () => {
       const computedStyle = getComputedStyle(document.documentElement);
       setSafeArea({
-        top: parseInt(computedStyle.getPropertyValue('env(safe-area-inset-top)') || '0'),
-        bottom: parseInt(computedStyle.getPropertyValue('env(safe-area-inset-bottom)') || '0'),
-        left: parseInt(computedStyle.getPropertyValue('env(safe-area-inset-left)') || '0'),
-        right: parseInt(computedStyle.getPropertyValue('env(safe-area-inset-right)') || '0'),
+        top: parseInt(
+          computedStyle.getPropertyValue('env(safe-area-inset-top)') || '0'
+        ),
+        bottom: parseInt(
+          computedStyle.getPropertyValue('env(safe-area-inset-bottom)') || '0'
+        ),
+        left: parseInt(
+          computedStyle.getPropertyValue('env(safe-area-inset-left)') || '0'
+        ),
+        right: parseInt(
+          computedStyle.getPropertyValue('env(safe-area-inset-right)') || '0'
+        ),
       });
     };
 
@@ -142,7 +156,9 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   };
 
   return (
-    <div className={`mx-auto ${maxWidthClasses[maxWidth]} ${paddingClasses[padding]} ${className}`}>
+    <div
+      className={`mx-auto ${maxWidthClasses[maxWidth]} ${paddingClasses[padding]} ${className}`}
+    >
       {children}
     </div>
   );
@@ -182,7 +198,9 @@ export const ResponsiveGrid: React.FC<ResponsiveGridProps> = ({
   const xlCols = cols.xl ? `xl:grid-cols-${cols.xl}` : '';
 
   return (
-    <div className={`grid ${gridCols} ${smCols} ${mdCols} ${lgCols} ${xlCols} ${gapClasses[gap]} ${className}`}>
+    <div
+      className={`grid ${gridCols} ${smCols} ${mdCols} ${lgCols} ${xlCols} ${gapClasses[gap]} ${className}`}
+    >
       {children}
     </div>
   );
@@ -208,21 +226,28 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
 }) => {
   const { isTouchDevice } = useDeviceType();
 
-  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95';
-  
+  const baseClasses =
+    'inline-flex items-center justify-center font-medium rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95';
+
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-accent-600 to-accent-500 text-white hover:opacity-90 focus:ring-accent-500',
-    secondary: 'bg-black text-white hover:bg-neutral-800 focus:ring-neutral-500',
+    primary:
+      'bg-gradient-to-r from-accent-600 to-accent-500 text-white hover:opacity-90 focus:ring-accent-500',
+    secondary:
+      'bg-black text-white hover:bg-neutral-800 focus:ring-neutral-500',
     ghost: 'text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-300',
   };
 
   const sizeClasses = {
     sm: isTouchDevice ? 'px-4 py-3 text-sm min-h-[44px]' : 'px-3 py-2 text-sm',
-    md: isTouchDevice ? 'px-6 py-3 text-base min-h-[48px]' : 'px-4 py-2 text-base',
+    md: isTouchDevice
+      ? 'px-6 py-3 text-base min-h-[48px]'
+      : 'px-4 py-2 text-base',
     lg: isTouchDevice ? 'px-8 py-4 text-lg min-h-[52px]' : 'px-6 py-3 text-lg',
   };
 
-  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
+  const disabledClasses = disabled
+    ? 'opacity-50 cursor-not-allowed'
+    : 'cursor-pointer';
 
   return (
     <button
@@ -236,7 +261,9 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
 };
 
 // Device-specific spacing component
-export const DeviceSpacing: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const DeviceSpacing: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { deviceType } = useDeviceType();
   const safeArea = useSafeArea();
 
@@ -248,7 +275,10 @@ export const DeviceSpacing: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   return (
-    <div style={spacingStyles} className={`${deviceType === 'mobile' ? 'px-4' : deviceType === 'tablet' ? 'px-6' : 'px-8'}`}>
+    <div
+      style={spacingStyles}
+      className={`${deviceType === 'mobile' ? 'px-4' : deviceType === 'tablet' ? 'px-6' : 'px-8'}`}
+    >
       {children}
     </div>
   );

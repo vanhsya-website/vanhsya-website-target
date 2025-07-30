@@ -21,10 +21,10 @@ export function useClientOnly() {
  */
 export function ClientOnly({ children }: { children: React.ReactNode }) {
   const isClient = useClientOnly();
-  
+
   if (!isClient) {
     return null;
   }
-  
+
   return <>{children}</>;
 }

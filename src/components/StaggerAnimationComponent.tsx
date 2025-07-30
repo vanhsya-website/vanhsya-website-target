@@ -20,7 +20,7 @@ const StaggerAnimationComponent = ({
   threshold = 0.1,
   staggerDelay = 100,
   direction = 'up',
-  duration = 600
+  duration = 600,
 }: StaggerAnimationProps) => {
   const { ref, inView } = useInView({
     triggerOnce,
@@ -29,7 +29,7 @@ const StaggerAnimationComponent = ({
 
   const getAnimationStyles = () => {
     const baseStyles = `transition-all duration-${duration} ease-out`;
-    
+
     if (!inView) {
       switch (direction) {
         case 'up':
@@ -45,7 +45,7 @@ const StaggerAnimationComponent = ({
           return `${baseStyles} opacity-0`;
       }
     }
-    
+
     return `${baseStyles} opacity-100 translate-y-0 translate-x-0`;
   };
 
@@ -56,7 +56,7 @@ const StaggerAnimationComponent = ({
           key={index}
           className={getAnimationStyles()}
           style={{
-            transitionDelay: inView ? `${index * staggerDelay}ms` : '0ms'
+            transitionDelay: inView ? `${index * staggerDelay}ms` : '0ms',
           }}
         >
           {child}

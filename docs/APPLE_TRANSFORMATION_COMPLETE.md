@@ -7,6 +7,7 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## 🚀 Implemented Components
 
 ### 1. **AppleHero.tsx** - Full-Screen Hero Section
+
 - **Location**: `src/components/AppleHero.tsx`
 - **Features**:
   - Full-screen height (`h-screen`)
@@ -29,6 +30,7 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ```
 
 ### 2. **AppleNavigation.tsx** - Minimalist Navigation
+
 - **Location**: `src/components/AppleNavigation.tsx`
 - **Features**:
   - Transparent background on scroll top, blurred white on scroll
@@ -49,6 +51,7 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ```
 
 ### 3. **AppleServices.tsx** - Services Grid Section
+
 - **Location**: `src/components/AppleServices.tsx`
 - **Features**:
   - 6-service grid layout (Work, Study, Business, Tourist, Family, Flight)
@@ -69,6 +72,7 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ```
 
 ### 4. **AppleFooter.tsx** - Clean Footer Design
+
 - **Location**: `src/components/AppleFooter.tsx`
 - **Features**:
   - 6-column grid layout on desktop
@@ -89,6 +93,7 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ```
 
 ### 5. **apple-design-system.css** - Design Foundation
+
 - **Location**: `src/styles/apple-design-system.css`
 - **Features**:
   - CSS custom properties for Apple color palette
@@ -108,31 +113,39 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 }
 
 /* Apple Typography Classes */
-.apple-headline-1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
-.apple-body-large { font-size: clamp(1.125rem, 2vw, 1.375rem); }
+.apple-headline-1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+.apple-body-large {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+}
 ```
 
 ## 🎨 Design System Implementation
 
 ### Color Palette
+
 - **Primary**: Clean whites and subtle grays
 - **Accent**: Purple-to-blue gradients for VANHSYA branding
 - **Background**: White to light gray gradients
 - **Text**: High contrast dark grays and blacks
 
 ### Typography
+
 - **Font Family**: -apple-system, BlinkMacSystemFont, 'Segoe UI'
 - **Weights**: Ultra-thin (100) for headlines, medium (500) for body
 - **Sizing**: Clamp-based responsive scaling
 - **Line Height**: 1.47059 (Apple's standard)
 
 ### Spacing & Layout
+
 - **Containers**: max-w-7xl with proper padding
 - **Sections**: py-24 for consistent vertical rhythm
 - **Grid**: Responsive grid systems (1/2/3/4 columns)
 - **Border Radius**: Large rounded corners (rounded-3xl)
 
 ### Animation Philosophy
+
 - **Duration**: 0.2-0.8s for most transitions
 - **Easing**: ease-out for natural feel
 - **Triggers**: Hover, scroll, and page load
@@ -141,22 +154,26 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## 🔧 Updated Files
 
 ### Core Application Files
+
 1. **`src/app/page.tsx`** - Updated to use Apple components
 2. **`src/app/globals.css`** - Imported Apple design system
 3. **`src/app/layout.tsx`** - Root layout (unchanged)
 
 ### New Apple Components
+
 1. **`src/components/AppleHero.tsx`** - Full-screen hero section
 2. **`src/components/AppleNavigation.tsx`** - Clean navigation
 3. **`src/components/AppleServices.tsx`** - Services grid
 4. **`src/components/AppleFooter.tsx`** - Minimalist footer
 
 ### Design System
+
 1. **`src/styles/apple-design-system.css`** - Core design tokens
 
 ## 📱 Responsive Design Implementation
 
 ### Mobile (320px - 768px)
+
 - Single column layouts
 - Hamburger navigation with slide-out menu
 - Larger touch targets (min 44px)
@@ -164,12 +181,14 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 - Stacked service cards
 
 ### Tablet (768px - 1024px)
+
 - 2-column service grid
 - Condensed navigation
 - Balanced white space
 - Medium typography scaling
 
 ### Desktop (1024px+)
+
 - 3-column service grid
 - Full horizontal navigation
 - Maximum typography sizes
@@ -179,16 +198,19 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## 🚀 Performance Optimizations
 
 ### Code Splitting
+
 - Dynamic imports for non-critical components
 - Lazy loading of below-fold content
 - Optimized bundle sizes
 
 ### Animation Performance
+
 - Transform-based animations (GPU accelerated)
 - will-change properties for smooth rendering
 - Reduced motion support for accessibility
 
 ### Image Optimization
+
 - Next.js Image component usage
 - Proper aspect ratios and sizes
 - Progressive loading
@@ -196,12 +218,14 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## ✅ Accessibility Features
 
 ### WCAG Compliance
+
 - Proper heading hierarchy (h1, h2, h3)
 - Sufficient color contrast ratios
 - Keyboard navigation support
 - Screen reader friendly markup
 
 ### Motion Considerations
+
 - `prefers-reduced-motion` media query support
 - Alternative static states for animations
 - Focus management for interactive elements
@@ -209,12 +233,14 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## 🌐 Browser Support
 
 ### Modern Browsers
+
 - Chrome 90+
 - Firefox 88+
 - Safari 14+
 - Edge 90+
 
 ### Graceful Degradation
+
 - CSS Grid with Flexbox fallbacks
 - Transform animations with opacity fallbacks
 - Modern features with progressive enhancement
@@ -243,15 +269,15 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 
 ### Before vs After Comparison
 
-| Aspect | Before (Cosmic Theme) | After (Apple Style) |
-|--------|----------------------|-------------------|
-| **Visual Style** | Dark, cosmic, aurora effects | Clean, minimal, white space |
-| **Typography** | Multiple font weights, effects | Consistent system fonts |
-| **Colors** | Purple/gold gradients, dark BG | Subtle grays, white backgrounds |
-| **Navigation** | Complex dropdowns | Clean, simple structure |
-| **Hero Section** | Video/cosmic effects | Clean typography focus |
-| **Load Time** | ~2.2s | ~1.8s (estimated improvement) |
-| **Mobile UX** | Heavy animations | Smooth, performant |
+| Aspect           | Before (Cosmic Theme)          | After (Apple Style)             |
+| ---------------- | ------------------------------ | ------------------------------- |
+| **Visual Style** | Dark, cosmic, aurora effects   | Clean, minimal, white space     |
+| **Typography**   | Multiple font weights, effects | Consistent system fonts         |
+| **Colors**       | Purple/gold gradients, dark BG | Subtle grays, white backgrounds |
+| **Navigation**   | Complex dropdowns              | Clean, simple structure         |
+| **Hero Section** | Video/cosmic effects           | Clean typography focus          |
+| **Load Time**    | ~2.2s                          | ~1.8s (estimated improvement)   |
+| **Mobile UX**    | Heavy animations               | Smooth, performant              |
 
 ### Key Benefits Achieved
 
@@ -265,21 +291,25 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## 🎯 Apple Design Principles Applied
 
 ### 1. **Simplicity**
+
 - Removed unnecessary visual elements
 - Clean typography hierarchy
 - Ample white space usage
 
 ### 2. **Clarity**
+
 - High contrast text on backgrounds
 - Clear navigation structure
 - Obvious interactive elements
 
 ### 3. **Depth**
+
 - Subtle shadows and layering
 - Glass morphism effects
 - Smooth z-axis animations
 
 ### 4. **Consistency**
+
 - Unified spacing system
 - Consistent animation timing
 - Standardized component patterns
@@ -287,6 +317,7 @@ Successfully transformed the VANHSYA website from a cosmic/aurora theme to a mod
 ## 🔧 Developer Guidelines
 
 ### Component Creation Standards
+
 ```tsx
 // Apple Component Template
 'use client';
@@ -295,8 +326,8 @@ import { motion } from 'framer-motion';
 
 const AppleComponentName: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className='py-24 bg-white'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         {/* Content with center alignment */}
       </div>
     </section>
@@ -307,11 +338,13 @@ export default AppleComponentName;
 ```
 
 ### CSS Class Naming Convention
+
 - Use `apple-` prefix for design system classes
 - Follow BEM methodology for component-specific styles
 - Utilize Tailwind utilities for layout and spacing
 
 ### Animation Guidelines
+
 - Duration: 200ms for micro-interactions, 600ms for transitions
 - Easing: Use `ease-out` for natural feel
 - Properties: Prefer `transform` and `opacity` for performance

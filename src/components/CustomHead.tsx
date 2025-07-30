@@ -17,12 +17,14 @@ const CustomHead = ({
   keywords,
   ogImage,
   canonicalUrl,
-  noIndex = false
+  noIndex = false,
 }: CustomHeadProps) => {
   useEffect(() => {
     // Update document title
     if (title) {
-      document.title = title.includes('VANHSYA') ? title : `${title} | VANHSYA Global Migration`;
+      document.title = title.includes('VANHSYA')
+        ? title
+        : `${title} | VANHSYA Global Migration`;
     }
 
     // Update meta description

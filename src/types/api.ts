@@ -119,7 +119,13 @@ export interface Application {
   userId: string;
   serviceType: string;
   country: string;
-  status: 'draft' | 'submitted' | 'in-review' | 'approved' | 'rejected' | 'completed';
+  status:
+    | 'draft'
+    | 'submitted'
+    | 'in-review'
+    | 'approved'
+    | 'rejected'
+    | 'completed';
   progress: number;
   createdAt: Date;
   updatedAt: Date;
@@ -140,7 +146,12 @@ export interface ApplicationDocument {
 
 export interface ApplicationEvent {
   id: string;
-  type: 'created' | 'submitted' | 'document_uploaded' | 'status_changed' | 'note_added';
+  type:
+    | 'created'
+    | 'submitted'
+    | 'document_uploaded'
+    | 'status_changed'
+    | 'note_added';
   title: string;
   description: string;
   createdAt: Date;

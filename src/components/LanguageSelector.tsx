@@ -48,13 +48,18 @@ const languages: Language[] = [
   { code: 'he', name: 'Hebrew', nativeName: 'עברית', flag: '🇮🇱', rtl: true },
   { code: 'th', name: 'Thai', nativeName: 'ไทย', flag: '🇹🇭' },
   { code: 'vi', name: 'Vietnamese', nativeName: 'Tiếng Việt', flag: '🇻🇳' },
-  { code: 'id', name: 'Indonesian', nativeName: 'Bahasa Indonesia', flag: '🇮🇩' },
+  {
+    code: 'id',
+    name: 'Indonesian',
+    nativeName: 'Bahasa Indonesia',
+    flag: '🇮🇩',
+  },
   { code: 'ms', name: 'Malay', nativeName: 'Bahasa Melayu', flag: '🇲🇾' },
   { code: 'tl', name: 'Filipino', nativeName: 'Filipino', flag: '🇵🇭' },
   { code: 'sw', name: 'Swahili', nativeName: 'Kiswahili', flag: '🇰🇪' },
   { code: 'am', name: 'Amharic', nativeName: 'አማርኛ', flag: '🇪🇹' },
   { code: 'zu', name: 'Zulu', nativeName: 'isiZulu', flag: '🇿🇦' },
-  { code: 'af', name: 'Afrikaans', nativeName: 'Afrikaans', flag: '🇿🇦' }
+  { code: 'af', name: 'Afrikaans', nativeName: 'Afrikaans', flag: '🇿🇦' },
 ];
 
 interface LanguageContextType {
@@ -64,7 +69,9 @@ interface LanguageContextType {
   isRTL: boolean;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined
+);
 
 // Basic translations (in a real app, this would come from a translation service)
 const translations: Record<string, Record<string, string>> = {
@@ -82,7 +89,7 @@ const translations: Record<string, Record<string, string>> = {
     'lucky-draw': 'Lucky Draw',
     'my-journey': 'My Journey',
     'success-stories': 'Success Stories',
-    blog: 'Blog'
+    blog: 'Blog',
   },
   es: {
     home: 'Inicio',
@@ -98,7 +105,7 @@ const translations: Record<string, Record<string, string>> = {
     'lucky-draw': 'Sorteo',
     'my-journey': 'Mi Viaje',
     'success-stories': 'Casos de Éxito',
-    blog: 'Blog'
+    blog: 'Blog',
   },
   fr: {
     home: 'Accueil',
@@ -114,13 +121,15 @@ const translations: Record<string, Record<string, string>> = {
     'lucky-draw': 'Tirage au sort',
     'my-journey': 'Mon Voyage',
     'success-stories': 'Témoignages',
-    blog: 'Blog'
-  }
+    blog: 'Blog',
+  },
   // Add more translations as needed
 };
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(languages[0]);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(
+    languages[0]
+  );
 
   useEffect(() => {
     const saved = localStorage.getItem('vanhsya-language');
@@ -139,16 +148,20 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   const translate = (key: string) => {
-    return translations[selectedLanguage.code]?.[key] || translations.en[key] || key;
+    return (
+      translations[selectedLanguage.code]?.[key] || translations.en[key] || key
+    );
   };
 
   return (
-    <LanguageContext.Provider value={{ 
-      selectedLanguage, 
-      setLanguage, 
-      translate, 
-      isRTL: selectedLanguage.rtl || false 
-    }}>
+    <LanguageContext.Provider
+      value={{
+        selectedLanguage,
+        setLanguage,
+        translate,
+        isRTL: selectedLanguage.rtl || false,
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
@@ -167,7 +180,10 @@ interface LanguageSelectorProps {
   variant?: 'default' | 'minimal' | 'icon-only';
 }
 
-export default function LanguageSelector({ className = '', variant = 'default' }: LanguageSelectorProps) {
+export default function LanguageSelector({
+  className = '',
+  variant = 'default',
+}: LanguageSelectorProps) {
   const { selectedLanguage, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -183,14 +199,14 @@ export default function LanguageSelector({ className = '', variant = 'default' }
     return (
       <div className={`relative ${className}`}>
         <button
-          onClick={(e) => {
+          onClick={e => {
             e.stopPropagation();
             setIsOpen(!isOpen);
           }}
-          className="flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200"
+          className='flex items-center justify-center w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-200'
           title={`Language: ${selectedLanguage.name}`}
         >
-          <span className="text-lg">{selectedLanguage.flag}</span>
+          <span className='text-lg'>{selectedLanguage.flag}</span>
         </button>
 
         <AnimatePresence>
@@ -200,9 +216,9 @@ export default function LanguageSelector({ className = '', variant = 'default' }
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.15 }}
-              className="absolute top-12 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 py-2 w-64 max-h-80 overflow-y-auto"
+              className='absolute top-12 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 py-2 w-64 max-h-80 overflow-y-auto'
             >
-              {languages.map((language) => (
+              {languages.map(language => (
                 <button
                   key={language.code}
                   onClick={() => {
@@ -210,13 +226,17 @@ export default function LanguageSelector({ className = '', variant = 'default' }
                     setIsOpen(false);
                   }}
                   className={`w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 ${
-                    selectedLanguage.code === language.code ? 'bg-purple-50 text-purple-700' : 'text-gray-700'
+                    selectedLanguage.code === language.code
+                      ? 'bg-purple-50 text-purple-700'
+                      : 'text-gray-700'
                   }`}
                 >
-                  <span className="text-lg">{language.flag}</span>
-                  <div className="flex-1">
-                    <div className="font-medium">{language.name}</div>
-                    <div className="text-sm text-gray-500">{language.nativeName}</div>
+                  <span className='text-lg'>{language.flag}</span>
+                  <div className='flex-1'>
+                    <div className='font-medium'>{language.name}</div>
+                    <div className='text-sm text-gray-500'>
+                      {language.nativeName}
+                    </div>
                   </div>
                 </button>
               ))}
@@ -230,21 +250,23 @@ export default function LanguageSelector({ className = '', variant = 'default' }
   return (
     <div className={`relative ${className}`}>
       <button
-        onClick={(e) => {
+        onClick={e => {
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
         className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-          variant === 'minimal' 
-            ? 'bg-transparent hover:bg-white/10 text-gray-700 hover:text-gray-900' 
+          variant === 'minimal'
+            ? 'bg-transparent hover:bg-white/10 text-gray-700 hover:text-gray-900'
             : 'bg-white/10 hover:bg-white/20 text-white'
         }`}
       >
-        <span className="text-lg">{selectedLanguage.flag}</span>
+        <span className='text-lg'>{selectedLanguage.flag}</span>
         {variant !== 'minimal' && (
           <>
-            <span className="font-medium text-sm">{selectedLanguage.name}</span>
-            <ChevronDownIcon className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            <span className='font-medium text-sm'>{selectedLanguage.name}</span>
+            <ChevronDownIcon
+              className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            />
           </>
         )}
       </button>
@@ -256,15 +278,15 @@ export default function LanguageSelector({ className = '', variant = 'default' }
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-12 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 py-2 w-72 max-h-80 overflow-y-auto"
+            className='absolute top-12 right-0 z-50 bg-white rounded-lg shadow-xl border border-gray-200 py-2 w-72 max-h-80 overflow-y-auto'
           >
-            <div className="px-4 py-2 border-b border-gray-100">
-              <div className="flex items-center gap-2 text-gray-700">
-                <LanguageIcon className="w-4 h-4" />
-                <span className="font-medium text-sm">Select Language</span>
+            <div className='px-4 py-2 border-b border-gray-100'>
+              <div className='flex items-center gap-2 text-gray-700'>
+                <LanguageIcon className='w-4 h-4' />
+                <span className='font-medium text-sm'>Select Language</span>
               </div>
             </div>
-            {languages.map((language) => (
+            {languages.map(language => (
               <button
                 key={language.code}
                 onClick={() => {
@@ -272,16 +294,20 @@ export default function LanguageSelector({ className = '', variant = 'default' }
                   setIsOpen(false);
                 }}
                 className={`w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors flex items-center gap-3 ${
-                  selectedLanguage.code === language.code ? 'bg-purple-50 text-purple-700' : 'text-gray-700'
+                  selectedLanguage.code === language.code
+                    ? 'bg-purple-50 text-purple-700'
+                    : 'text-gray-700'
                 }`}
               >
-                <span className="text-lg">{language.flag}</span>
-                <div className="flex-1">
-                  <div className="font-medium">{language.name}</div>
-                  <div className="text-sm text-gray-500">{language.nativeName}</div>
+                <span className='text-lg'>{language.flag}</span>
+                <div className='flex-1'>
+                  <div className='font-medium'>{language.name}</div>
+                  <div className='text-sm text-gray-500'>
+                    {language.nativeName}
+                  </div>
                 </div>
                 {selectedLanguage.code === language.code && (
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <div className='w-2 h-2 bg-purple-500 rounded-full'></div>
                 )}
               </button>
             ))}

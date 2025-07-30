@@ -3,7 +3,11 @@
 
 import { motion } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
-import { useIntersectionObserver, useMotionPreferences } from '@/hooks/useMotion';
+
+import {
+  useIntersectionObserver,
+  useMotionPreferences,
+} from '@/hooks/useMotion';
 
 interface AnimatedCardProps {
   children: ReactNode;
@@ -25,12 +29,15 @@ const AnimatedCard = ({
   onClick,
 }: AnimatedCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isVisible = useIntersectionObserver(cardRef as React.RefObject<Element>, 0.1);
+  const isVisible = useIntersectionObserver(
+    cardRef as React.RefObject<Element>,
+    0.1
+  );
   const { shouldAnimate } = useMotionPreferences();
 
   const getInitialPosition = () => {
     if (!shouldAnimate) return { opacity: 0 };
-    
+
     switch (direction) {
       case 'up':
         return { opacity: 0, y: 50 };
@@ -49,7 +56,7 @@ const AnimatedCard = ({
 
   const getAnimatePosition = () => {
     if (!shouldAnimate) return { opacity: 1 };
-    
+
     return {
       opacity: 1,
       x: 0,
@@ -58,15 +65,22 @@ const AnimatedCard = ({
     };
   };
 
-  const hoverAnimation = shouldAnimate && hover ? {
-    y: -5,
-    scale: 1.02,
-    boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-  } : {};
+  const hoverAnimation =
+    shouldAnimate && hover
+      ? {
+          y: -5,
+          scale: 1.02,
+          boxShadow:
+            '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        }
+      : {};
 
-  const tapAnimation = shouldAnimate && clickable ? {
-    scale: 0.98,
-  } : {};
+  const tapAnimation =
+    shouldAnimate && clickable
+      ? {
+          scale: 0.98,
+        }
+      : {};
 
   return (
     <motion.div
@@ -84,12 +98,16 @@ const AnimatedCard = ({
       onClick={onClick}
       role={clickable ? 'button' : undefined}
       tabIndex={clickable ? 0 : undefined}
-      onKeyDown={clickable ? (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick?.();
-        }
-      } : undefined}
+      onKeyDown={
+        clickable
+          ? e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick?.();
+              }
+            }
+          : undefined
+      }
     >
       {children}
     </motion.div>

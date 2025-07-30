@@ -18,7 +18,7 @@ export const useMotionPreferences = () => {
   useEffect(() => {
     // Check system preference for reduced motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setPreferences(prev => ({
         ...prev,

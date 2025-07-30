@@ -1,8 +1,25 @@
 // VANHSYA TypeScript Interfaces
 
-export type Currency = 'INR' | 'USD' | 'EUR' | 'GBP' | 'AED' | 'CAD' | 'AUD' | 'SGD';
+export type Currency =
+  | 'INR'
+  | 'USD'
+  | 'EUR'
+  | 'GBP'
+  | 'AED'
+  | 'CAD'
+  | 'AUD'
+  | 'SGD';
 
-export type Language = 'en' | 'ar' | 'hi' | 'ur' | 'fr' | 'es' | 'de' | 'ml' | 'zh';
+export type Language =
+  | 'en'
+  | 'ar'
+  | 'hi'
+  | 'ur'
+  | 'fr'
+  | 'es'
+  | 'de'
+  | 'ml'
+  | 'zh';
 
 export interface PricingStructure {
   INR: number;
@@ -78,7 +95,12 @@ export interface Case {
   id: string;
   userId: string;
   serviceId: string;
-  status: 'submitted' | 'in-review' | 'documents-required' | 'approved' | 'rejected';
+  status:
+    | 'submitted'
+    | 'in-review'
+    | 'documents-required'
+    | 'approved'
+    | 'rejected';
   submissionDate: Date;
   expectedCompletion?: Date;
   assignedConsultant?: string;

@@ -3,7 +3,13 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaMapMarkerAlt, FaClock, FaDollarSign, FaArrowRight, FaInfoCircle } from 'react-icons/fa';
+import {
+  FaMapMarkerAlt,
+  FaClock,
+  FaDollarSign,
+  FaArrowRight,
+  FaInfoCircle,
+} from 'react-icons/fa';
 
 interface CountryCardProps {
   name: string;
@@ -26,7 +32,7 @@ const CountryCard: React.FC<CountryCardProps> = ({
   estimatedCost,
   keyRequirements,
   isPopular = false,
-  href
+  href,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -37,48 +43,54 @@ const CountryCard: React.FC<CountryCardProps> = ({
       className={`relative card h-auto ${isPopular ? 'ring-2 ring-amber-400' : ''}`}
     >
       {isPopular && (
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+        <div className='absolute -top-3 left-1/2 transform -translate-x-1/2'>
+          <span className='bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-semibold'>
             Most Popular
           </span>
         </div>
       )}
 
-      <div className="flex items-center mb-4">
-        <span className="text-4xl mr-4">{flag}</span>
+      <div className='flex items-center mb-4'>
+        <span className='text-4xl mr-4'>{flag}</span>
         <div>
-          <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
-          <p className="text-sm text-gray-500">Immigration Destination</p>
+          <h3 className='text-xl font-semibold text-gray-800'>{name}</h3>
+          <p className='text-sm text-gray-500'>Immigration Destination</p>
         </div>
       </div>
 
-      <p className="text-gray-600 mb-4 leading-relaxed">{description}</p>
+      <p className='text-gray-600 mb-4 leading-relaxed'>{description}</p>
 
-      <div className="space-y-3 mb-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center text-sm text-gray-500">
-            <FaClock className="mr-2" />
+      <div className='space-y-3 mb-4'>
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center text-sm text-gray-500'>
+            <FaClock className='mr-2' />
             Processing Time:
           </div>
-          <span className="text-sm font-medium text-gray-800">{averageProcessingTime}</span>
+          <span className='text-sm font-medium text-gray-800'>
+            {averageProcessingTime}
+          </span>
         </div>
-        
-        <div className="flex items-center justify-between">
-          <div className="flex items-center text-sm text-gray-500">
-            <FaDollarSign className="mr-2" />
+
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center text-sm text-gray-500'>
+            <FaDollarSign className='mr-2' />
             Starting from:
           </div>
-          <span className="text-lg font-bold text-blue-600">{estimatedCost}</span>
+          <span className='text-lg font-bold text-blue-600'>
+            {estimatedCost}
+          </span>
         </div>
       </div>
 
-      <div className="mb-4">
-        <h4 className="text-sm font-semibold text-gray-800 mb-2">Popular Visa Types:</h4>
-        <div className="flex flex-wrap gap-2">
+      <div className='mb-4'>
+        <h4 className='text-sm font-semibold text-gray-800 mb-2'>
+          Popular Visa Types:
+        </h4>
+        <div className='flex flex-wrap gap-2'>
           {popularVisas.map((visa, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full"
+              className='px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full'
             >
               {visa}
             </span>
@@ -88,9 +100,9 @@ const CountryCard: React.FC<CountryCardProps> = ({
 
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center text-sm text-blue-600 hover:text-blue-700 mb-4"
+        className='flex items-center text-sm text-blue-600 hover:text-blue-700 mb-4'
       >
-        <FaInfoCircle className="mr-2" />
+        <FaInfoCircle className='mr-2' />
         {isExpanded ? 'Hide Requirements' : 'View Key Requirements'}
       </motion.button>
 
@@ -100,13 +112,18 @@ const CountryCard: React.FC<CountryCardProps> = ({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="mb-4"
+            className='mb-4'
           >
-            <h5 className="text-sm font-semibold text-gray-800 mb-2">Key Requirements:</h5>
-            <ul className="space-y-1">
+            <h5 className='text-sm font-semibold text-gray-800 mb-2'>
+              Key Requirements:
+            </h5>
+            <ul className='space-y-1'>
               {keyRequirements.map((requirement, index) => (
-                <li key={index} className="text-sm text-gray-600 flex items-start">
-                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0"></div>
+                <li
+                  key={index}
+                  className='text-sm text-gray-600 flex items-start'
+                >
+                  <div className='w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-2 flex-shrink-0'></div>
                   {requirement}
                 </li>
               ))}
@@ -119,10 +136,10 @@ const CountryCard: React.FC<CountryCardProps> = ({
         href={href}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="btn-primary w-full group inline-flex items-center justify-center mt-auto"
+        className='btn-primary w-full group inline-flex items-center justify-center mt-auto'
       >
         Explore {name}
-        <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+        <FaArrowRight className='ml-2 group-hover:translate-x-1 transition-transform' />
       </motion.a>
     </motion.div>
   );
@@ -136,7 +153,8 @@ const CountriesSection: React.FC = () => {
       name: 'Canada',
       flag: '🇨🇦',
       region: 'north-america',
-      description: 'Known for its welcoming immigration policies, excellent healthcare, and high quality of life. Canada offers multiple pathways to permanent residency.',
+      description:
+        'Known for its welcoming immigration policies, excellent healthcare, and high quality of life. Canada offers multiple pathways to permanent residency.',
       popularVisas: ['Express Entry', 'PNP', 'Family Class', 'Work Permit'],
       averageProcessingTime: '6-12 months',
       estimatedCost: '$1,500',
@@ -145,17 +163,23 @@ const CountriesSection: React.FC = () => {
         'Educational credential assessment',
         'Work experience documentation',
         'Medical examination',
-        'Police clearance certificates'
+        'Police clearance certificates',
       ],
       isPopular: true,
-      href: '/countries/canada'
+      href: '/countries/canada',
     },
     {
       name: 'Australia',
       flag: '🇦🇺',
       region: 'oceania',
-      description: 'Offers a points-based immigration system with excellent opportunities for skilled workers in a vibrant, multicultural society.',
-      popularVisas: ['Skilled Independent', 'Employer Sponsored', 'Student Visa', 'Partner Visa'],
+      description:
+        'Offers a points-based immigration system with excellent opportunities for skilled workers in a vibrant, multicultural society.',
+      popularVisas: [
+        'Skilled Independent',
+        'Employer Sponsored',
+        'Student Visa',
+        'Partner Visa',
+      ],
       averageProcessingTime: '8-15 months',
       estimatedCost: '$2,000',
       keyRequirements: [
@@ -163,15 +187,16 @@ const CountriesSection: React.FC = () => {
         'English language test (IELTS/PTE)',
         'Health insurance',
         'Character requirements',
-        'Age requirements (under 45 for most visas)'
+        'Age requirements (under 45 for most visas)',
       ],
-      href: '/countries/australia'
+      href: '/countries/australia',
     },
     {
       name: 'United States',
       flag: '🇺🇸',
       region: 'north-america',
-      description: 'The land of opportunity with diverse visa options for work, study, investment, and family reunification.',
+      description:
+        'The land of opportunity with diverse visa options for work, study, investment, and family reunification.',
       popularVisas: ['H-1B', 'L-1', 'EB-5', 'F-1', 'Family Based'],
       averageProcessingTime: '8-24 months',
       estimatedCost: '$2,500',
@@ -180,16 +205,22 @@ const CountriesSection: React.FC = () => {
         'Financial documentation',
         'Medical examination',
         'Interview at US consulate',
-        'Background checks'
+        'Background checks',
       ],
-      href: '/countries/usa'
+      href: '/countries/usa',
     },
     {
       name: 'United Kingdom',
       flag: '🇬🇧',
       region: 'europe',
-      description: 'Rich in history and culture, the UK offers pathways for skilled workers, students, and investors.',
-      popularVisas: ['Skilled Worker', 'Student Visa', 'Investor Visa', 'Family Visa'],
+      description:
+        'Rich in history and culture, the UK offers pathways for skilled workers, students, and investors.',
+      popularVisas: [
+        'Skilled Worker',
+        'Student Visa',
+        'Investor Visa',
+        'Family Visa',
+      ],
       averageProcessingTime: '3-8 weeks',
       estimatedCost: '$1,800',
       keyRequirements: [
@@ -197,16 +228,22 @@ const CountriesSection: React.FC = () => {
         'English language requirement',
         'Financial requirements',
         'Tuberculosis test',
-        'Criminal record check'
+        'Criminal record check',
       ],
-      href: '/countries/uk'
+      href: '/countries/uk',
     },
     {
       name: 'Germany',
       flag: '🇩🇪',
       region: 'europe',
-      description: 'Europes economic powerhouse with strong job market and excellent social benefits for residents.',
-      popularVisas: ['EU Blue Card', 'Job Seeker Visa', 'Student Visa', 'Family Reunion'],
+      description:
+        'Europes economic powerhouse with strong job market and excellent social benefits for residents.',
+      popularVisas: [
+        'EU Blue Card',
+        'Job Seeker Visa',
+        'Student Visa',
+        'Family Reunion',
+      ],
       averageProcessingTime: '4-12 weeks',
       estimatedCost: '$1,200',
       keyRequirements: [
@@ -214,16 +251,22 @@ const CountriesSection: React.FC = () => {
         'German language skills',
         'Job offer or qualification',
         'Health insurance',
-        'Financial proof'
+        'Financial proof',
       ],
-      href: '/countries/germany'
+      href: '/countries/germany',
     },
     {
       name: 'New Zealand',
       flag: '🇳🇿',
       region: 'oceania',
-      description: 'Known for its stunning landscapes and work-life balance, offering clear pathways to residency.',
-      popularVisas: ['Skilled Migrant', 'Work to Residence', 'Student Visa', 'Partner Visa'],
+      description:
+        'Known for its stunning landscapes and work-life balance, offering clear pathways to residency.',
+      popularVisas: [
+        'Skilled Migrant',
+        'Work to Residence',
+        'Student Visa',
+        'Partner Visa',
+      ],
       averageProcessingTime: '6-18 months',
       estimatedCost: '$1,600',
       keyRequirements: [
@@ -231,43 +274,45 @@ const CountriesSection: React.FC = () => {
         'English language proficiency',
         'Health and character requirements',
         'Age requirements',
-        'Skilled employment offer'
+        'Skilled employment offer',
       ],
-      href: '/countries/new-zealand'
-    }
+      href: '/countries/new-zealand',
+    },
   ];
 
   const regions = [
     { value: 'all', label: 'All Countries' },
     { value: 'north-america', label: 'North America' },
     { value: 'europe', label: 'Europe' },
-    { value: 'oceania', label: 'Oceania' }
+    { value: 'oceania', label: 'Oceania' },
   ];
 
-  const filteredCountries = selectedRegion === 'all' 
-    ? countries 
-    : countries.filter(country => country.region === selectedRegion);
+  const filteredCountries =
+    selectedRegion === 'all'
+      ? countries
+      : countries.filter(country => country.region === selectedRegion);
 
   return (
-    <section className="section-padding bg-gray-50">
-      <div className="container-max">
+    <section className='section-padding bg-gray-50'>
+      <div className='container-max'>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className='text-center mb-16'
         >
-          <h2 className="heading-lg mb-6">
-            <span className="gradient-text">Global Destinations</span> We Serve
+          <h2 className='heading-lg mb-6'>
+            <span className='gradient-text'>Global Destinations</span> We Serve
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            Explore immigration opportunities across the worlds most sought-after destinations. 
-            Each country offers unique pathways to achieve your global mobility goals.
+          <p className='text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8'>
+            Explore immigration opportunities across the worlds most
+            sought-after destinations. Each country offers unique pathways to
+            achieve your global mobility goals.
           </p>
 
           {/* Region Filter */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {regions.map((region) => (
+          <div className='flex flex-wrap justify-center gap-4'>
+            {regions.map(region => (
               <motion.button
                 key={region.value}
                 whileHover={{ scale: 1.05 }}
@@ -285,8 +330,11 @@ const CountriesSection: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
+        <motion.div
+          layout
+          className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+        >
+          <AnimatePresence mode='popLayout'>
             {filteredCountries.map((country, index) => (
               <motion.div
                 key={country.name}
@@ -306,22 +354,23 @@ const CountriesSection: React.FC = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className='text-center mt-16'
         >
-          <div className="bg-white rounded-2xl p-8 shadow-sm">
-            <FaMapMarkerAlt className="text-4xl text-blue-600 mx-auto mb-4" />
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+          <div className='bg-white rounded-2xl p-8 shadow-sm'>
+            <FaMapMarkerAlt className='text-4xl text-blue-600 mx-auto mb-4' />
+            <h3 className='text-2xl font-semibold text-gray-800 mb-4'>
               Dont See Your Preferred Destination?
             </h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              We provide immigration services for many additional countries not listed here. 
-              Contact our experts to discuss your specific destination and requirements.
+            <p className='text-gray-600 mb-6 max-w-2xl mx-auto'>
+              We provide immigration services for many additional countries not
+              listed here. Contact our experts to discuss your specific
+              destination and requirements.
             </p>
             <motion.a
-              href="/contact"
+              href='/contact'
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-primary"
+              className='btn-primary'
             >
               Request Custom Consultation
             </motion.a>

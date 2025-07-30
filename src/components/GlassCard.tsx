@@ -12,25 +12,25 @@ interface GlassCardProps {
   onClick?: () => void;
 }
 
-export default function GlassCard({ 
-  children, 
-  className = '', 
+export default function GlassCard({
+  children,
+  className = '',
   hover = true,
   blur = 'md',
   opacity = 'medium',
-  onClick
+  onClick,
 }: GlassCardProps) {
   const blurClasses = {
     sm: 'backdrop-blur-sm',
     md: 'backdrop-blur-md',
     lg: 'backdrop-blur-lg',
-    xl: 'backdrop-blur-xl'
+    xl: 'backdrop-blur-xl',
   };
 
   const opacityClasses = {
     low: 'bg-white/5',
     medium: 'bg-white/10',
-    high: 'bg-white/20'
+    high: 'bg-white/20',
   };
 
   return (
@@ -63,37 +63,47 @@ export default function GlassCard({
 }
 
 // Specialized Glass Card Variants
-export function GlassServiceCard({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function GlassServiceCard({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <GlassCard 
+    <GlassCard
       className={`group cursor-pointer ${className}`}
-      blur="lg"
-      opacity="medium"
+      blur='lg'
+      opacity='medium'
     >
       {children}
     </GlassCard>
   );
 }
 
-export function GlassStatCard({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function GlassStatCard({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <GlassCard 
-      className={`text-center ${className}`}
-      blur="md"
-      opacity="high"
-    >
+    <GlassCard className={`text-center ${className}`} blur='md' opacity='high'>
       {children}
     </GlassCard>
   );
 }
 
-export function GlassFeatureCard({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function GlassFeatureCard({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <GlassCard 
-      className={`h-full ${className}`}
-      blur="lg"
-      opacity="medium"
-    >
+    <GlassCard className={`h-full ${className}`} blur='lg' opacity='medium'>
       {children}
     </GlassCard>
   );

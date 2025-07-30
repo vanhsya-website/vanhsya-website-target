@@ -21,7 +21,10 @@ class SeededRandom {
 // Cache for consistent values per component instance
 const randomCache = new Map<string, SeededRandom>();
 
-export function getDeterministicRandom(key: string, seed: number = 12345): SeededRandom {
+export function getDeterministicRandom(
+  key: string,
+  seed: number = 12345
+): SeededRandom {
   if (!randomCache.has(key)) {
     randomCache.set(key, new SeededRandom(seed));
   }
@@ -30,7 +33,7 @@ export function getDeterministicRandom(key: string, seed: number = 12345): Seede
 
 export function generateFloatingElements(count: number, componentKey: string) {
   const rng = getDeterministicRandom(componentKey);
-  
+
   return Array.from({ length: count }, (_, i) => ({
     id: i,
     left: rng.next() * 100,
@@ -41,9 +44,12 @@ export function generateFloatingElements(count: number, componentKey: string) {
   }));
 }
 
-export function generateAnimationVariations(componentKey: string, index: number) {
+export function generateAnimationVariations(
+  componentKey: string,
+  index: number
+) {
   const rng = getDeterministicRandom(`${componentKey}-${index}`);
-  
+
   return {
     x: [0, (rng.next() - 0.5) * 60, 0],
     y: [0, -30, 0],

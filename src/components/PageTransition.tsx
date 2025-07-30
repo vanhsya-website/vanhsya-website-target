@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
+
 import { useMotionPreferences } from '@/hooks/useMotion';
 
 interface PageTransitionProps {
@@ -51,15 +52,15 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const transition = shouldAnimate ? pageTransition : reducedMotionTransition;
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode='wait' initial={false}>
       <motion.div
         key={pathname}
-        initial="initial"
-        animate="in"
-        exit="out"
+        initial='initial'
+        animate='in'
+        exit='out'
         variants={variants}
         transition={transition}
-        className="min-h-screen"
+        className='min-h-screen'
       >
         {children}
       </motion.div>

@@ -22,7 +22,7 @@ export const SERVICES: Service[] = [
     gallery: [
       '/images/gallery/university-campus.jpg',
       '/images/gallery/graduation-ceremony.jpg',
-      '/images/gallery/student-life.jpg'
+      '/images/gallery/student-life.jpg',
     ],
     features: [
       'University selection and application guidance',
@@ -34,12 +34,12 @@ export const SERVICES: Service[] = [
       'Scholarship identification and application',
       'Course credit evaluation',
       'Student accommodation assistance',
-      'Health insurance guidance'
+      'Health insurance guidance',
     ],
     pricing: createPricing(150000),
     countries: ['CA', 'AU', 'GB', 'US', 'DE', 'NZ', 'SG'],
     processing_time: '4-12 weeks',
-    success_rate: 92
+    success_rate: 92,
   },
   {
     id: 'work-visa',
@@ -50,7 +50,7 @@ export const SERVICES: Service[] = [
     gallery: [
       '/images/gallery/office-professional.jpg',
       '/images/gallery/business-meeting.jpg',
-      '/images/gallery/workplace-diversity.jpg'
+      '/images/gallery/workplace-diversity.jpg',
     ],
     features: [
       'Job market analysis and opportunities',
@@ -62,12 +62,12 @@ export const SERVICES: Service[] = [
       'Family visa applications',
       'Work authorization documentation',
       'Professional licensing guidance',
-      'Career transition support'
+      'Career transition support',
     ],
     pricing: createPricing(200000),
     countries: ['CA', 'AU', 'GB', 'US', 'DE', 'NZ', 'SG', 'AE'],
     processing_time: '2-8 weeks',
-    success_rate: 89
+    success_rate: 89,
   },
   {
     id: 'business-visa',
@@ -78,7 +78,7 @@ export const SERVICES: Service[] = [
     gallery: [
       '/images/gallery/business-handshake.jpg',
       '/images/gallery/investment-meeting.jpg',
-      '/images/gallery/corporate-office.jpg'
+      '/images/gallery/corporate-office.jpg',
     ],
     features: [
       'Business plan development and review',
@@ -90,12 +90,12 @@ export const SERVICES: Service[] = [
       'Banking and financial setup',
       'Local partnership facilitation',
       'Business registration support',
-      'Ongoing business advisory services'
+      'Ongoing business advisory services',
     ],
     pricing: createPricing(300000),
     countries: ['CA', 'AU', 'GB', 'US', 'SG', 'AE'],
     processing_time: '3-12 weeks',
-    success_rate: 85
+    success_rate: 85,
   },
   {
     id: 'family-visa',
@@ -106,7 +106,7 @@ export const SERVICES: Service[] = [
     gallery: [
       '/images/gallery/happy-family.jpg',
       '/images/gallery/family-reunion.jpg',
-      '/images/gallery/family-celebration.jpg'
+      '/images/gallery/family-celebration.jpg',
     ],
     features: [
       'Relationship documentation assistance',
@@ -118,12 +118,12 @@ export const SERVICES: Service[] = [
       'Family reunification planning',
       'Settlement services coordination',
       'Translation and notarization services',
-      'Ongoing case monitoring'
+      'Ongoing case monitoring',
     ],
     pricing: createPricing(120000),
     countries: ['CA', 'AU', 'GB', 'US', 'NZ'],
     processing_time: '6-18 months',
-    success_rate: 94
+    success_rate: 94,
   },
   {
     id: 'tourist-visa',
@@ -134,7 +134,7 @@ export const SERVICES: Service[] = [
     gallery: [
       '/images/gallery/tourist-destination.jpg',
       '/images/gallery/travel-adventure.jpg',
-      '/images/gallery/vacation-moments.jpg'
+      '/images/gallery/vacation-moments.jpg',
     ],
     features: [
       'Travel itinerary planning assistance',
@@ -146,12 +146,12 @@ export const SERVICES: Service[] = [
       'Currency and banking guidance',
       'Emergency contact setup',
       'Travel safety briefing',
-      '24/7 travel support hotline'
+      '24/7 travel support hotline',
     ],
     pricing: createPricing(25000),
     countries: ['US', 'GB', 'CA', 'AU', 'DE', 'FR', 'IT', 'JP', 'SG', 'AE'],
     processing_time: '1-4 weeks',
-    success_rate: 96
+    success_rate: 96,
   },
   {
     id: 'permanent-residence',
@@ -162,7 +162,7 @@ export const SERVICES: Service[] = [
     gallery: [
       '/images/gallery/new-home.jpg',
       '/images/gallery/citizenship-ceremony.jpg',
-      '/images/gallery/permanent-resident-card.jpg'
+      '/images/gallery/permanent-resident-card.jpg',
     ],
     features: [
       'Permanent residence pathway assessment',
@@ -174,13 +174,13 @@ export const SERVICES: Service[] = [
       'Document authentication services',
       'Legal representation if required',
       'Settlement service connections',
-      'Long-term immigration planning'
+      'Long-term immigration planning',
     ],
     pricing: createPricing(400000),
     countries: ['CA', 'AU', 'NZ', 'US'],
     processing_time: '6-24 months',
-    success_rate: 87
-  }
+    success_rate: 87,
+  },
 ];
 
 // Helper function to get service by ID
@@ -190,9 +190,11 @@ export const getServiceById = (id: string): Service | undefined => {
 
 // Helper function to get services by category
 export const getServicesByCategory = (category: string): Service[] => {
-  return SERVICES.filter(service => service.features.some(feature => 
-    feature.toLowerCase().includes(category.toLowerCase())
-  ));
+  return SERVICES.filter(service =>
+    service.features.some(feature =>
+      feature.toLowerCase().includes(category.toLowerCase())
+    )
+  );
 };
 
 // Helper function to get popular services

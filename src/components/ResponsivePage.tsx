@@ -1,8 +1,13 @@
 'use client';
 
 import React from 'react';
-import { ResponsiveContainer, useDeviceType, useSafeArea } from './ResponsiveUtils';
 import { motion } from 'framer-motion';
+
+import {
+  ResponsiveContainer,
+  useDeviceType,
+  useSafeArea,
+} from './ResponsiveUtils';
 
 interface ResponsivePageProps {
   children: React.ReactNode;
@@ -26,16 +31,17 @@ const ResponsivePage: React.FC<ResponsivePageProps> = ({
 
   const pageVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0
-    }
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
   };
 
   const backgroundClasses = {
     default: 'bg-slate-900',
     gradient: 'bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-800',
-    pattern: 'bg-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-slate-900',
+    pattern:
+      'bg-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-slate-900',
   };
 
   const deviceSpecificClasses = {
@@ -54,7 +60,7 @@ const ResponsivePage: React.FC<ResponsivePageProps> = ({
   };
 
   const PageContent = (
-    <div 
+    <div
       className={`
         ${backgroundClasses[backgroundVariant]} 
         ${deviceSpecificClasses[deviceType]} 
@@ -74,11 +80,7 @@ const ResponsivePage: React.FC<ResponsivePageProps> = ({
 
   if (withAnimation) {
     return (
-      <motion.div
-        variants={pageVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <motion.div variants={pageVariants} initial='hidden' animate='visible'>
         {PageContent}
       </motion.div>
     );
@@ -131,13 +133,15 @@ export const ResponsiveSection: React.FC<ResponsiveSectionProps> = ({
   };
 
   return (
-    <section className={`
+    <section
+      className={`
       ${spacingClasses[spacing]} 
       ${backgroundClasses[background]} 
       ${centerClasses}
       ${deviceAdjustments[deviceType]}
       ${className}
-    `}>
+    `}
+    >
       {children}
     </section>
   );
@@ -176,8 +180,8 @@ export const ResponsiveCard: React.FC<ResponsiveCardProps> = ({
     lg: 'p-6 sm:p-8 md:p-10',
   };
 
-  const interactiveClasses = interactive 
-    ? isTouchDevice 
+  const interactiveClasses = interactive
+    ? isTouchDevice
       ? 'hover:shadow-hover active:scale-[0.98] transition-all duration-200 cursor-pointer'
       : 'hover:shadow-hover hover:-translate-y-1 transition-all duration-200 cursor-pointer'
     : '';
@@ -197,11 +201,7 @@ export const ResponsiveCard: React.FC<ResponsiveCardProps> = ({
     );
   }
 
-  return (
-    <div className={cardClasses}>
-      {children}
-    </div>
-  );
+  return <div className={cardClasses}>{children}</div>;
 };
 
 // Typography component with responsive sizing
@@ -256,13 +256,15 @@ export const ResponsiveText: React.FC<ResponsiveTextProps> = ({
   const centerClasses = centered ? 'text-center' : '';
 
   return (
-    <Component className={`
+    <Component
+      className={`
       ${sizeClasses[size]} 
       ${weightClasses[weight]} 
       ${colorClasses[color]} 
       ${centerClasses}
       ${className}
-    `}>
+    `}
+    >
       {children}
     </Component>
   );
