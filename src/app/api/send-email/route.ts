@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import sgMail from '@sendgrid/mail'
 
+// Configure for static export
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 // Configure SendGrid with API key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!)
 

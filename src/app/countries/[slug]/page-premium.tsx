@@ -7,7 +7,13 @@ import PremiumLayout from '@/components/PremiumLayout';
 
 import OriginalPage from './page';
 
-export default function PremiumPage() {
+interface PremiumPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export default function PremiumPage({ params }: PremiumPageProps) {
   const pageName = '[slug]';
   const formattedTitle = pageName
     .split('-')
@@ -25,7 +31,7 @@ export default function PremiumPage() {
         title={formattedTitle !== 'App' ? formattedTitle : 'VANHSYA Global Migration'} 
         subtitle="Your gateway to global opportunities"
       >
-        <OriginalPage />
+        <OriginalPage params={params} />
       </PremiumLayout>
     </motion.div>
   );
