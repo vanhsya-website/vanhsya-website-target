@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Configure for static export compatibility
+export const dynamic = 'force-static';
+
 export async function POST(request: NextRequest) {
   const _body = await request.json();
   

@@ -1,42 +1,34 @@
-'use client';
+import { notFound } from 'next/navigation';
 
-import { useParams } from 'next/navigation';
-import { motion } from 'framer-motion';
-
+import { countryData } from '@/data/countryData';
 import BackNavigation from '@/components/BackNavigation';
 import Footer from '@/components/Footer';
-import CountryPageTemplate from '@/components/CountryPageTemplate';
-import { countryData } from '@/data/countryData';
+import CountryPageClient from '@/components/CountryPageClient';
 
-export default function CountryPage() {
-  const params = useParams();
-  const slug = params?.slug as string;
+// Generate static paths for all countries
+export async function generateStaticParams() {
+  const countries = Object.keys(countryData);
+  return countries.map((slug) => ({
+    slug,
+  }));
+}
 
+interface CountryPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function CountryPage({ params }: CountryPageProps) {
+  const { slug } = await params;
   const country = countryData[slug as keyof typeof countryData];
 
   if (!country) {
-    return (
-      <div className='min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'>
-        <BackNavigation />
-        <div className='pt-32 pb-20 text-center text-white'>
-          <h1 className='text-4xl font-bold mb-4'>Country Not Found</h1>
-          <p>The country you're looking for doesn't exist.</p>
-        </div>
-        <Footer />
-      </div>
-    );
+    notFound();
   }
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900'>
       <BackNavigation />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <CountryPageTemplate countryData={country} />
-      </motion.div>
+      <CountryPageClient countryData={country} />
       <Footer />
     </div>
   );

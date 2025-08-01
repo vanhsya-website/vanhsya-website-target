@@ -8,6 +8,17 @@
 			"group": "build",
 			"isBackground": true,
 			"problemMatcher": []
+		},
+		{
+			"type": "npm",
+			"script": "dev:open",
+			"problemMatcher": [],
+			"label": "npm: dev:open",
+			"detail": "next dev -p 3000 --hostname 0.0.0.0",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }

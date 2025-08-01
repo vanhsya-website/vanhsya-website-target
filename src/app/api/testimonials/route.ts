@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { successStories } from '@/lib/data/successStories';
 
+// Configure for static export compatibility
+export const dynamic = 'force-static';
+
 export async function GET() {
   try {
     // Transform success stories to match the expected testimonial format

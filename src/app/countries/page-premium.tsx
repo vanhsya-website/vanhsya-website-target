@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 import PremiumLayout from '@/components/PremiumLayout';
 
-import OriginalPage from './page';
+import OriginalPage from './page-updated';
 
 export default function PremiumPage() {
   const pageName = 'countries';

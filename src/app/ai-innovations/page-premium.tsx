@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 import PremiumLayout from '@/components/PremiumLayout';
 
-import OriginalPage from './page';
+import AIInnovationsPage from './page';
 
 export default function PremiumPage() {
   const pageName = 'ai-innovations';
@@ -25,7 +25,7 @@ export default function PremiumPage() {
         title={formattedTitle !== 'App' ? formattedTitle : 'VANHSYA Global Migration'} 
         subtitle="Your gateway to global opportunities"
       >
-        <OriginalPage />
+        <AIInnovationsPage />
       </PremiumLayout>
     </motion.div>
   );
