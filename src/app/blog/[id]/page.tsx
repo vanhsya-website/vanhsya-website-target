@@ -29,6 +29,15 @@ import {
   migrationBlogCategories,
 } from '@/lib/data/blogContent';
 
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+export async function generateStaticParams() {
+  return comprehensiveBlogPosts.map((post) => ({
+    id: post.id,
+  }));
+}
+
 export default function BlogPostPage() {
   const params = useParams();
   const postId = params.id as string;
