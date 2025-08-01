@@ -9,7 +9,16 @@
 
 ## 📋 Project Overview
 
-**VANHSYA Global Migration** - Expert migration & visa services platform built with Next.js 15, TypeScript, and Framer Motion.
+# VANHSYA Website - Enhanced Version
+
+A modern, AI-enhanced responsive website for VANHSYA work visa consultancy services built with Next.js 15, React 19, and TypeScript.
+
+## 🚀 Enhanced Features
+- AI-powered work visa page with interactive animations
+- Apple-inspired modern design
+- Revolutionary animations with Framer Motion
+- WebGL integration for immersive experiences
+- Optimized performance and SEO
 
 ### 🚀 Current Status: 70% Complete
 
