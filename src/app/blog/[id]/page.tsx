@@ -14,11 +14,12 @@ export async function generateStaticParams() {
 }
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  return <BlogPostClient postId={params.id} />;
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { id } = await params;
+  return <BlogPostClient postId={id} />;
 }
