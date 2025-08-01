@@ -1,692 +1,525 @@
 'use client';
-import React from 'react';
-import { motion } from 'framer-motion';
+
+import React, { useState, useRef } from 'react';
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import {
-  FaGraduationCap,
-  FaCheck,
-  FaClock,
-  FaDollarSign,
-  FaUniversity,
-  FaGlobe,
-  FaBookOpen,
-  FaAward,
-  FaCalculator,
-  FaPhoneAlt,
-} from 'react-icons/fa';
+  GraduationCap, ArrowRight, CheckCircle, Clock,
+  Brain, Shield, FileText, Phone,
+  ArrowLeft, X, Bot,
+  TrendingUp, Target, Database,
+  DollarSign, School
+} from 'lucide-react';
 
-import Footer from '@/components/Footer';
-import BackNavigation from '@/components/BackNavigation';
-import { getServiceById } from '@/lib/services';
+// AI-Enhanced Study Visa Service Data
+const studyVisaData = {
+  hero: {
+    title: 'AI-Powered Study Visa Solutions',
+    subtitle: 'Revolutionizing international education with artificial intelligence',
+    description: 'Our neural network analyzes thousands of successful study visa applications and matches you with the perfect educational pathway for global success.',
+    stats: {
+      successRate: '97.4%',
+      avgProcessingTime: '2-6 months',
+      universitiesPartnered: '500+',
+      aiAccuracy: '98.9%'
+    }
+  },
+  countries: [
+    {
+      name: 'Canada',
+      flag: '🇨🇦',
+      aiScore: 97,
+      programs: [
+        { name: 'Undergraduate Programs', difficulty: 'Medium', processing: '4-8 weeks', success: '92%' },
+        { name: 'Graduate Programs', difficulty: 'Medium', processing: '6-12 weeks', success: '89%' },
+        { name: 'Diploma Programs', difficulty: 'Easy', processing: '3-6 weeks', success: '95%' },
+        { name: 'PhD Programs', difficulty: 'Hard', processing: '8-16 weeks', success: '84%' }
+      ],
+      requirements: {
+        language: 'IELTS 6.0+ / TOEFL 80+',
+        education: 'High school diploma or equivalent',
+        funds: 'CAD $15,000-35,000/year',
+        gpa: '3.0+ GPA recommended'
+      },
+      benefits: [
+        'Post-graduation work permits',
+        'Pathway to permanent residence',
+        'World-class education system',
+        'Affordable tuition fees',
+        'Multicultural environment'
+      ],
+      tuitionRange: '$15,000 - $35,000 CAD/year',
+      livingCost: '$12,000 - $18,000 CAD/year',
+      workRights: '20 hours/week during studies',
+      aiPrediction: 'Excellent for STEM and healthcare programs'
+    },
+    {
+      name: 'Australia',
+      flag: '🇦🇺',
+      aiScore: 94,
+      programs: [
+        { name: 'Bachelor Degrees', difficulty: 'Medium', processing: '4-8 weeks', success: '88%' },
+        { name: 'Master Programs', difficulty: 'Medium', processing: '6-10 weeks', success: '85%' },
+        { name: 'VET Courses', difficulty: 'Easy', processing: '2-4 weeks', success: '93%' },
+        { name: 'Research Degrees', difficulty: 'Hard', processing: '8-12 weeks', success: '79%' }
+      ],
+      requirements: {
+        language: 'IELTS 6.0+ / TOEFL 79+',
+        education: 'Year 12 or equivalent',
+        funds: 'AUD $20,000-45,000/year',
+        gpa: 'Strong academic record'
+      },
+      benefits: [
+        'High-quality education',
+        'Post-study work opportunities',
+        'Excellent research facilities',
+        'Vibrant student life',
+        'Strong job market'
+      ],
+      tuitionRange: '$20,000 - $45,000 AUD/year',
+      livingCost: '$18,000 - $25,000 AUD/year',
+      workRights: '48 hours/fortnight during studies',
+      aiPrediction: 'Great for business and engineering'
+    },
+    {
+      name: 'United Kingdom',
+      flag: '🇬🇧',
+      aiScore: 91,
+      programs: [
+        { name: 'Undergraduate Courses', difficulty: 'Medium', processing: '3-8 weeks', success: '86%' },
+        { name: 'Postgraduate Programs', difficulty: 'Medium', processing: '4-10 weeks', success: '82%' },
+        { name: 'Foundation Courses', difficulty: 'Easy', processing: '2-6 weeks', success: '91%' },
+        { name: 'PhD Programs', difficulty: 'Hard', processing: '6-12 weeks', success: '77%' }
+      ],
+      requirements: {
+        language: 'IELTS 6.0+ / TOEFL 80+',
+        education: 'A-levels or equivalent',
+        funds: '£15,000-40,000/year',
+        gpa: 'Good academic standing'
+      },
+      benefits: [
+        'World-renowned universities',
+        'Graduate route visa',
+        'Rich cultural heritage',
+        'Global recognition',
+        'Research excellence'
+      ],
+      tuitionRange: '£15,000 - £40,000 GBP/year',
+      livingCost: '£12,000 - £20,000 GBP/year',
+      workRights: '20 hours/week during studies',
+      aiPrediction: 'Strong for humanities and business'
+    },
+    {
+      name: 'United States',
+      flag: '🇺🇸',
+      aiScore: 89,
+      programs: [
+        { name: 'Bachelor Programs', difficulty: 'Hard', processing: '6-12 weeks', success: '79%' },
+        { name: 'Master Programs', difficulty: 'Hard', processing: '8-16 weeks', success: '76%' },
+        { name: 'Community College', difficulty: 'Medium', processing: '4-8 weeks', success: '87%' },
+        { name: 'PhD Programs', difficulty: 'Very Hard', processing: '10-20 weeks', success: '71%' }
+      ],
+      requirements: {
+        language: 'TOEFL 80+ / IELTS 6.5+',
+        education: 'High school diploma',
+        funds: '$30,000-70,000/year',
+        gpa: '3.0+ GPA required'
+      },
+      benefits: [
+        'Top-tier universities',
+        'OPT work opportunities',
+        'Innovation ecosystem',
+        'Networking opportunities',
+        'Research funding'
+      ],
+      tuitionRange: '$30,000 - $70,000 USD/year',
+      livingCost: '$15,000 - $25,000 USD/year',
+      workRights: 'On-campus employment allowed',
+      aiPrediction: 'Ideal for technology and research'
+    }
+  ],
+  aiFeatures: [
+    {
+      icon: Brain,
+      title: 'AI University Matching',
+      description: 'Our neural network analyzes your academic profile and career goals to match you with the perfect universities and programs.',
+      accuracy: '98.9%'
+    },
+    {
+      icon: Target,
+      title: 'Smart Application Strategy',
+      description: 'AI-powered strategy determines the optimal application timeline and requirements for maximum acceptance probability.',
+      accuracy: '96.7%'
+    },
+    {
+      icon: TrendingUp,
+      title: 'Scholarship Optimization',
+      description: 'Machine learning identifies scholarship opportunities that match your profile and maximizes financial aid potential.',
+      accuracy: '94.3%'
+    },
+    {
+      icon: Clock,
+      title: 'Processing Prediction',
+      description: 'Predictive algorithms provide accurate visa processing timelines based on current application volumes and trends.',
+      accuracy: '97.2%'
+    }
+  ],
+  stepByStepProcess: [
+    {
+      step: 1,
+      title: 'AI Academic Profile Analysis',
+      description: 'Our AI evaluates your academic background, test scores, and career aspirations to create a comprehensive student profile.',
+      icon: Database,
+      duration: '10 minutes',
+      aiPowered: true
+    },
+    {
+      step: 2,
+      title: 'Smart University Selection',
+      description: 'Advanced algorithms match you with universities that align with your goals, budget, and acceptance probability.',
+      icon: School,
+      duration: '5 minutes',
+      aiPowered: true
+    },
+    {
+      step: 3,
+      title: 'Application Optimization',
+      description: 'AI-enhanced application review ensures essays, documents, and requirements are optimized for acceptance.',
+      icon: FileText,
+      duration: '2-3 days',
+      aiPowered: true
+    },
+    {
+      step: 4,
+      title: 'Scholarship Matching',
+      description: 'Machine learning identifies and applies for relevant scholarships and financial aid opportunities.',
+      icon: DollarSign,
+      duration: '1-2 days',
+      aiPowered: true
+    },
+    {
+      step: 5,
+      title: 'Visa Application Support',
+      description: 'Expert guidance combined with AI insights for visa interview preparation and document submission.',
+      icon: Shield,
+      duration: '1-2 weeks',
+      aiPowered: false
+    }
+  ]
+};
 
-const countries = [
-  {
-    name: 'Canada',
-    flag: '🇨🇦',
-    highlights: [
-      'Post-graduation work permits',
-      'Pathway to PR',
-      'Quality education',
-      'Affordable tuition',
-    ],
-    tuitionRange: '$15,000 - $35,000/year',
-    livingCost: '$12,000 - $18,000/year',
-    workRights: '20 hrs/week during studies',
-  },
-  {
-    name: 'Australia',
-    flag: '🇦🇺',
-    highlights: [
-      'World-class universities',
-      'Post-study work visa',
-      'Research opportunities',
-      'Vibrant student life',
-    ],
-    tuitionRange: '$20,000 - $45,000/year',
-    livingCost: '$18,000 - $25,000/year',
-    workRights: '48 hrs/fortnight during studies',
-  },
-  {
-    name: 'United Kingdom',
-    flag: '🇬🇧',
-    highlights: [
-      'Prestigious institutions',
-      'Graduate visa route',
-      'Rich cultural heritage',
-      'English proficiency',
-    ],
-    tuitionRange: '$15,000 - $50,000/year',
-    livingCost: '$15,000 - $20,000/year',
-    workRights: '20 hrs/week during studies',
-  },
-  {
-    name: 'United States',
-    flag: '🇺🇸',
-    highlights: [
-      'Top-ranked universities',
-      'OPT opportunities',
-      'Research facilities',
-      'Diverse programs',
-    ],
-    tuitionRange: '$25,000 - $60,000/year',
-    livingCost: '$15,000 - $25,000/year',
-    workRights: 'On-campus work permitted',
-  },
-];
+const StudyVisaPage: React.FC = () => {
+  const [showCalculator, setShowCalculator] = useState(false);
 
-const popularPrograms = [
-  {
-    level: 'Undergraduate',
-    programs: [
-      'Business Administration',
-      'Computer Science',
-      'Engineering',
-      'Healthcare',
-    ],
-    duration: '3-4 years',
-    entryRequirements: 'High school diploma, IELTS 6.0+',
-  },
-  {
-    level: 'Postgraduate',
-    programs: ['MBA', 'Master of Engineering', 'Data Science', 'Public Health'],
-    duration: '1-2 years',
-    entryRequirements: 'Bachelor degree, IELTS 6.5+',
-  },
-  {
-    level: 'Doctoral',
-    programs: ['PhD Programs', 'Research Doctorate', 'Professional Doctorate'],
-    duration: '3-5 years',
-    entryRequirements: 'Master degree, Research proposal',
-  },
-  {
-    level: 'Diploma/Certificate',
-    programs: ['IT Certification', 'Trade Programs', 'Language Courses'],
-    duration: '6 months - 2 years',
-    entryRequirements: 'Varies by program',
-  },
-];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  
+  const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
 
-const processSteps = [
-  {
-    step: 1,
-    title: 'Initial Assessment',
-    description:
-      'Evaluate academic background, career goals, and preferred destinations.',
-    duration: '1-2 days',
-    deliverables: [
-      'Eligibility assessment',
-      'Country recommendations',
-      'Program suggestions',
-    ],
-  },
-  {
-    step: 2,
-    title: 'University Selection',
-    description:
-      'Research and shortlist universities based on your profile and preferences.',
-    duration: '1-2 weeks',
-    deliverables: [
-      'University shortlist',
-      'Program comparison',
-      'Application timeline',
-    ],
-  },
-  {
-    step: 3,
-    title: 'Application Preparation',
-    description: 'Prepare and submit applications to selected universities.',
-    duration: '2-4 weeks',
-    deliverables: [
-      'Application forms',
-      'Document preparation',
-      'Essay writing support',
-    ],
-  },
-  {
-    step: 4,
-    title: 'Offer Management',
-    description:
-      'Manage offers, negotiate terms, and secure your preferred choice.',
-    duration: '2-8 weeks',
-    deliverables: [
-      'Offer evaluation',
-      'Acceptance guidance',
-      'Scholarship applications',
-    ],
-  },
-  {
-    step: 5,
-    title: 'Visa Application',
-    description:
-      'Prepare and submit student visa application with required documentation.',
-    duration: '4-12 weeks',
-    deliverables: [
-      'Visa application',
-      'Financial documentation',
-      'Interview preparation',
-    ],
-  },
-  {
-    step: 6,
-    title: 'Pre-departure Support',
-    description:
-      'Comprehensive support for travel, accommodation, and settling in.',
-    duration: '2-4 weeks',
-    deliverables: [
-      'Travel arrangements',
-      'Accommodation booking',
-      'Orientation materials',
-    ],
-  },
-];
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
 
-const costs = [
-  {
-    service: 'Basic Package',
-    description: 'University selection and application assistance',
-    price: '$2,500',
-    includes: [
-      'Up to 5 university applications',
-      'Document preparation',
-      'Application tracking',
-      'Basic visa guidance',
-    ],
-  },
-  {
-    service: 'Comprehensive Package',
-    description: 'Complete study abroad solution',
-    price: '$4,500',
-    includes: [
-      'Unlimited university applications',
-      'Visa application support',
-      'Scholarship assistance',
-      'Pre-departure support',
-    ],
-    popular: true,
-  },
-  {
-    service: 'Premium Package',
-    description: 'White-glove service with ongoing support',
-    price: '$6,500',
-    includes: [
-      'All comprehensive features',
-      'Priority processing',
-      'Interview coaching',
-      '6-month post-arrival support',
-    ],
-  },
-];
-
-export default function StudyVisaPage() {
-  const serviceData = getServiceById('study-visa');
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
 
   return (
-    <div className='min-h-screen bg-white'>
-      <BackNavigation currentPage='Study Visa' />
+    <div ref={containerRef} className='min-h-screen bg-gradient-to-b from-black via-neutral-950 to-neutral-900 text-white overflow-hidden'>
+      {/* AI Neural Network Background */}
+      <motion.div style={{ y: backgroundY }} className='fixed inset-0 pointer-events-none'>
+        <div className='absolute inset-0 bg-gradient-to-br from-blue-900/20 via-black to-purple-900/30' />
+        <div className='absolute inset-0'>
+          {Array.from({ length: 150 }, (_, i) => (
+            <motion.div
+              key={i}
+              className='absolute w-1 h-1 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full'
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                opacity: [0.2, 0.8, 0.2],
+                scale: [0.5, 1.5, 0.5],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
+        {/* Education-related floating icons */}
+        <div className='absolute inset-0'>
+          {Array.from({ length: 20 }, (_, i) => (
+            <motion.div
+              key={`study-${i}`}
+              className='absolute text-4xl opacity-10'
+              style={{
+                left: `${5 + (i * 4)}%`,
+                top: `${10 + (i * 4)}%`,
+              }}
+              animate={{
+                y: [-20, 20, -20],
+                rotate: [0, 15, -15, 0],
+                opacity: [0.1, 0.3, 0.1],
+              }}
+              transition={{
+                duration: 5 + Math.random() * 3,
+                repeat: Infinity,
+                delay: i * 0.3,
+              }}
+            >
+              {i % 4 === 0 ? '🎓' : i % 4 === 1 ? '📚' : i % 4 === 2 ? '🏫' : '🔬'}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
 
-      {/* Hero Section */}
-      <section className='relative bg-gradient-to-br from-green-600 via-blue-600 to-purple-700 text-white py-20'>
-        <div className='absolute inset-0 bg-black opacity-20'></div>
-        <div className='relative container-max'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className='text-center max-w-4xl mx-auto'
-          >
-            <FaGraduationCap className='text-6xl mx-auto mb-6 text-yellow-300' />
-            <h1 className='text-4xl md:text-6xl font-bold mb-6'>
-              Study Visa Services
-            </h1>
-            <p className='text-xl md:text-2xl mb-8 text-blue-100'>
-              Transform your academic dreams into reality with our comprehensive
-              study abroad solutions
-            </p>
-            <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                className='btn-primary bg-yellow-500 hover:bg-yellow-600 text-black'
-              >
-                <FaCalculator className='mr-2' />
-                Free Assessment
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                className='btn-outline border-white text-white hover:bg-white hover:text-blue-600'
-              >
-                <FaPhoneAlt className='mr-2' />
-                Speak to Expert
-              </motion.button>
+      {/* Navigation */}
+      <nav className='fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-blue-500/10'>
+        <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='flex items-center justify-between h-16'>
+            <Link href='/' className='flex items-center gap-2'>
+              <div className='w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center'>
+                <Bot className='w-6 h-6 text-white' />
+              </div>
+              <span className='text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent'>
+                VANHSYA
+              </span>
+            </Link>
+            
+            <div className='hidden md:flex items-center gap-6'>
+              <Link href='/' className='text-white/80 hover:text-white transition-colors'>Home</Link>
+              <Link href='/services' className='text-white/80 hover:text-white transition-colors'>Services</Link>
+              <Link href='/countries' className='text-white/80 hover:text-white transition-colors'>Countries</Link>
+              <Link href='/contact' className='text-white/80 hover:text-white transition-colors'>Contact</Link>
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Service Overview */}
-      <section className='section-padding'>
-        <div className='container-max'>
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16'>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className='text-center'
-            >
-              <div className='bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4'>
-                <FaUniversity className='text-2xl text-green-600' />
-              </div>
-              <h3 className='text-xl font-bold mb-2'>University Selection</h3>
-              <p className='text-gray-600'>
-                Expert guidance in choosing the right institution and program
-                for your career goals.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className='text-center'
-            >
-              <div className='bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4'>
-                <FaBookOpen className='text-2xl text-blue-600' />
-              </div>
-              <h3 className='text-xl font-bold mb-2'>Application Support</h3>
-              <p className='text-gray-600'>
-                Complete assistance with applications, essays, and documentation
-                requirements.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className='text-center'
-            >
-              <div className='bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4'>
-                <FaGlobe className='text-2xl text-purple-600' />
-              </div>
-              <h3 className='text-xl font-bold mb-2'>Visa Processing</h3>
-              <p className='text-gray-600'>
-                Streamlined student visa applications with high success rates.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Key Statistics */}
-          <div className='grid grid-cols-2 lg:grid-cols-4 gap-8 text-center'>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className='text-3xl font-bold text-green-600 mb-2'>98%</div>
-              <div className='text-gray-600'>Visa Success Rate</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className='text-3xl font-bold text-blue-600 mb-2'>
-                2,500+
-              </div>
-              <div className='text-gray-600'>Students Placed</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className='text-3xl font-bold text-purple-600 mb-2'>
-                500+
-              </div>
-              <div className='text-gray-600'>Partner Universities</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <div className='text-3xl font-bold text-orange-600 mb-2'>25+</div>
-              <div className='text-gray-600'>Countries Served</div>
-            </motion.div>
+            <Link href='/services' className='text-white/60 hover:text-white transition-colors'>
+              <ArrowLeft className='w-6 h-6' />
+            </Link>
           </div>
         </div>
-      </section>
+      </nav>
 
-      {/* Countries Section */}
-      <section className='section-padding bg-gray-50'>
-        <div className='container-max'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='text-center mb-16'
-          >
-            <h2 className='heading-lg mb-4'>Popular Study Destinations</h2>
-            <p className='text-gray-600 max-w-2xl mx-auto'>
-              Explore world-class education opportunities in top international
-              destinations
-            </p>
-          </motion.div>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-            {countries.map((country, index) => (
+      <div className='relative z-10'>
+        {/* Hero Section */}
+        <section ref={heroRef} className='min-h-screen flex items-center justify-center relative pt-16'>
+          <motion.div style={{ y: heroY }} className='container mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='text-center max-w-6xl mx-auto'>
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className='bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow'
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 1, type: 'spring' }}
+                className='inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 backdrop-blur-xl mb-8'
               >
-                <div className='flex items-center mb-4'>
-                  <span className='text-4xl mr-4'>{country.flag}</span>
-                  <h3 className='text-2xl font-bold text-gray-800'>
-                    {country.name}
-                  </h3>
-                </div>
-
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
-                  <div>
-                    <h4 className='font-semibold text-gray-700 mb-2'>
-                      Key Highlights
-                    </h4>
-                    <ul className='text-sm text-gray-600 space-y-1'>
-                      {country.highlights.map((highlight, idx) => (
-                        <li key={idx} className='flex items-center'>
-                          <FaCheck className='text-green-500 mr-2 text-xs' />
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className='space-y-2'>
-                    <div>
-                      <span className='font-medium text-gray-700'>
-                        Tuition:{' '}
-                      </span>
-                      <span className='text-gray-600'>
-                        {country.tuitionRange}
-                      </span>
-                    </div>
-                    <div>
-                      <span className='font-medium text-gray-700'>
-                        Living Cost:{' '}
-                      </span>
-                      <span className='text-gray-600'>
-                        {country.livingCost}
-                      </span>
-                    </div>
-                    <div>
-                      <span className='font-medium text-gray-700'>
-                        Work Rights:{' '}
-                      </span>
-                      <span className='text-gray-600'>
-                        {country.workRights}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <button className='w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors'>
-                  Learn More About {country.name}
-                </button>
+                <GraduationCap className='w-6 h-6 text-blue-400' />
+                <span className='text-blue-300 font-medium'>AI-Powered Study Visa Solutions</span>
+                <span className='text-4xl'>🎓</span>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Study Programs */}
-      <section className='section-padding'>
-        <div className='container-max'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='text-center mb-16'
-          >
-            <h2 className='heading-lg mb-4'>Popular Study Programs</h2>
-            <p className='text-gray-600 max-w-2xl mx-auto'>
-              From undergraduate degrees to doctoral programs, find the right
-              academic path for your career goals
-            </p>
-          </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 50 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1, delay: 0.2 }}
+                className='text-5xl md:text-7xl lg:text-8xl font-bold mb-8'
+              >
+                <span className='bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-pulse'>
+                  Smart
+                </span>
+                <br />
+                <span className='text-white'>Education</span>
+              </motion.h1>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-            {popularPrograms.map((program, index) => (
-              <motion.div
-                key={index}
+              <motion.p
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className='bg-white rounded-xl p-6 shadow-lg border-t-4 border-blue-500'
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1, delay: 0.4 }}
+                className='text-xl md:text-2xl text-white/80 leading-relaxed mb-12 max-w-4xl mx-auto'
               >
-                <h3 className='text-xl font-bold text-gray-800 mb-3'>
-                  {program.level}
-                </h3>
-                <div className='mb-4'>
-                  <h4 className='font-medium text-gray-700 mb-2'>
-                    Popular Programs:
-                  </h4>
-                  <ul className='text-sm text-gray-600 space-y-1'>
-                    {program.programs.map((prog, idx) => (
-                      <li key={idx}>• {prog}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className='space-y-2 text-sm'>
-                  <div>
-                    <span className='font-medium text-gray-700'>
-                      Duration:{' '}
-                    </span>
-                    <span className='text-gray-600'>{program.duration}</span>
-                  </div>
-                  <div>
-                    <span className='font-medium text-gray-700'>Entry: </span>
-                    <span className='text-gray-600'>
-                      {program.entryRequirements}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                {studyVisaData.hero.description}
+              </motion.p>
 
-      {/* Process Timeline */}
-      <section className='section-padding bg-gray-50'>
-        <div className='container-max'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='text-center mb-16'
-          >
-            <h2 className='heading-lg mb-4'>Our Study Visa Process</h2>
-            <p className='text-gray-600 max-w-2xl mx-auto'>
-              A systematic approach to ensure your study abroad journey is
-              smooth and successful
-            </p>
-          </motion.div>
-
-          <div className='space-y-8'>
-            {processSteps.map((step, index) => (
+              {/* Hero Statistics */}
               <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`flex flex-col lg:flex-row items-center gap-8 ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                }`}
+                initial={{ opacity: 0, y: 50 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1, delay: 0.6 }}
+                className='grid grid-cols-2 md:grid-cols-4 gap-8 mb-12'
               >
-                <div className='lg:w-1/2'>
-                  <div className='bg-white rounded-xl p-6 shadow-lg'>
-                    <div className='flex items-center mb-4'>
-                      <div className='bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4'>
-                        {step.step}
-                      </div>
-                      <div>
-                        <h3 className='text-xl font-bold text-gray-800'>
-                          {step.title}
-                        </h3>
-                        <div className='flex items-center text-sm text-gray-500'>
-                          <FaClock className='mr-1' />
-                          {step.duration}
-                        </div>
-                      </div>
+                {Object.entries(studyVisaData.hero.stats).map(([key, value], index) => (
+                  <div key={key} className='text-center'>
+                    <div className={`text-3xl md:text-4xl font-bold mb-2 ${
+                      index % 4 === 0 ? 'text-blue-400' : 
+                      index % 4 === 1 ? 'text-purple-400' : 
+                      index % 4 === 2 ? 'text-cyan-400' : 'text-emerald-400'
+                    }`}>
+                      {value}
                     </div>
-                    <p className='text-gray-600 mb-4'>{step.description}</p>
-                    <div>
-                      <h4 className='font-semibold text-gray-700 mb-2'>
-                        Deliverables:
-                      </h4>
-                      <ul className='text-sm text-gray-600 space-y-1'>
-                        {step.deliverables.map((deliverable, idx) => (
-                          <li key={idx} className='flex items-center'>
-                            <FaCheck className='text-green-500 mr-2 text-xs' />
-                            {deliverable}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <div className='text-white/60 text-sm capitalize'>{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
-                </div>
-
-                <div className='lg:w-1/2 flex justify-center'>
-                  <div className='w-64 h-48 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center'>
-                    <FaGraduationCap className='text-6xl text-blue-600' />
-                  </div>
-                </div>
+                ))}
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Pricing */}
-      <section className='section-padding'>
-        <div className='container-max'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='text-center mb-16'
-          >
-            <h2 className='heading-lg mb-4'>Service Packages</h2>
-            <p className='text-gray-600 max-w-2xl mx-auto'>
-              Transparent pricing with no hidden fees. Choose the package that
-              best fits your needs.
-            </p>
-          </motion.div>
-
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            {costs.map((cost, index) => (
               <motion.div
-                key={index}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`bg-white rounded-xl p-6 shadow-lg relative ${
-                  cost.popular
-                    ? 'border-2 border-blue-500 transform scale-105'
-                    : ''
-                }`}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1, delay: 0.8 }}
+                className='flex flex-col sm:flex-row gap-6 justify-center items-center'
               >
-                {cost.popular && (
-                  <div className='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium'>
-                    Most Popular
-                  </div>
-                )}
-
-                <div className='text-center mb-6'>
-                  <h3 className='text-xl font-bold text-gray-800 mb-2'>
-                    {cost.service}
-                  </h3>
-                  <p className='text-gray-600 text-sm mb-4'>
-                    {cost.description}
-                  </p>
-                  <div className='text-3xl font-bold text-blue-600 mb-2'>
-                    {cost.price}
-                  </div>
-                  <div className='text-gray-500 text-sm'>
-                    Professional fees only
-                  </div>
-                </div>
-
-                <ul className='space-y-3 mb-6'>
-                  {cost.includes.map((item, idx) => (
-                    <li key={idx} className='flex items-center text-sm'>
-                      <FaCheck className='text-green-500 mr-2' />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  className={`w-full py-3 rounded-lg font-medium transition-colors ${
-                    cost.popular
-                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                  }`}
+                <motion.button
+                  whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)' }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowCalculator(true)}
+                  className='px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 rounded-full text-white font-bold text-lg shadow-2xl border border-blue-400/30'
                 >
-                  Choose Package
-                </button>
+                  <span className='flex items-center gap-2'>
+                    <Brain className='w-6 h-6' />
+                    AI University Matcher
+                    <ArrowRight className='w-6 h-6' />
+                  </span>
+                </motion.button>
+                
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='px-8 py-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full text-white font-medium text-lg hover:bg-white/20 transition-all'
+                >
+                  <span className='flex items-center gap-2'>
+                    <Phone className='w-6 h-6' />
+                    Education Consultant
+                  </span>
+                </motion.button>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className='section-padding bg-gradient-to-r from-blue-600 to-purple-600 text-white'>
-        <div className='container-max'>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='text-center'
-          >
-            <h2 className='heading-lg mb-4'>
-              Ready to Start Your Study Journey?
-            </h2>
-            <p className='text-xl mb-8 text-blue-100'>
-              Get your free assessment and take the first step towards
-              international education
-            </p>
-            <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                className='btn-primary bg-white text-blue-600 hover:bg-gray-100'
-              >
-                <FaCalculator className='mr-2' />
-                Free Assessment
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                className='btn-outline border-white text-white hover:bg-white hover:text-blue-600'
-              >
-                <FaPhoneAlt className='mr-2' />
-                Book Consultation
-              </motion.button>
             </div>
           </motion.div>
-        </div>
-      </section>
+        </section>
 
-      <Footer />
+        {/* CTA Section */}
+        <section className='py-32 relative'>
+          <div className='container mx-auto px-4 sm:px-6 lg:px-8'>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className='text-center'
+            >
+              <div className='bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-12 md:p-16'>
+                <h2 className='text-4xl md:text-5xl font-bold mb-6'>
+                  <span className='text-white'>Ready to Start Your </span>
+                  <span className='bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent'>
+                    AI-Powered
+                  </span>
+                  <br />
+                  <span className='text-white'>Education Journey?</span>
+                </h2>
+                <p className='text-xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed'>
+                  Let our artificial intelligence find the perfect university and program for your academic goals. 
+                  Start your journey to international education success today.
+                </p>
+
+                <div className='flex flex-col sm:flex-row gap-6 justify-center items-center mb-12'>
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)' }}
+                    whileTap={{ scale: 0.95 }}
+                    className='px-10 py-5 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 rounded-full text-white font-bold text-xl shadow-2xl'
+                  >
+                    <span className='flex items-center gap-3'>
+                      <Brain className='w-6 h-6' />
+                      Start AI Matching
+                      <ArrowRight className='w-6 h-6' />
+                    </span>
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className='px-10 py-5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full text-white font-medium text-xl hover:bg-white/20 transition-all'
+                  >
+                    <span className='flex items-center gap-3'>
+                      <Phone className='w-6 h-6' />
+                      Education Consultation
+                    </span>
+                  </motion.button>
+                </div>
+
+                <div className='flex flex-wrap justify-center gap-8 text-white/60'>
+                  <div className='flex items-center gap-2'>
+                    <Shield className='w-5 h-5' />
+                    <span>97.4% Success Rate</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <School className='w-5 h-5' />
+                    <span>500+ Partner Universities</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <CheckCircle className='w-5 h-5' />
+                    <span>AI-Optimized Applications</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <DollarSign className='w-5 h-5' />
+                    <span>Scholarship Assistance</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      </div>
+
+      {/* AI Calculator Modal */}
+      <AnimatePresence>
+        {showCalculator && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className='fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4'
+            onClick={() => setShowCalculator(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className='bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto'
+            >
+              <div className='flex items-center justify-between mb-6'>
+                <h3 className='text-2xl font-bold text-white flex items-center gap-2'>
+                  <Brain className='w-8 h-8 text-blue-400' />
+                  AI University Matcher
+                </h3>
+                <button
+                  onClick={() => setShowCalculator(false)}
+                  title="Close AI University Matcher"
+                  className='w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors'
+                >
+                  <X className='w-6 h-6 text-white' />
+                </button>
+              </div>
+              <div className='text-center py-12'>
+                <div className='w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4'>
+                  <GraduationCap className='w-8 h-8 text-white' />
+                </div>
+                <h4 className='text-xl font-bold text-white mb-2'>AI Matcher Coming Soon</h4>
+                <p className='text-white/60 mb-6'>Our advanced AI university matching system is being optimized for perfect program selection.</p>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white font-medium'
+                >
+                  Get Notified When Ready
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
-}
+};
+
+export default StudyVisaPage;

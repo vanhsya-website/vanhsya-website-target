@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
-
-  // Process contact form submission
-  console.log('Contact form submission:', body);
+  const _body = await request.json();
+  
+  // TODO: Process contact form submission
 
   // Here you would typically:
   // 1. Validate the form data

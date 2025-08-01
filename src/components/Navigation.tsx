@@ -1,3 +1,7 @@
+// 🧠 AI-Enhanced Navigation Component
+// This is the main navigation header with responsive mega-menu, mobile hamburger,
+// currency selector, and smooth animations. Features dropdown menus for services
+// and countries with hover effects and accessibility support.
 'use client';
 
 import { useState, useEffect } from 'react';

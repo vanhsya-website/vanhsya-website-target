@@ -1,4 +1,7 @@
-'use client';
+// 🧠 Client Testimonials Carousel Section
+// This section showcases client success stories with an interactive carousel,
+// star ratings, smooth animations, and auto-playing testimonial slides.
+// Features navigation controls and responsive design for all devices.
 'use client';
 
 import React, { useState } from 'react';

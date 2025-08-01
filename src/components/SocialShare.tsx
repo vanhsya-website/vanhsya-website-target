@@ -82,7 +82,7 @@ const shareRewards: ShareReward[] = [
 
 export default function SocialShare({
   title = "Discover VANHSYA - World's #1 AI-Powered Migration Platform",
-  description = 'Get expert visa consultation, AI-powered eligibility assessment, and step-by-step guidance for your dream migration. Join 100K+ successful migrants!',
+  description: _description = 'Get expert visa consultation, AI-powered eligibility assessment, and step-by-step guidance for your dream migration. Join 100K+ successful migrants!',
   url = typeof window !== 'undefined'
     ? window.location.href
     : 'https://vanhsya.com',
@@ -104,8 +104,8 @@ export default function SocialShare({
       if (onShare) onShare('copy', 10);
       setEarnedCredits(prev => prev + 10);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
+    } catch {
+      // Failed to copy - fallback to manual copy
     }
   };
 

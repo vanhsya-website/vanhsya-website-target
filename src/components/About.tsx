@@ -1,3 +1,7 @@
+// 🧠 About VANHSYA Section
+// This section showcases company information, achievements, team credentials,
+// success statistics, and trust indicators with animated counters and graphics.
+// Features mission statement and company value propositions.
 'use client';
 
 import { motion } from 'framer-motion';

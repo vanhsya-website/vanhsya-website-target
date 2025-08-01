@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "maxDuration": 300
+      }
+    }
+  ],
+  "functions": {
+    "app/**": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "NODE_OPTIONS": "--max-old-space-size=8192"
+  },
+  "buildCommand": "NODE_OPTIONS='--max-old-space-size=8192' npm run build",
+  "installCommand": "npm ci"
+}

@@ -7,7 +7,6 @@ import {
   Send,
   User,
   Bot,
-  Sparkles,
   Brain,
   FileText,
   Calculator,
@@ -44,7 +43,7 @@ const ChatbotPage: React.FC = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [selectedCountry, setSelectedCountry] = useState('');
+  const [_selectedCountry, _setSelectedCountry] = useState('');
 
   const countries = [
     { code: 'CA', name: 'Canada', flag: '🇨🇦' },

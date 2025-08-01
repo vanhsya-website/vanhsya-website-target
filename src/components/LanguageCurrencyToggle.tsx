@@ -79,7 +79,7 @@ export default function LanguageCurrencyToggle({
     onLanguageChange?.(language.code);
 
     // Here you would typically trigger your i18n system
-    console.log('Language changed to:', language.code);
+    // Language changed
   };
 
   const handleCurrencyChange = (currency: Currency) => {
@@ -89,7 +89,7 @@ export default function LanguageCurrencyToggle({
     onCurrencyChange?.(currency.code);
 
     // Here you would typically update your pricing display
-    console.log('Currency changed to:', currency.code);
+    // Currency changed
   };
 
   const closeAllDropdowns = () => {
@@ -217,7 +217,7 @@ export default function LanguageCurrencyToggle({
 // Currency conversion hook (placeholder - would connect to real API)
 export function useCurrency() {
   const [currency, setCurrency] = useState('USD');
-  const [rates, setRates] = useState<Record<string, number>>({
+  const [rates] = useState<Record<string, number>>({
     USD: 1,
     CAD: 1.35,
     EUR: 0.85,

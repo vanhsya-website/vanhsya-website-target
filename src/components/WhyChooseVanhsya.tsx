@@ -1,3 +1,7 @@
+// 🧠 Why Choose VANHSYA Section
+// This section highlights unique value propositions with animated icons,
+// compelling reasons to choose VANHSYA, trust indicators, and competitive
+// advantages. Features smooth animations and engaging visual elements.
 'use client';
 
 import React from 'react';

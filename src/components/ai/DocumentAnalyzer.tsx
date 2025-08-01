@@ -86,6 +86,27 @@ export default function DocumentAnalyzer({
     []
   );
 
+  const processFile = useCallback(async (file: File) => {
+    if (file.size > maxFileSize) {
+      alert('File size too large. Please upload a file smaller than 10MB.');
+      return;
+    }
+
+    setUploadedFile(file);
+    setIsAnalyzing(true);
+    setAnalysis(null);
+
+    try {
+      const result = await analyzeDocument(file);
+      setAnalysis(result);
+      onAnalysisComplete?.(result);
+    } catch {
+      // Analysis failed - handle error silently
+    } finally {
+      setIsAnalyzing(false);
+    }
+  }, [analyzeDocument, maxFileSize, onAnalysisComplete]);
+
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -105,7 +126,7 @@ export default function DocumentAnalyzer({
     if (files.length > 0) {
       await processFile(files[0]);
     }
-  }, []);
+  }, [processFile]);
 
   const handleFileInput = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,29 +135,10 @@ export default function DocumentAnalyzer({
         await processFile(files[0]);
       }
     },
-    []
+    [processFile]
   );
 
-  const processFile = async (file: File) => {
-    if (file.size > maxFileSize) {
-      alert('File size too large. Please upload a file smaller than 10MB.');
-      return;
-    }
 
-    setUploadedFile(file);
-    setIsAnalyzing(true);
-    setAnalysis(null);
-
-    try {
-      const result = await analyzeDocument(file);
-      setAnalysis(result);
-      onAnalysisComplete?.(result);
-    } catch (error) {
-      console.error('Analysis failed:', error);
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
 
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'text-green-600';

@@ -1,3 +1,7 @@
+// 🧠 Premium Hero Section
+// This is the main hero section with cinematic floating particles, parallax effects,
+// deterministic animations for SSR compatibility, and responsive design.
+// Features smooth scrolling, gradient overlays, and performance-optimized animations.
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';

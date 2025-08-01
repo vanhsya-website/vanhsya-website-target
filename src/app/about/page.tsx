@@ -11,25 +11,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
-  FaAward,
   FaGlobe,
-  FaUsers,
-  FaHandshake,
   FaShieldAlt,
   FaRocket,
-  FaLightbulb,
-  FaHeart,
   FaStar,
   FaCheckCircle,
-  FaQuoteLeft,
 } from 'react-icons/fa';
 import {
   SparklesIcon,
   GlobeAmericasIcon,
   UserGroupIcon,
-  LightBulbIcon,
   HeartIcon,
-  TrophyIcon,
 } from '@heroicons/react/24/outline';
 
 import Footer from '@/components/Footer';

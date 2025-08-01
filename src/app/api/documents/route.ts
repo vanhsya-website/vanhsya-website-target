@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
+  const _body = await request.json();
 
   // Process document operations
-  console.log('Document operation:', body);
+  // TODO: Implement document processing logic
 
   return NextResponse.json({
     success: true,
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const body = await request.json();
+  const _body = await request.json();
 
   // Update document
   return NextResponse.json({

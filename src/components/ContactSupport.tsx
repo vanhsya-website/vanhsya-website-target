@@ -34,7 +34,8 @@ export default function ContactSupport({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log('Form submitted:', formData);
+    // Handle form submission
+    // TODO: Integrate with actual contact system
   };
 
   const handleInputChange = (

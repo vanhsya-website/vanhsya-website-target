@@ -48,7 +48,7 @@ export const useMotionPreferences = () => {
         const parsed = JSON.parse(savedPreferences);
         setPreferences(prev => ({ ...prev, ...parsed }));
       } catch {
-        console.warn('Failed to parse saved motion preferences');
+        // Failed to parse saved motion preferences - use defaults
       }
     }
 

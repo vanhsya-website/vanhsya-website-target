@@ -34,17 +34,14 @@ class ErrorBoundary extends React.Component<
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+  componentDidCatch(_error: Error, _errorInfo: React.ErrorInfo) {
+    // Error caught by boundary - log for monitoring
 
     // Log error to monitoring service (replace with your actual service)
     if (typeof window !== 'undefined') {
       // Example: Send to error tracking service
-      console.error('Error logged for monitoring:', {
-        error: error.message,
-        stack: error.stack,
-        componentStack: errorInfo.componentStack,
-      });
+      // TODO: Replace with actual error tracking service
+      // Log structured error data: error.message, error.stack, errorInfo.componentStack
     }
   }
 

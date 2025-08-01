@@ -1,1104 +1,489 @@
 'use client';
 
-// TODO: Add complete immigration program details for all categories
-// TODO: Implement interactive cost calculator
-// TODO: Add provincial nominee program (PNP) details for all provinces
-// TODO: Include latest CRS cut-off scores and trends
-// CONTENT: Add success stories and case studies
-// UPDATE: Refresh immigration statistics with 2025 data
-// ENHANCE: Add interactive timeline for application process
-
 import React, { useState, useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import {
-  MapPin,
-  Users,
-  Award,
-  ArrowRight,
-  CheckCircle,
-  Globe,
-  Clock,
-  DollarSign,
-  Star,
-  TrendingUp,
-  Calendar,
-  Building,
-  GraduationCap,
-  Briefcase,
-  Heart,
-  Shield,
-  Zap,
-  FileText,
-  Phone,
-  Calculator,
-  ChevronDown,
-  ChevronUp,
-  Home,
-  ArrowLeft,
-  Menu,
-  X,
+  MapPin, Users, DollarSign, GraduationCap, Briefcase, Home,
+  ArrowRight, CheckCircle, Star, Clock, Award, Globe,
+  Bot, Brain, Zap, Shield, Target, TrendingUp
 } from 'lucide-react';
 
-const canadaStats = {
-  population: '38.2M',
-  gdpPerCapita: '$52,051',
-  lifeQuality: '9.2/10',
-  languages: ['English', 'French'],
-  currency: 'CAD',
-  timezone: 'UTC-3.5 to UTC-8',
-  capital: 'Ottawa',
-  immigrantsPerYear: '400,000+',
-  averageSalary: '$65,000',
-  unemploymentRate: '5.8%',
-  costOfLiving: 'Moderate',
-  successRate: '98.7%',
-};
-
-const immigrationPrograms = [
+// Canada immigration programs
+const programs = [
   {
     id: 'express-entry',
-    name: 'Express Entry',
-    category: 'Federal',
-    type: 'work',
-    description:
-      "Canada's flagship immigration program for skilled workers seeking permanent residence through a points-based system.",
+    title: 'Express Entry',
+    description: 'Federal economic immigration program for skilled workers',
+    requirements: ['CLB 7+', 'Bachelor\'s Degree', '1+ Years Experience', 'Age 25-35'],
     processingTime: '6-8 months',
-    successRate: 98.7,
-    minPoints: 440,
-    price: 'From $2,499',
-    eligibility: [
-      "Bachelor's degree or equivalent",
-      'IELTS 6.5+ (CLB 7)',
-      '3+ years skilled work experience',
-      'Age 25-35 (optimal)',
-      'Valid job offer (preferred)',
-    ],
-    benefits: [
-      'Fastest pathway to PR',
-      'No job offer required',
-      'Bring spouse and children',
-      'Access to healthcare',
-      'Path to citizenship in 3 years',
-    ],
-    steps: [
-      'Language test (IELTS/CELPIP)',
-      'Educational Credential Assessment',
-      'Create Express Entry profile',
-      'Receive Invitation to Apply',
-      'Submit complete application',
-    ],
-    icon: Zap,
-    color: 'from-emerald-500 to-green-600',
-    bgGlow: 'bg-emerald-500/10',
-    popular: true,
+    minScore: '470+ CRS',
+    successRate: '98.5%',
+    color: 'from-red-500 to-red-600'
   },
   {
     id: 'pnp',
-    name: 'Provincial Nominee Program',
-    category: 'Provincial',
-    type: 'work',
-    description:
-      'Province-specific programs targeting candidates with skills needed in particular regions of Canada.',
-    processingTime: '12-18 months',
-    successRate: 96.5,
-    minPoints: 600,
-    price: 'From $3,299',
-    eligibility: [
-      'Relevant education/experience',
-      'Language proficiency',
-      'Connection to province',
-      'Job offer (some programs)',
-      'Intention to live in province',
-    ],
-    benefits: [
-      '600 additional CRS points',
-      'Province-specific opportunities',
-      'Lower competition',
-      'Regional job market access',
-      'Community support networks',
-    ],
-    steps: [
-      'Research provincial programs',
-      'Submit provincial application',
-      'Receive provincial nomination',
-      'Apply through Express Entry',
-      'Complete federal process',
-    ],
-    icon: Globe,
-    color: 'from-blue-500 to-cyan-600',
-    bgGlow: 'bg-blue-500/10',
-  },
-  {
-    id: 'startup-visa',
-    name: 'Start-up Visa Program',
-    category: 'Business',
-    type: 'business',
-    description:
-      'For entrepreneurs with innovative business ideas and support from designated Canadian organizations.',
-    processingTime: '12-16 months',
-    successRate: 94.2,
-    minPoints: null,
-    price: 'From $4,999',
-    eligibility: [
-      'Qualifying business idea',
-      'Letter of support from designated organization',
-      'Sufficient settlement funds',
-      'Language proficiency (CLB 5+)',
-      'No criminal record',
-    ],
-    benefits: [
-      'Immediate work permit',
-      'Path to permanent residence',
-      'Access to Canadian market',
-      'Investor network access',
-      'Family accompaniment',
-    ],
-    steps: [
-      'Develop business proposal',
-      'Secure designated organization support',
-      'Submit application',
-      'Receive work permit',
-      'Establish business in Canada',
-    ],
-    icon: Building,
-    color: 'from-purple-500 to-violet-600',
-    bgGlow: 'bg-purple-500/10',
+    title: 'Provincial Nominee Program',
+    description: 'Province-specific immigration programs',
+    requirements: ['Job Offer', 'Provincial Nomination', 'Language Proficiency', 'Work Experience'],
+    processingTime: '8-12 months',
+    minScore: '400+ CRS',
+    successRate: '96.8%',
+    color: 'from-blue-500 to-blue-600'
   },
   {
     id: 'family-sponsorship',
-    name: 'Family Sponsorship',
-    category: 'Family',
-    type: 'family',
-    description:
-      'Reunite with Canadian citizens or permanent residents who can sponsor eligible family members.',
-    processingTime: '8-12 months',
-    successRate: 99.1,
-    minPoints: null,
-    price: 'From $2,199',
-    eligibility: [
-      'Eligible relationship to sponsor',
-      'Sponsor meets income requirements',
-      'Sponsor is Canadian citizen/PR',
-      'No criminal record',
-      'Medical examinations',
-    ],
-    benefits: [
-      'Direct path to permanent residence',
-      'No points requirement',
-      'Family reunification',
-      'Sponsor support',
-      'Access to settlement services',
-    ],
-    steps: [
-      'Confirm eligibility',
-      'Gather required documents',
-      'Submit sponsorship application',
-      'Principal applicant applies',
-      'Complete landing process',
-    ],
-    icon: Heart,
-    color: 'from-rose-500 to-pink-600',
-    bgGlow: 'bg-rose-500/10',
+    title: 'Family Sponsorship',
+    description: 'Sponsor eligible family members to Canada',
+    requirements: ['Canadian Citizen/PR', 'Financial Support', 'Relationship Proof', 'Undertaking'],
+    processingTime: '12-24 months',
+    minScore: 'N/A',
+    successRate: '94.2%',
+    color: 'from-green-500 to-green-600'
   },
   {
-    id: 'study-permit',
-    name: 'Study Permit',
-    category: 'Education',
-    type: 'study',
-    description:
-      'Study at designated learning institutions and gain valuable Canadian education and work experience.',
-    processingTime: '4-12 weeks',
-    successRate: 97.8,
-    minPoints: null,
-    price: 'From $1,899',
-    eligibility: [
-      'Acceptance at designated institution',
-      'Proof of financial support',
-      'Language proficiency',
-      'No criminal record',
-      'Medical exam (if required)',
-    ],
-    benefits: [
-      'World-class education',
-      'Work while studying (20h/week)',
-      'Post-graduation work permit',
-      'Path to permanent residence',
-      'Spouse work permit eligible',
-    ],
-    steps: [
-      'Apply to Canadian institution',
-      'Receive letter of acceptance',
-      'Apply for study permit',
-      'Prepare for arrival',
-      'Maintain status while studying',
-    ],
-    icon: GraduationCap,
-    color: 'from-amber-500 to-orange-600',
-    bgGlow: 'bg-amber-500/10',
-  },
+    id: 'caregiver',
+    title: 'Caregiver Program',
+    description: 'Immigration pathway for caregivers',
+    requirements: ['Education Credential', '1 Year Training', 'Language Requirement', 'Job Offer'],
+    processingTime: '6-10 months',
+    minScore: 'CLB 5+',
+    successRate: '92.7%',
+    color: 'from-purple-500 to-purple-600'
+  }
 ];
 
+// Canadian provinces data
 const provinces = [
-  {
-    name: 'Ontario',
-    capital: 'Toronto',
-    population: '14.8M',
-    flag: '🏢',
-    opportunities: 'Tech, Finance, Manufacturing',
-  },
-  {
-    name: 'Quebec',
-    capital: 'Quebec City',
-    population: '8.5M',
-    flag: '🇫🇷',
-    opportunities: 'Aerospace, Mining, Agriculture',
-  },
-  {
-    name: 'British Columbia',
-    capital: 'Victoria',
-    population: '5.2M',
-    flag: '🏔️',
-    opportunities: 'Tech, Film, Tourism',
-  },
-  {
-    name: 'Alberta',
-    capital: 'Edmonton',
-    population: '4.4M',
-    flag: '⛽',
-    opportunities: 'Energy, Agriculture, Tech',
-  },
-  {
-    name: 'Manitoba',
-    capital: 'Winnipeg',
-    population: '1.4M',
-    flag: '🌾',
-    opportunities: 'Agriculture, Manufacturing',
-  },
-  {
-    name: 'Saskatchewan',
-    capital: 'Regina',
-    population: '1.2M',
-    flag: '🚜',
-    opportunities: 'Mining, Agriculture',
-  },
+  { name: 'Ontario', programs: ['OINP', 'Express Entry'], slots: '9,000+', flag: '🏛️' },
+  { name: 'British Columbia', programs: ['BC PNP', 'Tech Pilot'], slots: '8,500+', flag: '🏔️' },
+  { name: 'Alberta', programs: ['AINP', 'Rural Renewal'], slots: '6,250+', flag: '🌾' },
+  { name: 'Saskatchewan', programs: ['SINP', 'Entrepreneur'], slots: '5,000+', flag: '🌾' },
+  { name: 'Manitoba', programs: ['MPNP', 'Skilled Worker'], slots: '5,000+', flag: '🌾' },
+  { name: 'Quebec', programs: ['QSW', 'Entrepreneur'], slots: '43,500+', flag: '⚜️' }
 ];
 
-const livingCosts = [
-  {
-    category: 'Housing (1BR)',
-    cost: '$1,200-2,500',
-    description: 'Monthly rent varies by city',
-  },
-  {
-    category: 'Groceries',
-    cost: '$300-500',
-    description: 'Monthly for one person',
-  },
-  {
-    category: 'Transportation',
-    cost: '$120-150',
-    description: 'Monthly public transit',
-  },
-  {
-    category: 'Utilities',
-    cost: '$100-150',
-    description: 'Monthly (electricity, heating)',
-  },
-  { category: 'Internet', cost: '$60-80', description: 'Monthly high-speed' },
-  {
-    category: 'Healthcare',
-    cost: 'Free',
-    description: 'Universal healthcare system',
-  },
-];
-
+// Benefits of immigrating to Canada
 const benefits = [
   {
-    title: 'Universal Healthcare',
-    description: 'Free medical care for all residents',
     icon: Shield,
-    color: 'text-green-400',
+    title: 'Universal Healthcare',
+    description: 'Comprehensive healthcare coverage for all residents'
   },
   {
-    title: 'Quality Education',
-    description: 'World-renowned universities and schools',
     icon: GraduationCap,
-    color: 'text-blue-400',
+    title: 'World-Class Education',
+    description: 'Free public education and top-ranked universities'
   },
   {
-    title: 'Social Safety Net',
-    description: 'Employment insurance and social assistance',
-    icon: Users,
-    color: 'text-purple-400',
-  },
-  {
-    title: 'Multicultural Society',
-    description: 'Welcoming and diverse communities',
-    icon: Globe,
-    color: 'text-amber-400',
-  },
-  {
-    title: 'Beautiful Nature',
-    description: 'Stunning landscapes and outdoor recreation',
-    icon: Star,
-    color: 'text-emerald-400',
-  },
-  {
+    icon: DollarSign,
     title: 'Strong Economy',
-    description: 'Stable job market and growth opportunities',
-    icon: TrendingUp,
-    color: 'text-cyan-400',
+    description: 'Stable economy with high employment rates'
   },
+  {
+    icon: Users,
+    title: 'Multicultural Society',
+    description: 'Welcoming and diverse communities'
+  },
+  {
+    icon: Globe,
+    title: 'Global Mobility',
+    description: 'Canadian passport provides visa-free travel to 185+ countries'
+  },
+  {
+    icon: Award,
+    title: 'Quality of Life',
+    description: 'Consistently ranked among the best countries to live'
+  }
 ];
 
-export default function CanadaPage() {
-  const [selectedProgram, setSelectedProgram] = useState(
-    immigrationPrograms[0]
-  );
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function CanadaPagePremium() {
+  const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const programsRef = useRef<HTMLDivElement>(null);
+  const provincesRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.1 });
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const floatingY = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
-  const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? null : section);
-  };
+  const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
+  const programsInView = useInView(programsRef, { once: true, amount: 0.2 });
+  const provincesInView = useInView(provincesRef, { once: true, amount: 0.2 });
+  const benefitsInView = useInView(benefitsRef, { once: true, amount: 0.2 });
 
   return (
-    <div
-      ref={containerRef}
-      className='min-h-screen bg-gradient-to-b from-neutral-950 to-neutral-900 text-white'
-    >
-      {/* Navigation Header */}
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className='fixed top-0 left-0 right-0 z-50 bg-black/10 backdrop-blur-md border-b border-white/10'
-      >
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex items-center justify-between h-16'>
-            {/* Left side - Back and Home buttons */}
-            <div className='flex items-center gap-4'>
-              <Link
-                href='/'
-                className='flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 group'
-              >
-                <Home className='w-4 h-4 text-red-400 group-hover:text-white' />
-                <span className='text-white font-medium hidden sm:block'>
-                  Home
-                </span>
-              </Link>
-              <button
-                onClick={() => window.history.back()}
-                className='flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 group'
-              >
-                <ArrowLeft className='w-4 h-4 text-red-400 group-hover:text-white' />
-                <span className='text-white font-medium hidden sm:block'>
-                  Back
-                </span>
-              </button>
-            </div>
+    <div className="min-h-screen bg-gradient-to-b from-black via-neutral-950 to-neutral-900 text-white">
+      {/* Canadian Flag Animation Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-black to-red-900/30" />
+        
+        {/* Animated Maple Leaves */}
+        <div className="absolute inset-0">
+          {Array.from({ length: 20 }, (_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-6xl opacity-10"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                rotate: [0, 360],
+                y: [0, -50, 0],
+                opacity: [0.1, 0.3, 0.1],
+              }}
+              transition={{
+                duration: 8 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            >
+              🍁
+            </motion.div>
+          ))}
+        </div>
 
-            {/* Center - Page Title */}
-            <div className='flex items-center gap-2'>
-              <span className='text-2xl'>🇨🇦</span>
-              <h1 className='text-xl font-bold text-white hidden sm:block'>
-                Canada
-              </h1>
-            </div>
+        {/* Grid Pattern */}
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(220, 38, 127, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(220, 38, 127, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+          animate={{
+            backgroundPosition: ['0px 0px', '60px 60px'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      </div>
 
-            {/* Right side - Menu */}
-            <div className='flex items-center gap-4'>
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className='p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300'
-              >
-                {isMenuOpen ? (
-                  <X className='w-5 h-5 text-white' />
-                ) : (
-                  <Menu className='w-5 h-5 text-white' />
-                )}
-              </button>
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-red-500/10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-white rounded-lg flex items-center justify-center text-2xl">
+                🍁
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                VANHSYA
+              </span>
+            </Link>
+            
+            <div className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-white/80 hover:text-white transition-colors">Home</Link>
+              <Link href="/services" className="text-white/80 hover:text-white transition-colors">Services</Link>
+              <Link href="/countries" className="text-white/80 hover:text-white transition-colors">Countries</Link>
+              <Link href="/contact" className="text-white/80 hover:text-white transition-colors">Contact</Link>
             </div>
           </div>
+        </div>
+      </nav>
 
-          {/* Mobile Menu */}
-          <motion.div
-            initial={false}
-            animate={{
-              height: isMenuOpen ? 'auto' : 0,
-              opacity: isMenuOpen ? 1 : 0,
-            }}
-            className='overflow-hidden'
-          >
-            <div className='py-4 space-y-4 border-t border-white/10'>
-              <div className='flex flex-col gap-2'>
-                <span className='text-sm text-slate-300'>Quick Links</span>
-                <Link
-                  href='/countries'
-                  className='px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 text-white'
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section ref={heroRef} className="min-h-screen flex items-center justify-center pt-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1 }}
+              className="text-center max-w-5xl mx-auto"
+            >
+              {/* Canadian Flag Animation */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 1.5, delay: 0.2 }}
+                className="relative w-32 h-32 mx-auto mb-8"
+              >
+                <motion.div
+                  animate={{ 
+                    rotate: [0, 360],
+                  }}
+                  transition={{ 
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  className="w-32 h-32 rounded-full bg-gradient-to-r from-red-500 via-white to-red-500 flex items-center justify-center shadow-2xl text-6xl"
                 >
-                  All Countries
+                  🍁
+                </motion.div>
+                
+                {/* Pulsing rings */}
+                {[1, 2, 3].map((ring) => (
+                  <motion.div
+                    key={ring}
+                    className="absolute border border-red-400/30 rounded-full"
+                    style={{ 
+                      width: `${ring * 60}px`, 
+                      height: `${ring * 60}px`,
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [0.5, 0.1, 0.5],
+                    }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: ring * 0.5,
+                    }}
+                  />
+                ))}
+              </motion.div>
+
+              <h1 className="text-5xl md:text-7xl font-bold mb-8">
+                <span className="text-white">Immigrate to </span>
+                <span className="bg-gradient-to-r from-red-400 via-white to-red-400 bg-clip-text text-transparent">
+                  Canada
+                </span>
+              </h1>
+
+              <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-12">
+                Discover your pathway to Canadian permanent residence with our AI-powered analysis. 
+                <span className="text-red-400 font-semibold"> Join 400,000+ newcomers</span> who chose Canada in 2024.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                <div className="text-center p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
+                  <div className="text-3xl font-bold text-red-400 mb-2">465K</div>
+                  <div className="text-white/60">Immigration Target 2025</div>
+                </div>
+                <div className="text-center p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
+                  <div className="text-3xl font-bold text-white mb-2">6-8</div>
+                  <div className="text-white/60">Months Processing</div>
+                </div>
+                <div className="text-center p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
+                  <div className="text-3xl font-bold text-green-400 mb-2">98.5%</div>
+                  <div className="text-white/60">Success Rate</div>
+                </div>
+                <div className="text-center p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
+                  <div className="text-3xl font-bold text-blue-400 mb-2">80+</div>
+                  <div className="text-white/60">Immigration Programs</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Immigration Programs */}
+        <section ref={programsRef} className="py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={programsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1 }}
+              className="text-center mb-20"
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-white">Immigration </span>
+                <span className="bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                  Programs
+                </span>
+              </h2>
+              <p className="text-xl text-white/70 max-w-3xl mx-auto">
+                Multiple pathways to Canadian permanent residence tailored to your profile
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {programs.map((program, index) => (
+                <motion.div
+                  key={program.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={programsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                  className="bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-red-500/30 transition-all duration-300"
+                >
+                  {/* Program Header */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${program.color} flex items-center justify-center text-white font-bold text-2xl`}>
+                      🍁
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">{program.title}</h3>
+                      <p className="text-white/60">{program.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Requirements */}
+                  <div className="space-y-2 mb-6">
+                    <h4 className="text-white font-semibold mb-3">Key Requirements:</h4>
+                    {program.requirements.map((req, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-white/70">
+                        <CheckCircle className="w-4 h-4 text-green-400" />
+                        <span className="text-sm">{req}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Metrics */}
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="text-center p-3 bg-white/5 rounded-xl">
+                      <div className="text-sm font-bold text-green-400 mb-1">{program.successRate}</div>
+                      <div className="text-white/60 text-xs">Success</div>
+                    </div>
+                    <div className="text-center p-3 bg-white/5 rounded-xl">
+                      <div className="text-sm font-bold text-blue-400 mb-1">{program.processingTime}</div>
+                      <div className="text-white/60 text-xs">Timeline</div>
+                    </div>
+                    <div className="text-center p-3 bg-white/5 rounded-xl">
+                      <div className="text-sm font-bold text-purple-400 mb-1">{program.minScore}</div>
+                      <div className="text-white/60 text-xs">Min Score</div>
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <button className="w-full px-4 py-3 bg-gradient-to-r from-red-500/20 to-white/20 border border-red-500/30 rounded-xl text-white font-medium hover:from-red-500/30 hover:to-white/30 transition-all">
+                    Check Eligibility
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Provinces Section */}
+        <section ref={provincesRef} className="py-32 bg-gradient-to-b from-transparent to-black/50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={provincesInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1 }}
+              className="text-center mb-20"
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-white">Provincial </span>
+                <span className="bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                  Opportunities
+                </span>
+              </h2>
+              <p className="text-xl text-white/70 max-w-3xl mx-auto">
+                Explore province-specific immigration programs and opportunities
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {provinces.map((province, index) => (
+                <motion.div
+                  key={province.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={provincesInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                  className="p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-2xl hover:border-red-500/30 transition-all"
+                >
+                  <div className="text-center">
+                    <div className="text-4xl mb-4">{province.flag}</div>
+                    <h3 className="text-xl font-bold text-white mb-2">{province.name}</h3>
+                    <div className="text-red-400 font-semibold mb-4">{province.slots} slots annually</div>
+                    <div className="space-y-2">
+                      {province.programs.map((program, idx) => (
+                        <div key={idx} className="px-3 py-2 bg-white/5 rounded-lg text-white/80 text-sm">
+                          {program}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section ref={benefitsRef} className="py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={benefitsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1 }}
+              className="text-center mb-20"
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-white">Why Choose </span>
+                <span className="bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                  Canada
+                </span>
+              </h2>
+              <p className="text-xl text-white/70 max-w-3xl mx-auto">
+                Discover the benefits of making Canada your new home
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={benefitsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                  className="text-center p-8 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-2xl hover:border-red-500/30 transition-all"
+                >
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-red-500 to-white rounded-2xl flex items-center justify-center">
+                    <benefit.icon className="w-8 h-8 text-red-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-4">{benefit.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{benefit.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="text-center bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-12 md:p-16"
+            >
+              <div className="text-6xl mb-6">🍁</div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-white">Ready for </span>
+                <span className="bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                  Canada
+                </span>
+                <span className="text-white">?</span>
+              </h2>
+              
+              <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Start your Canadian immigration journey today with our AI-powered assessment. 
+                Get personalized recommendations for your optimal pathway to Canada.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <Link href="/ai-tools/eligibility-checker">
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(220, 38, 127, 0.5)' }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-10 py-5 bg-gradient-to-r from-red-600 via-white to-red-600 rounded-full text-red-800 font-bold text-xl shadow-2xl"
+                  >
+                    <span className="flex items-center gap-3">
+                      <Brain className="w-6 h-6" />
+                      Check Canada Eligibility
+                      <ArrowRight className="w-6 h-6" />
+                    </span>
+                  </motion.button>
                 </Link>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.nav>
-      {/* Animated Background */}
-      <motion.div
-        style={{ y: backgroundY }}
-        className='absolute inset-0 overflow-hidden'
-      >
-        <div className='absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-r from-red-600/10 to-red-500/10 rounded-full blur-3xl' />
-        <div className='absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-red-500/10 to-white/5 rounded-full blur-3xl' />
-        <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-red-600/5 to-red-500/5 rounded-full blur-3xl' />
-      </motion.div>
-
-      {/* Floating Maple Leaves */}
-      <motion.div
-        style={{ y: floatingY }}
-        className='absolute inset-0 overflow-hidden'
-      >
-        {Array.from({ length: 12 }, (_, i) => (
-          <motion.div
-            key={i}
-            className='absolute opacity-20'
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 6 + i * 0.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
-            <span className='text-red-400 text-2xl'>🍁</span>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      <div className='container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 relative z-10'>
-        {/* Reduced pt from 32 to 20 to account for new nav */}
-        {/* Hero Section */}
-        <div className='text-center max-w-5xl mx-auto mb-16'>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className='inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-500/10 to-white/10 border border-red-500/20 text-red-300 font-medium text-sm mb-6'
-          >
-            <span className='text-2xl'>🇨🇦</span>
-            Immigration to Canada
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className='text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6'
-          >
-            Welcome to
-            <span className='block bg-gradient-to-r from-red-400 via-red-300 to-white bg-clip-text text-transparent'>
-              Your Canadian Dream
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className='text-xl text-neutral-300 leading-relaxed mb-8'
-          >
-            Discover why over 400,000 people choose Canada every year. From
-            world-class healthcare to excellent education and diverse
-            opportunities, your new life awaits in the Great White North.
-          </motion.p>
-
-          {/* Quick Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className='grid grid-cols-2 md:grid-cols-4 gap-6 mb-8'
-          >
-            {[
-              {
-                label: 'Success Rate',
-                value: '98.7%',
-                icon: Award,
-                color: 'text-green-400',
-              },
-              {
-                label: 'Processing Time',
-                value: '6-8 months',
-                icon: Clock,
-                color: 'text-blue-400',
-              },
-              {
-                label: 'New Immigrants',
-                value: '400K+/year',
-                icon: Users,
-                color: 'text-purple-400',
-              },
-              {
-                label: 'Quality of Life',
-                value: '9.2/10',
-                icon: Star,
-                color: 'text-amber-400',
-              },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                className='bg-gradient-to-br from-neutral-900/60 to-neutral-900/30 backdrop-blur-xl border border-neutral-800/50 rounded-2xl p-4 text-center'
-              >
-                <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-2`} />
-                <div className='text-2xl font-bold text-white'>
-                  {stat.value}
-                </div>
-                <div className='text-neutral-400 text-sm'>{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className='flex flex-col sm:flex-row gap-4 justify-center'
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className='px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2'
-            >
-              <Calculator className='w-5 h-5' />
-              Check Your Eligibility
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className='px-8 py-4 bg-neutral-800/50 text-white font-semibold rounded-xl hover:bg-neutral-700/50 transition-all duration-300 flex items-center justify-center gap-2'
-            >
-              <Calendar className='w-5 h-5' />
-              Book Free Consultation
-            </motion.button>
-          </motion.div>
-        </div>
-
-        {/* Navigation Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className='flex flex-wrap justify-center gap-4 mb-16'
-        >
-          {[
-            { id: 'overview', label: 'Overview', icon: Globe },
-            { id: 'programs', label: 'Immigration Programs', icon: FileText },
-            { id: 'provinces', label: 'Provinces', icon: MapPin },
-            { id: 'living', label: 'Cost of Living', icon: DollarSign },
-            { id: 'benefits', label: 'Benefits', icon: Shield },
-          ].map(tab => (
-            <motion.button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                activeTab === tab.id
-                  ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg'
-                  : 'bg-gradient-to-r from-neutral-900/60 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 text-neutral-300 hover:border-neutral-700/50 hover:text-white'
-              }`}
-            >
-              <tab.icon className='w-4 h-4' />
-              {tab.label}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Tab Content */}
-        <div className='max-w-6xl mx-auto'>
-          {/* Overview Tab */}
-          {activeTab === 'overview' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className='space-y-8'
-            >
-              {/* Country Stats */}
-              <div className='bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8'>
-                <h2 className='text-3xl font-bold text-white mb-8 text-center'>
-                  Canada at a Glance
-                </h2>
-                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                  {Object.entries(canadaStats).map(([key, value]) => (
-                    <div key={key} className='bg-neutral-800/30 rounded-xl p-4'>
-                      <div className='text-sm text-neutral-400 capitalize mb-2'>
-                        {key.replace(/([A-Z])/g, ' $1').trim()}
-                      </div>
-                      <div className='text-white font-semibold text-lg'>
-                        {Array.isArray(value) ? value.join(', ') : value}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Why Choose Canada */}
-              <div className='bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8'>
-                <h2 className='text-3xl font-bold text-white mb-8 text-center'>
-                  Why Choose Canada?
-                </h2>
-                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                  {benefits.map((benefit, index) => (
-                    <motion.div
-                      key={benefit.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className='bg-neutral-800/30 rounded-xl p-6'
-                    >
-                      <benefit.icon
-                        className={`w-12 h-12 ${benefit.color} mb-4`}
-                      />
-                      <h3 className='text-xl font-bold text-white mb-2'>
-                        {benefit.title}
-                      </h3>
-                      <p className='text-neutral-300'>{benefit.description}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
             </motion.div>
-          )}
-
-          {/* Immigration Programs Tab */}
-          {activeTab === 'programs' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className='space-y-8'
-            >
-              {/* Program Selector */}
-              <div className='grid lg:grid-cols-5 gap-4 mb-8'>
-                {immigrationPrograms.map(program => (
-                  <motion.button
-                    key={program.id}
-                    onClick={() => setSelectedProgram(program)}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`relative p-4 rounded-xl border transition-all duration-300 ${
-                      selectedProgram.id === program.id
-                        ? 'bg-gradient-to-r from-red-600/20 to-red-500/20 border-red-500/50 text-white'
-                        : 'bg-neutral-900/60 border-neutral-800 text-neutral-300 hover:border-neutral-700 hover:bg-neutral-900/80'
-                    }`}
-                  >
-                    {program.popular && (
-                      <div className='absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full'>
-                        Popular
-                      </div>
-                    )}
-                    <program.icon className='w-8 h-8 mx-auto mb-2' />
-                    <div className='text-sm font-semibold text-center'>
-                      {program.name}
-                    </div>
-                    <div className='text-xs text-neutral-400 text-center mt-1'>
-                      {program.category}
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* Selected Program Details */}
-              <div className='bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8'>
-                <div className='grid lg:grid-cols-2 gap-8'>
-                  {/* Program Info */}
-                  <div>
-                    <div className='flex items-center gap-4 mb-6'>
-                      <div
-                        className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${selectedProgram.color} flex items-center justify-center`}
-                      >
-                        <selectedProgram.icon className='w-8 h-8 text-white' />
-                      </div>
-                      <div>
-                        <h3 className='text-2xl font-bold text-white'>
-                          {selectedProgram.name}
-                        </h3>
-                        <div className='text-red-400 font-medium'>
-                          {selectedProgram.category} Program
-                        </div>
-                      </div>
-                    </div>
-
-                    <p className='text-neutral-300 mb-6 leading-relaxed'>
-                      {selectedProgram.description}
-                    </p>
-
-                    {/* Key Stats */}
-                    <div className='grid grid-cols-2 gap-4 mb-6'>
-                      <div className='bg-neutral-800/30 rounded-xl p-4'>
-                        <div className='text-green-400 font-semibold text-lg'>
-                          {selectedProgram.successRate}%
-                        </div>
-                        <div className='text-xs text-neutral-400'>
-                          Success Rate
-                        </div>
-                      </div>
-                      <div className='bg-neutral-800/30 rounded-xl p-4'>
-                        <div className='text-blue-400 font-semibold text-lg'>
-                          {selectedProgram.processingTime}
-                        </div>
-                        <div className='text-xs text-neutral-400'>
-                          Processing Time
-                        </div>
-                      </div>
-                      {selectedProgram.minPoints && (
-                        <div className='bg-neutral-800/30 rounded-xl p-4'>
-                          <div className='text-purple-400 font-semibold text-lg'>
-                            {selectedProgram.minPoints}
-                          </div>
-                          <div className='text-xs text-neutral-400'>
-                            Min Points Required
-                          </div>
-                        </div>
-                      )}
-                      <div className='bg-neutral-800/30 rounded-xl p-4'>
-                        <div className='text-amber-400 font-semibold text-lg'>
-                          {selectedProgram.price}
-                        </div>
-                        <div className='text-xs text-neutral-400'>
-                          Our Service Fee
-                        </div>
-                      </div>
-                    </div>
-
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`w-full bg-gradient-to-r ${selectedProgram.color} text-white font-semibold py-3 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2`}
-                    >
-                      Apply for {selectedProgram.name}
-                      <ArrowRight className='w-4 h-4' />
-                    </motion.button>
-                  </div>
-
-                  {/* Program Details */}
-                  <div className='space-y-6'>
-                    {/* Eligibility */}
-                    <div>
-                      <button
-                        onClick={() => toggleSection('eligibility')}
-                        className='flex items-center justify-between w-full text-left mb-4'
-                      >
-                        <h4 className='text-xl font-bold text-white'>
-                          Eligibility Requirements
-                        </h4>
-                        {expandedSection === 'eligibility' ? (
-                          <ChevronUp className='w-5 h-5 text-neutral-400' />
-                        ) : (
-                          <ChevronDown className='w-5 h-5 text-neutral-400' />
-                        )}
-                      </button>
-                      {expandedSection === 'eligibility' && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className='space-y-2'
-                        >
-                          {selectedProgram.eligibility.map(
-                            (requirement, index) => (
-                              <div
-                                key={index}
-                                className='flex items-center gap-3 text-neutral-300'
-                              >
-                                <CheckCircle className='w-4 h-4 text-green-400 flex-shrink-0' />
-                                {requirement}
-                              </div>
-                            )
-                          )}
-                        </motion.div>
-                      )}
-                    </div>
-
-                    {/* Benefits */}
-                    <div>
-                      <button
-                        onClick={() => toggleSection('benefits')}
-                        className='flex items-center justify-between w-full text-left mb-4'
-                      >
-                        <h4 className='text-xl font-bold text-white'>
-                          Program Benefits
-                        </h4>
-                        {expandedSection === 'benefits' ? (
-                          <ChevronUp className='w-5 h-5 text-neutral-400' />
-                        ) : (
-                          <ChevronDown className='w-5 h-5 text-neutral-400' />
-                        )}
-                      </button>
-                      {expandedSection === 'benefits' && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className='space-y-2'
-                        >
-                          {selectedProgram.benefits.map((benefit, index) => (
-                            <div
-                              key={index}
-                              className='flex items-center gap-3 text-neutral-300'
-                            >
-                              <Star className='w-4 h-4 text-amber-400 flex-shrink-0' />
-                              {benefit}
-                            </div>
-                          ))}
-                        </motion.div>
-                      )}
-                    </div>
-
-                    {/* Process Steps */}
-                    <div>
-                      <button
-                        onClick={() => toggleSection('steps')}
-                        className='flex items-center justify-between w-full text-left mb-4'
-                      >
-                        <h4 className='text-xl font-bold text-white'>
-                          Application Process
-                        </h4>
-                        {expandedSection === 'steps' ? (
-                          <ChevronUp className='w-5 h-5 text-neutral-400' />
-                        ) : (
-                          <ChevronDown className='w-5 h-5 text-neutral-400' />
-                        )}
-                      </button>
-                      {expandedSection === 'steps' && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className='space-y-3'
-                        >
-                          {selectedProgram.steps.map((step, index) => (
-                            <div
-                              key={index}
-                              className='flex items-center gap-3 text-neutral-300'
-                            >
-                              <div className='w-6 h-6 rounded-full bg-gradient-to-r from-red-500 to-red-400 flex items-center justify-center text-white text-sm font-bold'>
-                                {index + 1}
-                              </div>
-                              {step}
-                            </div>
-                          ))}
-                        </motion.div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Provinces Tab */}
-          {activeTab === 'provinces' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className='bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8'
-            >
-              <h2 className='text-3xl font-bold text-white mb-8 text-center'>
-                Canadian Provinces & Territories
-              </h2>
-              <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                {provinces.map((province, index) => (
-                  <motion.div
-                    key={province.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
-                    className='bg-neutral-800/30 rounded-xl p-6 hover:bg-neutral-800/50 transition-all duration-300'
-                  >
-                    <div className='flex items-center gap-3 mb-4'>
-                      <span className='text-3xl'>{province.flag}</span>
-                      <div>
-                        <h3 className='text-lg font-bold text-white'>
-                          {province.name}
-                        </h3>
-                        <p className='text-neutral-400 text-sm'>
-                          Capital: {province.capital}
-                        </p>
-                      </div>
-                    </div>
-                    <div className='space-y-2 text-sm'>
-                      <div className='flex items-center gap-2 text-neutral-300'>
-                        <Users className='w-4 h-4 text-blue-400' />
-                        Population: {province.population}
-                      </div>
-                      <div className='flex items-start gap-2 text-neutral-300'>
-                        <Briefcase className='w-4 h-4 text-green-400 mt-0.5 flex-shrink-0' />
-                        <span>{province.opportunities}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Cost of Living Tab */}
-          {activeTab === 'living' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className='bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8'
-            >
-              <h2 className='text-3xl font-bold text-white mb-8 text-center'>
-                Cost of Living in Canada
-              </h2>
-              <div className='space-y-4'>
-                {livingCosts.map((cost, index) => (
-                  <motion.div
-                    key={cost.category}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className='bg-neutral-800/30 rounded-xl p-6'
-                  >
-                    <div className='flex items-center justify-between mb-2'>
-                      <h3 className='text-lg font-semibold text-white'>
-                        {cost.category}
-                      </h3>
-                      <div className='text-green-400 font-bold text-lg'>
-                        {cost.cost}
-                      </div>
-                    </div>
-                    <p className='text-neutral-400'>{cost.description}</p>
-                  </motion.div>
-                ))}
-              </div>
-              <div className='mt-8 p-6 bg-gradient-to-r from-green-600/10 to-emerald-600/10 border border-green-500/20 rounded-xl'>
-                <div className='flex items-center gap-3 mb-4'>
-                  <Shield className='w-8 h-8 text-green-400' />
-                  <h3 className='text-xl font-bold text-white'>
-                    Healthcare Benefit
-                  </h3>
-                </div>
-                <p className='text-neutral-300'>
-                  Canada's universal healthcare system means residents pay no
-                  fees for most medical services, including doctor visits,
-                  hospital stays, and emergency care. This can save thousands of
-                  dollars annually.
-                </p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Benefits Tab */}
-          {activeTab === 'benefits' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className='space-y-8'
-            >
-              <div className='bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 backdrop-blur-xl border border-neutral-800/50 rounded-3xl p-8'>
-                <h2 className='text-3xl font-bold text-white mb-8 text-center'>
-                  Life in Canada
-                </h2>
-                <div className='grid md:grid-cols-2 gap-8'>
-                  {benefits.map((benefit, index) => (
-                    <motion.div
-                      key={benefit.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className='bg-neutral-800/30 rounded-xl p-6'
-                    >
-                      <benefit.icon
-                        className={`w-12 h-12 ${benefit.color} mb-4`}
-                      />
-                      <h3 className='text-xl font-bold text-white mb-2'>
-                        {benefit.title}
-                      </h3>
-                      <p className='text-neutral-300'>{benefit.description}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.8 }}
-          className='text-center mt-16'
-        >
-          <div className='bg-gradient-to-r from-red-600/10 to-red-500/10 backdrop-blur-xl border border-red-500/20 rounded-3xl p-12 max-w-4xl mx-auto'>
-            <div className='flex items-center justify-center gap-2 mb-6'>
-              <span className='text-4xl'>🇨🇦</span>
-              <Star className='w-8 h-8 text-amber-400' />
-              <span className='text-4xl'>🍁</span>
-            </div>
-            <h3 className='text-3xl font-bold text-white mb-4'>
-              Ready to Make Canada Your New Home?
-            </h3>
-            <p className='text-xl text-neutral-300 mb-8'>
-              Join over 400,000 people who successfully immigrate to Canada each
-              year. Your Canadian journey starts with a simple conversation.
-            </p>
-            <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2'
-              >
-                <Calculator className='w-5 h-5' />
-                Free Eligibility Assessment
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='px-8 py-4 bg-neutral-800/50 text-white font-semibold rounded-xl hover:bg-neutral-700/50 transition-all duration-300 flex items-center justify-center gap-2'
-              >
-                <Phone className='w-5 h-5' />
-                Speak with Expert: +1 (555) 123-4567
-              </motion.button>
-            </div>
           </div>
-        </motion.div>
+        </section>
       </div>
     </div>
   );

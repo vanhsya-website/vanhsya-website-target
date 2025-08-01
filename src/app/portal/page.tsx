@@ -34,7 +34,8 @@ export default function ClientPortalLogin() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
-    console.log('Login attempt:', formData);
+    // Handle login attempt
+    // TODO: Implement actual authentication logic
   };
 
   return (

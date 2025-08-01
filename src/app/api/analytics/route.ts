@@ -13,10 +13,10 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
+  const _body = await request.json();
 
   // Process analytics data
-  console.log('Analytics event:', body);
+  // TODO: Implement analytics processing logic
 
   return NextResponse.json({
     success: true,

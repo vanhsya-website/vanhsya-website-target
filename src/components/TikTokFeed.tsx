@@ -135,8 +135,8 @@ export default function TikTokFeed() {
         setLoading(true);
         const fetchedVideos = await fetchTikTokPosts();
         setVideos(fetchedVideos);
-      } catch (error) {
-        console.error('Error loading TikTok videos:', error);
+      } catch {
+        // Error loading TikTok videos - use fallback
         // Fallback to static data if API fails
         setVideos([]);
       } finally {

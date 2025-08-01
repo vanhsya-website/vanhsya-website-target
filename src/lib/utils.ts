@@ -293,8 +293,8 @@ export function setStorageItem(key: string, value: unknown): boolean {
   try {
     localStorage.setItem(key, JSON.stringify(value));
     return true;
-  } catch (error) {
-    console.error('Error saving to localStorage:', error);
+  } catch {
+    // Error saving to localStorage - fail silently
     return false;
   }
 }
@@ -303,8 +303,8 @@ export function getStorageItem<T>(key: string, defaultValue: T): T {
   try {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : defaultValue;
-  } catch (error) {
-    console.error('Error reading from localStorage:', error);
+  } catch {
+    // Error reading from localStorage - return default
     return defaultValue;
   }
 }
@@ -313,8 +313,8 @@ export function removeStorageItem(key: string): boolean {
   try {
     localStorage.removeItem(key);
     return true;
-  } catch (error) {
-    console.error('Error removing from localStorage:', error);
+  } catch {
+    // Error removing from localStorage - fail silently
     return false;
   }
 }

@@ -214,14 +214,37 @@ export default function NavigationEnhanced() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [_isScrolled, _setIsScrolled] = useState(false);
   const [hideStatsBar, setHideStatsBar] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
 
   // Responsive hooks
-  const { deviceType, isTouchDevice } = useDeviceType();
+  const { deviceType: _deviceType, isTouchDevice: _isTouchDevice } = useDeviceType();
   const { width: viewportWidth } = useViewport();
+
+  // Enhanced active link detection
+  const isActiveLink = (item: NavigationItem) => {
+    if (!item.href) return false;
+    
+    // Exact match
+    if (pathname === item.href) return true;
+    
+    // Check if current path starts with the item's href (for section highlighting)
+    if (item.href !== '/' && pathname.startsWith(item.href)) return true;
+    
+    // Special handling for careers page and its anchors
+    if (item.href === '/careers' && pathname === '/careers') return true;
+    
+    // Check children for active state (for dropdown highlighting)
+    if (item.children) {
+      return item.children.some(child => 
+        child.href && (pathname === child.href || (child.href !== '/' && pathname.startsWith(child.href)))
+      );
+    }
+    
+    return false;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -230,7 +253,7 @@ export default function NavigationEnhanced() {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollPercent = scrollY / (documentHeight - windowHeight);
 
-      setIsScrolled(scrollY > 20);
+      _setIsScrolled(scrollY > 20);
       setHideStatsBar(scrollY > 100);
       setScrollProgress(scrollPercent);
     };
@@ -256,7 +279,7 @@ export default function NavigationEnhanced() {
   };
 
   // Touch-optimized dropdown for mobile
-  const TouchMegaMenu = ({ item }: { item: NavigationItem }) => (
+  const _TouchMegaMenu = ({ item }: { item: NavigationItem }) => (
     <motion.div
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: 'auto' }}
@@ -653,7 +676,7 @@ export default function NavigationEnhanced() {
                     <Link
                       href={item.href}
                       className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-200 ${
-                        pathname === item.href
+                        isActiveLink(item)
                           ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600 shadow-lg shadow-purple-200 font-semibold'
                           : 'text-gray-700 hover:text-purple-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 font-medium'
                       }`}
@@ -795,12 +818,20 @@ export default function NavigationEnhanced() {
                       {item.href ? (
                         <Link
                           href={item.href}
-                          className='flex items-center gap-3 p-3 text-gray-700 transition-all rounded-lg hover:text-purple-600 hover:bg-purple-50'
+                          className={`flex items-center gap-3 p-3 transition-all rounded-lg ${
+                            isActiveLink(item)
+                              ? 'text-white bg-gradient-to-r from-purple-600 to-blue-600 font-semibold'
+                              : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50 font-medium'
+                          }`}
                         >
                           {item.icon && <item.icon className='w-5 h-5' />}
                           <span className='font-medium'>{item.label}</span>
                           {item.badge && (
-                            <span className='px-2 py-1 text-xs font-medium text-purple-600 bg-purple-100 rounded-full'>
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              isActiveLink(item)
+                                ? 'text-purple-100 bg-white/20'
+                                : 'text-purple-600 bg-purple-100'
+                            }`}>
                               {item.badge}
                             </span>
                           )}

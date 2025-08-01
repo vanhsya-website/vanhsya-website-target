@@ -9,17 +9,13 @@ import {
 } from 'framer-motion';
 import Link from 'next/link';
 import {
-  Calculator,
   FileText,
   Shield,
   Bot,
-  TrendingUp,
   Brain,
   Users,
   Zap,
   Globe,
-  Clock,
-  Sparkles,
   ArrowRight,
   Star,
   Rocket,
@@ -31,16 +27,12 @@ import {
   Cpu,
   Database,
   Network,
-  Layers,
   Code,
   Settings,
   BarChart3,
-  PieChart,
   Activity,
   Gauge,
-  Eye,
   Fingerprint,
-  Orbit,
   Hexagon,
   Triangle,
 } from 'lucide-react';
@@ -244,11 +236,11 @@ const achievements = [
 
 export default function IntelligentImmigrationSuite() {
   const [hoveredTool, setHoveredTool] = useState<number | null>(null);
-  const [userLevel, setUserLevel] = useState(12);
-  const [userXP, setUserXP] = useState(3750);
+  const [userLevel, _setUserLevel] = useState(12);
+  const [userXP, _setUserXP] = useState(3750);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [_isLoaded, setIsLoaded] = useState(false);
 
   const heroRef = useRef(null);
   const toolsRef = useRef(null);

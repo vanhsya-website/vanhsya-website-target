@@ -7,7 +7,6 @@ import {
   MessageSquare,
   FileCheck,
   Calculator,
-  Sparkles,
   ArrowRight,
   CheckCircle,
   Star,

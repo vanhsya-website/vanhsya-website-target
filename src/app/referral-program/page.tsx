@@ -1,22 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Gift,
   Users,
   TrendingUp,
-  ArrowRight,
   Star,
-  Target,
   Copy,
   Check,
-  DollarSign,
   Crown,
   Award,
   Sparkles,
-  Heart,
-  Zap,
   Trophy,
 } from 'lucide-react';
 
@@ -26,7 +21,7 @@ interface ReferralTier {
   reward: string;
   color: string;
   benefits: string[];
-  icon: any;
+  icon: React.ComponentType<{className?: string}>;
 }
 
 export default function ReferralProgramPage() {

@@ -1,4 +1,7 @@
-'use client';
+// 🧠 Interactive FAQ Section
+// This section displays frequently asked questions with smooth accordion animations,
+// searchable content, categorized questions, and expandable answers.
+// Features smooth transitions and user-friendly interface design.
 'use client';
 
 import React, { useState } from 'react';

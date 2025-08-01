@@ -471,8 +471,8 @@ export default function VanhsyaJourney() {
               'AI',
               'Success',
             ]}
-            onShare={(platform, reward) => {
-              console.log(`Shared on ${platform}, earned ${reward} credits`);
+            onShare={(_platform, _reward) => {
+              // Shared reward earned
             }}
           />
         </div>

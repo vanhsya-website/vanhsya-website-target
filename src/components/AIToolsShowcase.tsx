@@ -1,3 +1,7 @@
+// 🧠 AI Tools Showcase Section
+// This section displays VANHSYA's AI-powered immigration tools with interactive cards,
+// live demos, hover animations, and feature explanations. Showcases cutting-edge
+// AI technology for eligibility checking, document analysis, and consultation.
 'use client';
 
 import React, { useState } from 'react';

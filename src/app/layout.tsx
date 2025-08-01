@@ -1,3 +1,8 @@
+// 🧠 Root Layout Component
+// This is the main layout wrapper for the entire VANHSYA website with
+// global styles, fonts, metadata, and structured data for SEO optimization.
+// Features responsive design, accessibility improvements, and analytics integration.
+
 // TODO: Add comprehensive site-wide SEO optimization
 // TODO: Implement proper error boundaries for better UX
 // TODO: Add analytics tracking (Google Analytics, Hotjar)
@@ -6,14 +11,15 @@
 // ACCESSIBILITY: Add skip navigation and ARIA landmarks
 
 import { Inter, Space_Grotesk } from 'next/font/google';
+import { Metadata, Viewport } from 'next';
 
 import './globals.css';
-import { Metadata, Viewport } from 'next';
 
 import PageTransition from '@/components/PageTransition';
 import { CurrencyProvider } from '@/components/CurrencySelector';
 import ContactSupport from '@/components/ContactSupport';
 import ChatWidget from '@/components/ChatWidget';
+import GlobalCanvasBackground from '@/components/GlobalCanvasBackground';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.vanhsyaglobal.com'),
@@ -144,6 +150,7 @@ export default function RootLayout({
         <link rel='dns-prefetch' href='//www.google-analytics.com' />
       </head>
       <body className='font-sans antialiased bg-white text-slate-900 scroll-smooth overflow-x-hidden'>
+        <GlobalCanvasBackground />
         <CurrencyProvider>
           <PageTransition>
             <main className='min-h-screen'>{children}</main>

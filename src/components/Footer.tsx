@@ -1,3 +1,7 @@
+// 🧠 Comprehensive Footer Component
+// This is the main footer with company information, quick links, social media,
+// contact details, and compliance information. Features smooth animations and
+// organized link sections for services, resources, and legal pages.
 'use client';
 
 import React from 'react';

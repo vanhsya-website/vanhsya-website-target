@@ -1,3 +1,7 @@
+// 🧠 AI-Powered Hero Section
+// This is the main hero section with interactive floating particles, parallax scrolling,
+// dynamic text animations, and responsive design. Features AI-powered background effects
+// using deterministic random generation for consistent SSR rendering.
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';

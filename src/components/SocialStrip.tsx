@@ -49,8 +49,8 @@ export default function SocialStrip({ className = '' }: SocialStripProps) {
         const counts = await fetchFollowerCounts();
         setFollowerCounts(counts);
         setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch follower counts:', error);
+      } catch {
+        // Failed to fetch follower counts - use defaults
         setIsLoading(false);
       }
     };

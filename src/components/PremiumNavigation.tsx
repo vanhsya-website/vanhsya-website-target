@@ -1,3 +1,7 @@
+// 🧠 Premium Navigation Component
+// This is the enhanced navigation with smooth glass morphism effects,
+// animated dropdowns, mobile responsiveness, and premium design aesthetics.
+// Features backdrop blur, gradient overlays, and sophisticated animations.
 'use client';
 
 import React, { useState, useEffect } from 'react';

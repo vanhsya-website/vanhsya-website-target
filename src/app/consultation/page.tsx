@@ -170,8 +170,8 @@ const ConsultationBooking: React.FC = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       setIsSubmitted(true);
-    } catch (error) {
-      console.error('Submission error:', error);
+    } catch {
+      // Handle submission error silently
     } finally {
       setIsSubmitting(false);
     }

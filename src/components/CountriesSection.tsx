@@ -1,4 +1,7 @@
-'use client';
+// 🧠 Interactive Countries Explorer Section
+// This section showcases immigration destinations with animated country cards,
+// interactive maps, processing time indicators, and detailed country information.
+// Features hover animations and comprehensive destination data display.
 'use client';
 
 import React, { useState } from 'react';

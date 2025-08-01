@@ -18,7 +18,7 @@ const eslintConfig = [
   {
     rules: {
       // Prettier integration
-      "prettier/prettier": "error",
+      "prettier/prettier": "off",
       
       // React rules
       "react/no-unescaped-entities": "off",

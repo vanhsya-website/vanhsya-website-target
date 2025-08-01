@@ -1,3 +1,7 @@
+// 🧠 Interactive Services Showcase Section
+// This section displays VANHSYA's visa services with animated cards,
+// hover effects, interactive filters, and detailed service information.
+// Features category-based navigation and smooth transitions.
 'use client';
 
 import React, { useState } from 'react';

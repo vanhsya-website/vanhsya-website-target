@@ -47,7 +47,8 @@ export default function LeadCaptureModal({
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Here you would send the lead to your CRM/Database
-    console.log('Lead submitted:', formData);
+    // Handle lead submission
+    // TODO: Integrate with actual lead capture system
 
     setIsSubmitting(false);
     setIsSuccess(true);

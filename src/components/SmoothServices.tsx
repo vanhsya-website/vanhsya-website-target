@@ -1,3 +1,7 @@
+// 🧠 Smooth Services Section
+// This section showcases immigration services with smooth scroll animations,
+// parallax effects, and intersection observer triggers for performance.
+// Features progressive disclosure and responsive card layouts.
 'use client';
 
 import React, { useRef } from 'react';

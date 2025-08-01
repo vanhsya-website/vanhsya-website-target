@@ -8,7 +8,7 @@ interface DeviceTest {
   name: string;
   width: number;
   height: number;
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   category: string;
   description: string;
 }

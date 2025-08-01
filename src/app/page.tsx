@@ -1,3 +1,8 @@
+// 🧠 VANHSYA Homepage - Main Landing Page
+// This is the primary homepage featuring premium components with dynamic loading,
+// hero section, services showcase, country explorer, and optimized performance.
+// Features lazy loading, skeleton loaders, and responsive design for all devices.
+
 // src/app/page.tsx
 'use client';
 
@@ -61,9 +66,9 @@ const PremiumTestimonialsSection = dynamic(
 const VanhsyaDifference = dynamic(
   () => import('@/components/VanhsyaDifference'),
   {
-    ssr: false,
+    ssr: true,
     loading: () => (
-      <div className='h-96 bg-gradient-to-b from-neutral-900 to-neutral-950 animate-pulse' />
+      <div className='h-96 bg-gradient-to-b from-slate-50 via-white to-slate-100 animate-pulse' />
     ),
   }
 );
